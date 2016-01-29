@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :events
   get 'home/index'
 
   get 'callbacks/slack'
