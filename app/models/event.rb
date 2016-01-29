@@ -5,6 +5,4 @@ class Event < ActiveRecord::Base
   validates :subject, presence: true
   validates :place, presence: true
   validates :user_id, presence: true
-  validates :start_time, presence: true
-  validates :finish_time, presence: true
 end

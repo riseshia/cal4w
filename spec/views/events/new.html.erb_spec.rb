@@ -6,7 +6,7 @@ RSpec.describe "events/new", type: :view do
       :subject => "MyString",
       :place => "MyString",
       :description => "MyText",
-      :user => nil
+      :user => create(:user)
     ))
   end
 
@@ -20,8 +20,6 @@ RSpec.describe "events/new", type: :view do
       assert_select "input#event_place[name=?]", "event[place]"
 
       assert_select "textarea#event_description[name=?]", "event[description]"
-
-      assert_select "input#event_user_id[name=?]", "event[user_id]"
     end
   end
 end

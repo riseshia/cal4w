@@ -24,7 +24,7 @@ RSpec.describe EventsController, type: :controller do
   # Event. As you add validations to Event, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    attributes_for(:event)
   }
 
   let(:invalid_attributes) {
@@ -45,6 +45,13 @@ RSpec.describe EventsController, type: :controller do
     it "assigns all events as @events" do
       event = Event.create! valid_attributes
       get :index, {}, valid_session
+      expect(assigns(:events)).to eq([event])
+    end
+
+    it "return json object" do
+      event = Event.create! valid_attributes
+      get :index, {format: :json}, valid_session
+      puts response.body
       expect(assigns(:events)).to eq([event])
     end
   end

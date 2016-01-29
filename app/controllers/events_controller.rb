@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @events = Event.all
@@ -22,6 +22,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.user = current_user
     @event.save
     respond_with(@event)
   end
@@ -42,6 +43,6 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:subject, :place, :description, :user_id)
+      params.require(:event).permit(:subject, :place, :description, :user_id, :start_time, :finish_time)
     end
 end

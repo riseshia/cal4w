@@ -24,16 +24,12 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
     <%= f.label :start_time %><br>
-    <%= f.datetime_field :start_time %>
+    <%= f.datetime_select :start_time %>
   </div>
   <div class="field">
     <%= f.label :finish_time %><br>
-    <%= f.datetime_field :finish_time %>
+    <%= f.datetime_select :finish_time %>
   </div>
 
   <div class="actions">

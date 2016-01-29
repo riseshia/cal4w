@@ -11,5 +11,7 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require fullcalendar.min
+ *= require fullcalendar.print
  *= require_self
  */

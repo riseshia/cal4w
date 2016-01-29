@@ -17,7 +17,12 @@
 
 <p>
   <strong>User:</strong>
-  <%= @event.user %>
+  <%= @event.user.email %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @event.start_time %> - <%= @event.finish_time %>
 </p>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
