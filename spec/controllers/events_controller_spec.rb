@@ -36,6 +36,11 @@ RSpec.describe EventsController, type: :controller do
   # EventsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  before(:example) do
+    @user = create(:user)
+    sign_in @user
+  end
+
   describe "GET #index" do
     it "assigns all events as @events" do
       event = Event.create! valid_attributes
