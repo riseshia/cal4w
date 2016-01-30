@@ -10,8 +10,6 @@ RSpec.describe "events/index", type: :view do
 
   it "renders a list of events" do
     render
-    assert_select "tr>td", :text => "Subject".to_s, :count => 1
-    assert_select "tr>td", :text => "Place".to_s, :count => 1
-    assert_select "tr>td", :text => "MyText".to_s, :count => 1
+    assert_select "a", :text => "Subject in Place".to_s, :count => 1
   end
 end
