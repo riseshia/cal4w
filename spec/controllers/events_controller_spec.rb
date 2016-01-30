@@ -51,7 +51,6 @@ RSpec.describe EventsController, type: :controller do
     it "return json object" do
       event = Event.create! valid_attributes
       get :index, {format: :json}, valid_session
-      puts response.body
       expect(assigns(:events)).to eq([event])
     end
   end
