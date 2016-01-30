@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :join, :update, :destroy]
   before_action :permission_check, only: [:edit, :update, :destroy]
 
   respond_to :html, :json
@@ -10,7 +10,12 @@ class EventsController < ApplicationController
   end
 
   def show
+    @user = current_user
     respond_with(@event)
+  end
+
+  def join
+    @event.members << current_user
   end
 
   def new

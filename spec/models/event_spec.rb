@@ -7,18 +7,36 @@ RSpec.describe Event, type: :model do
     it { should validate_presence_of(:place) }
   end
 
+  before(:example) do
+    @user = create(:user)
+    @event = create(:event)
+  end
+
   describe '#editable?' do
     it 'should return true' do
-      user = create(:user)
-      event = create(:event)
-      expect(event.editable?(user)).to be(true)
+      expect(@event.editable?(@user)).to be(true)
     end
 
     it 'should return false' do
-      create(:user) # dummy user who actually create event
       user = create(:user2)
-      event = create(:event)
-      expect(event.editable?(user)).to be(false)
+      expect(@event.editable?(user)).to be(false)
+    end
+  end
+
+  describe '#joined?' do
+    it 'should return true when user is creator' do
+      expect(@event.joined?(@user)).to be(true)
+    end
+
+    it 'should return true when user is joined' do
+      user = create(:user2)
+      @event.members << user
+      expect(@event.joined?(user)).to be(true)
+    end
+
+    it 'should return false when user is not joined' do
+      user = create(:user2)
+      expect(@event.joined?(user)).to be(false)
     end
   end
 end

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   has_many :events
-  has_and_belongs_to_many :events
+  has_and_belongs_to_many :events, foreign_key: 'user_id'
 
   validates :provider, presence: true
 
