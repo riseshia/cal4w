@@ -1,0 +1,6 @@
+language: ruby
+rvm:
+  - 2.2.2
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate
+  - CODECLIMATE_REPO_TOKEN=9772f8ce26e8e6a510f2072a818620db8f5208004b27dcc21a0f92b55ffec593 bundle exec rake
