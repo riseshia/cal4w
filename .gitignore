@@ -90,6 +90,7 @@ config/initializers/secret_token.rb
 /config/application.yml
 /config/deploy/
 /config/deploy.rb
+Capfile
 
 ## Environment normalization:
 /.bundle
