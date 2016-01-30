@@ -5,4 +5,8 @@ class Event < ActiveRecord::Base
   validates :subject, presence: true
   validates :place, presence: true
   validates :user_id, presence: true
+
+  def editable? user
+    user.id == user_id ? true : false
+  end
 end
