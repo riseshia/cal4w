@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
       user.password = Devise.friendly_token[0, 20]
     end
   end
+
+  def nickname
+    "@#{super}"
+  end
 end
 
 class User::NoPermission < StandardError; end
