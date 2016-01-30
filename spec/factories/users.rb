@@ -11,5 +11,5 @@ FactoryGirl.define do
     password 'teafdafsdfa'
     provider 'slack'
     nickname 'name2'
-  end    
+  end
 end

@@ -1,4 +1,4 @@
-require "application_responder"
+require 'application_responder'
 
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
@@ -14,5 +14,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def no_permission; redirect_to root_path, notice: 'You don\'t have permission with this action.' end
+  def no_permission
+    redirect_to root_path, notice: 'You don\'t have permission with this action.'
+  end
 end

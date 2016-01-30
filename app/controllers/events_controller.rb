@@ -39,15 +39,16 @@ class EventsController < ApplicationController
   end
 
   private
-    def set_event
-      @event = Event.find(params[:id])
-    end
 
-    def event_params
-      params.require(:event).permit(:subject, :place, :description, :start_time, :finish_time)
-    end
+  def set_event
+    @event = Event.find(params[:id])
+  end
 
-    def permission_check
-      raise User::NoPermission unless @event.editable? current_user
-    end
+  def event_params
+    params.require(:event).permit(:subject, :place, :description, :start_time, :finish_time)
+  end
+
+  def permission_check
+    fail User::NoPermission unless @event.editable? current_user
+  end
 end

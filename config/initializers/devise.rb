@@ -238,7 +238,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :slack, ENV["SLACK_APP_ID"], ENV["SLACK_APP_SECRET"], scope: 'identify', team: ENV["SLACK_TEAM_ID"]
+  config.omniauth :slack, ENV['SLACK_APP_ID'], ENV['SLACK_APP_SECRET'], scope: 'identify read', team: ENV['SLACK_TEAM_ID']
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
