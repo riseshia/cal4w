@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :permission_check, only: [:edit, :update, :destroy]
 
   respond_to :html, :json
 
@@ -44,5 +45,9 @@ class EventsController < ApplicationController
 
     def event_params
       params.require(:event).permit(:subject, :place, :description, :start_time, :finish_time)
+    end
+
+    def permission_check
+      raise User::NoPermission unless @event.editable? current_user
     end
 end

@@ -76,6 +76,12 @@ RSpec.describe EventsController, type: :controller do
       get :edit, {:id => event.to_param}, valid_session
       expect(assigns(:event)).to eq(event)
     end
+
+    it "will be redirected root_path if try to edit the others event" do
+      event = Event.create! attributes_for(:event2)
+      get :edit, {:id => event.to_param}, valid_session
+      expect(response).to redirect_to('/')
+    end
   end
 
   describe "POST #create" do

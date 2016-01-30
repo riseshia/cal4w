@@ -19,3 +19,5 @@ class User < ActiveRecord::Base
     end
   end
 end
+
+class User::NoPermission < StandardError; end
