@@ -1,16 +1,38 @@
 require 'rails_helper'
 
 RSpec.describe 'events/show', type: :view do
-  before(:each) do
-    assign(:user, create(:user))
-    assign(:event, create(:event))
+  context 'User is creator' do
+    before(:each) do
+      assign(:user, create(:user))
+      event = assign(:event, create(:event))
+      new_member = create(:user2)
+      event.members << new_member
+    end
+
+    it 'renders attributes in <p>' do
+      render
+      expect(rendered).to match(/Subject/)
+      expect(rendered).to match(/Place/)
+      expect(rendered).to match(/MyText/)
+      expect(rendered).to match(//)
+      expect(rendered).to match(/Who will come?/)
+    end
   end
 
-  it 'renders attributes in <p>' do
-    render
-    expect(rendered).to match(/Subject/)
-    expect(rendered).to match(/Place/)
-    expect(rendered).to match(/MyText/)
-    expect(rendered).to match(//)
+  context 'User is not Joined and not creator' do
+    before(:each) do
+      create(:user)
+      assign(:user, create(:user2))
+      assign(:event, create(:event))
+    end
+
+    it 'renders attributes in <p>' do
+      render
+      expect(rendered).to match(/Subject/)
+      expect(rendered).to match(/Place/)
+      expect(rendered).to match(/MyText/)
+      expect(rendered).to match(//)
+      expect(rendered).to match(/Join/)
+    end
   end
 end

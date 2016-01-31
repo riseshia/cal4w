@@ -25,10 +25,21 @@
   <%= @event.start_time %> - <%= @event.finish_time %>
 </p>
 
+<% unless @event.members.empty? %>
+<p>
+  <strong>Who will come?</strong><br>
+  <%= @event.members.map {|member| member.nickname }.join(', ') %>
+</p>
+<% end %>
+
+<% unless @event.joined? @user %>
+
+<% end %>
+
 <% if @event.editable? @user %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<% else %>
+<% elsif !(@event.joined? @user) %>
 <%= link_to 'Join', join_event_path(@event) %>
 <% end %>
 <%= link_to 'Back', events_path %>
