@@ -2,10 +2,10 @@
 
 <div id='calendar'></div>
 
-<h2>Listing Events</h2>
+<h2>Next Events</h2>
 
 <ol>
-<% @events.each do |event| %>
+<% @events.select { |e| e.ing_or_after? }.each do |event| %>
   <li><%= link_to "#{event.subject} in #{event.place}", event %></li>
 <% end %>
 </ol>

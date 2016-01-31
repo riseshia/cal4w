@@ -22,7 +22,7 @@
 
 <p>
   <strong>Time:</strong>
-  <%= @event.start_time %> - <%= @event.finish_time %>
+  <%= time_format @event.start_time %> - <%= time_format @event.finish_time %>
 </p>
 
 <% unless @event.members.empty? %>

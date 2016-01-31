@@ -14,4 +14,8 @@ class Event < ActiveRecord::Base
     return true if user.id == user_id
     members.exists?(user.id)
   end
+
+  def ing_or_after?
+    finish_time > Time.zone.now
+  end
 end
