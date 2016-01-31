@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :join, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :join, :unjoin, :update, :destroy]
   before_action :permission_check, only: [:edit, :update, :destroy]
 
   respond_to :html, :json
@@ -16,6 +16,12 @@ class EventsController < ApplicationController
 
   def join
     @event.members << current_user
+    redirect_to @event, notice: 'Thanks to your join!'
+  end
+
+  def unjoin
+    @event.members.destroy current_user
+    redirect_to @event, notice: 'Ok, I believe we could see soon! :)'
   end
 
   def new
@@ -54,6 +60,6 @@ class EventsController < ApplicationController
   end
 
   def permission_check
-    fail User::NoPermission unless @event.editable? current_user
+    raise User::NoPermission unless @event.editable? current_user
   end
 end

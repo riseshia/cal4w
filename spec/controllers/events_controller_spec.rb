@@ -62,6 +62,25 @@ RSpec.describe EventsController, type: :controller do
     end
   end
 
+  describe 'POST #join' do
+    it 'creates a new Member' do
+      event2 = create(:event2)
+      expect do
+        post :join, { id: event2.to_param }, valid_session
+      end.to change(event2.members, :count).by(1)
+    end
+  end
+
+  describe 'POST #unjoin' do
+    it 'creates a new Member' do
+      event2 = create(:event2)
+      event2.members << @user
+      expect do
+        post :unjoin, { id: event2.to_param }, valid_session
+      end.to change(event2.members, :count).by(-1)
+    end
+  end
+
   describe 'GET #new' do
     it 'assigns a new event as @event' do
       get :new, {}, valid_session

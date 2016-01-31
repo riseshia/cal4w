@@ -39,7 +39,9 @@
 <% if @event.editable? @user %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<% elsif !(@event.joined? @user) %>
-<%= link_to 'Join', join_event_path(@event) %>
+<% elsif @event.joined? @user %>
+<%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post %>
+<% else %>
+<%= link_to 'Join', join_event_path(@event), method: :post %>
 <% end %>
 <%= link_to 'Back', events_path %>

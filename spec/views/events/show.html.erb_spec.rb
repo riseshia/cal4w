@@ -19,20 +19,40 @@ RSpec.describe 'events/show', type: :view do
     end
   end
 
-  context 'User is not Joined and not creator' do
+  context 'User is not joined and not creator' do
     before(:each) do
       create(:user)
       assign(:user, create(:user2))
       assign(:event, create(:event))
     end
 
-    it 'renders attributes in <p>' do
+    it 'renders attributes' do
       render
       expect(rendered).to match(/Subject/)
       expect(rendered).to match(/Place/)
       expect(rendered).to match(/MyText/)
       expect(rendered).to match(//)
       expect(rendered).to match(/Join/)
+    end
+  end
+
+  context 'User is joined and not creator' do
+    before(:each) do
+      create(:user)
+      event = create(:event)
+      new_member = create(:user2)
+      assign(:user, new_member)
+      assign(:event, event)
+      event.members << new_member
+    end
+
+    it 'renders attributes' do
+      render
+      expect(rendered).to match(/Subject/)
+      expect(rendered).to match(/Place/)
+      expect(rendered).to match(/MyText/)
+      expect(rendered).to match(//)
+      expect(rendered).to match(/I cannot go T-T/)
     end
   end
 end
