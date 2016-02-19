@@ -4,11 +4,11 @@
 
 <h2>Next Events</h2>
 
-<ol>
+<ul>
 <% @events.select { |e| e.ing_or_after? }.each do |event| %>
-  <li><%= link_to "#{event.subject} in #{event.place}", event %></li>
+  <li><%= event.start_time.strftime('%m-%d %H') %>시 <%= link_to "#{event.subject} in #{event.place}", event %></li>
 <% end %>
-</ol>
+</ul>
 
 <br>
 
