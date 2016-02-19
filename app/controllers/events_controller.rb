@@ -60,12 +60,12 @@ class EventsController < ApplicationController
 
   def notify_new_event event
     return unless Rails.env.production?
-    Slack::Web::Client.new.chat_postMessage(channel: '#_meetup', text: "새 밋업 일정이 추가되었습니다.\n[#{event.subject}]\n주최자: #{event.user.nickname}\n시각: #{event.relative_time}\n장소: #{event.place}\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
+    Slack::Web::Client.new.chat_postMessage(channel: '#_meetup', text: "새 밋업 일정이 추가되었습니다.\n#{event.to_slack_message}\n링크: #{event_url(self)}", as_user: true, username: 'Cal4Weirdx')
   end
 
   def notify_updated_event event
     return unless Rails.env.production?
-    Slack::Web::Client.new.chat_postMessage(channel: '#_meetup', text: "밋업 일정이 변경되었습니다.\n[#{event.subject}]\n주최자: #{event.user.nickname}\n시각: #{event.relative_time}\n장소: #{event.place}\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
+    Slack::Web::Client.new.chat_postMessage(channel: '#_meetup', text: "밋업 일정이 변경되었습니다.\n#{event.to_slack_message}\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
   end
 
   def set_event

@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
   validates :user_id, presence: true
 
   def editable?(user)
-    user.id == user_id ? true : false
+    user.id == user_id
   end
 
   def joined?(user)
@@ -20,8 +20,7 @@ class Event < ActiveRecord::Base
   end
 
   def member_names
-    arr = members.map(&:nickname)
-    arr.unshift(user.nickname)
+    members.map(&:nickname).unshift(user.nickname)
   end
 
   def apply_timezone
@@ -38,6 +37,10 @@ class Event < ActiveRecord::Base
     start_time.in_time_zone('Seoul')
   end
 
+  def finish_time_with_tz
+    finish_time.in_time_zone('Seoul')
+  end
+
   def relative_time
     if start_time_with_tz.today?
       "오늘 #{start_time_with_tz.strftime('%H')}시"
@@ -46,5 +49,9 @@ class Event < ActiveRecord::Base
     else
       start_time_with_tz.strftime('%F %H:%M')
     end
+  end
+
+  def to_slack_message
+    "[#{subject}]\n주최자: #{user.nickname}\n시각: #{relative_time}\n장소: #{place}"
   end
 end

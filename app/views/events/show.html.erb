@@ -22,7 +22,7 @@
 
 <p>
   <strong>Time:</strong>
-  <%= time_format @event.start_time %> - <%= time_format @event.finish_time %>
+  <%= @event.start_time_with_tz %> - <%= @event.finish_time_with_tz %>
 </p>
 
 <% unless @event.members.empty? %>
@@ -32,9 +32,7 @@
 </p>
 <% end %>
 
-<% unless @event.joined? @user %>
-
-<% end %>
+<%= @event.to_slack_message %>
 
 <% if @event.editable? @user %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
