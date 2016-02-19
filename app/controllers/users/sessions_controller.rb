@@ -26,7 +26,6 @@ class Users::SessionsController < Devise::SessionsController
 
   def send_token(nickname)
     client = Slack::Web::Client.new
-    client.auth_test
     user = User.create_via_slack(nickname)
     client.chat_postMessage(channel: nickname, text: "Please click next link. This token only valid 10 minutes! #{callbacks_slack_url(name: user.nickname, token: user.token)}", as_user: true, username: 'Cal4Weirdx')
   end
