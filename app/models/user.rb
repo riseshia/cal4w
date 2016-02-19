@@ -21,10 +21,9 @@ class User < ActiveRecord::Base
   def self.from_slack(name, token)
     user = find_by(provider: 'slack', nickname: name, token: token)
     return false if user.nil?
+    return false if user.token != token
     return false if user.token_valid_until < Time.zone.now
 
-    user.token = nil
-    user.token_valid_until = nil
     user.save
     user
   end
@@ -35,7 +34,6 @@ class User < ActiveRecord::Base
     user.token = Devise.friendly_token[0, 20]
     user.token_valid_until = Time.zone.now + 10.minutes
     user.password = Devise.friendly_token[0, 20]
-    user.nickname = name
     user.save
     user
   end
