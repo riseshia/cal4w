@@ -2,4 +2,15 @@
 
 <h2>Log in</h2>
 
-<%= render "devise/shared/links" %>
+<%= form_tag(user_session_path) do %>
+  <div class="field">
+    <%= label_tag :nickname_on_slack %> (Including '@', i.e. '@slackbot')<br>
+    <%= text_field_tag :nickname %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag 'Send link to verify' %>
+  </div>
+<% end %>
+
+<% render "devise/shared/links" %>

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   has_many :events
@@ -18,8 +18,26 @@ class User < ActiveRecord::Base
     end
   end
 
-  def nickname
-    "@#{super}"
+  def self.from_slack(name, token)
+    user = find_by(provider: 'slack', nickname: name, token: token)
+    return false if user.nil?
+    return false if user.token_valid_until < Time.zone.now
+
+    user.token = nil
+    user.token_valid_until = nil
+    user.save
+    user
+  end
+
+  def self.create_via_slack(name)
+    user = find_or_create_by(provider: 'slack', nickname: name)
+
+    user.token = Devise.friendly_token[0, 20]
+    user.token_valid_until = Time.zone.now + 10.minutes
+    user.password = Devise.friendly_token[0, 20]
+    user.nickname = name
+    user.save
+    user
   end
 
   def email_required?

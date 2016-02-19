@@ -27,7 +27,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'responders'
 
 gem 'devise'
-gem 'omniauth-slack'
+gem 'omniauth-weirdx', github: 'riseshia/omniauth-weirdx'
+gem 'slack-ruby-client'
 
 gem 'figaro'
 
