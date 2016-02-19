@@ -23,4 +23,14 @@ class Event < ActiveRecord::Base
     arr = members.map(&:nickname)
     arr.unshift(user.nickname)
   end
+
+  def apply_timezone
+    start_time += 9.hours
+    finish_time += 9.hours
+  end
+
+  def restore_timezone
+    start_time -= 9.hours
+    finish_time -= 9.hours
+  end
 end
