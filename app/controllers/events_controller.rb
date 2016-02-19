@@ -26,14 +26,20 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @event.start_time = Time.zone.now + 9.hours
+    @event.finish_time = Time.zone.now + 9.hours
     respond_with(@event)
   end
 
   def edit
+    @event.start_time += 9.hours
+    @event.finish_time += 9.hours
   end
 
   def create
     @event = Event.new(event_params)
+    @event.start_time -= 9.hours
+    @event.finish_time -= 9.hours
     @event.user = current_user
     @event.save
     respond_with(@event)
@@ -41,6 +47,9 @@ class EventsController < ApplicationController
 
   def update
     @event.update(event_params)
+    @event.start_time -= 9.hours
+    @event.finish_time -= 9.hours
+    @event.save
     respond_with(@event)
   end
 
