@@ -18,4 +18,9 @@ class Event < ActiveRecord::Base
   def ing_or_after?
     finish_time > Time.zone.now
   end
+
+  def member_names
+    arr = members.map(&:nickname)
+    arr.unshift(user.nickname)
+  end
 end
