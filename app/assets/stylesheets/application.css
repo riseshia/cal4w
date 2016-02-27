@@ -12,6 +12,5 @@
  *
  *= require_tree .
  *= require fullcalendar.min
- *= require fullcalendar.print
  *= require_self
  */
