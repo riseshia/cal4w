@@ -32,8 +32,6 @@
 </p>
 <% end %>
 
-<%= @event.to_slack_message %>
-
 <% if @event.editable? @user %>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %> |
