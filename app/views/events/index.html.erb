@@ -6,7 +6,7 @@
 
 <ul>
 <% @events.select { |e| e.ing_or_after? }.each do |event| %>
-  <li><%= event.start_time_with_tz %>~ <%= link_to "#{event.subject} in #{event.place}", event %> (참가: <%= event.member_names.join(', ') %>)</li>
+  <li><%= event.start_time_with_tz.strftime('%m/%d %H:%M') %>~ <%= link_to "#{event.subject} in #{event.place}", event %> (참가: <%= event.member_names.join(', ') %>)</li>
 <% end %>
 </ul>
 
