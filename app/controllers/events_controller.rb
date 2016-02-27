@@ -16,11 +16,13 @@ class EventsController < ApplicationController
 
   def join
     @event.members << current_user
+    notify_new_member @event, current_user
     redirect_to @event, notice: 'Thanks to your join!'
   end
 
   def unjoin
     @event.members.destroy current_user
+    notify_cancel_member @event, current_user
     redirect_to @event, notice: 'Ok, I believe we could see soon! :)'
   end
 
@@ -66,6 +68,16 @@ class EventsController < ApplicationController
   def notify_updated_event event
     return unless Rails.env.production?
     Slack::Web::Client.new.chat_postMessage(channel: '#_meetup', text: "밋업 일정이 변경되었습니다.\n#{event.to_slack_message}\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
+  end
+
+  def notify_new_member event, user
+    return unless Rails.env.production?
+    Slack::Web::Client.new.chat_postMessage(channel: event.user.nickname, text: "#{user.nickname}님이 '#{event.subject}' 밋업에 참가 신청하셨습니다.\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
+  end
+
+  def notify_cancel_member event, user
+    return unless Rails.env.production?
+    Slack::Web::Client.new.chat_postMessage(channel: event.user.nickname, text: "#{user.nickname}님이 '#{event.subject}' 밋업 참가를 취소하셨습니다.\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
   end
 
   def set_event
