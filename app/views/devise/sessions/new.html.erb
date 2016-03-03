@@ -1,16 +1,24 @@
-<p id="notice"><%= notice %></p>
-
-<h2>Log in</h2>
-
-<%= form_tag(user_session_path) do %>
-  <div class="field">
-    <%= label_tag :nickname_on_slack %> (Including '@', i.e. '@slackbot')<br>
-    <%= text_field_tag :nickname %>
+<div class="row">
+  <div class="col-xs-12">
+    <% if notice.present? %>
+      <div id="notice" class="alert alert-warning" style="margin-top: 20px;"><%= notice %></div>
+    <% end %>
+    <h2>Log in</h2>
   </div>
+</div>
 
-  <div class="actions">
-    <%= submit_tag 'Send link to verify' %>
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_tag(user_session_path) do %>
+      <div class="field">
+        <p><%= label_tag :nickname_on_slack %> (Including '@', i.e. '@slackbot')</p>
+        <p class="form-controll"><%= text_field_tag :nickname %></p>
+      </div>
+      <div class="actions">
+        <%= submit_tag 'Send link to verify', class: 'btn btn-danger btn-lg' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 
 <% render "devise/shared/links" %>
