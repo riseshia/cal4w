@@ -1,43 +1,62 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-xs-12">
+    <div id="notice" class="alert alert-warning" style="margin-top: 20px;"><%= notice %></div>
+  </div>
+</div>
 
-<p>
-  <strong>Subject:</strong>
-  <%= @event.subject %>
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <strong>Subject:</strong> <%= @event.subject %>
+  </div>
+</div>
 
-<p>
-  <strong>Place:</strong>
-  <%= @event.place %>
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <strong>Place:</strong> <%= @event.place %>
+  </div>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <strong>Description:</strong> <%= @event.description %>
+  </div>
+</div>
 
-<p>
-  <strong>Creator:</strong>
-  <%= @event.user.nickname %>
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <strong>Creator:</strong> <%= @event.user.nickname %>
+  </div>
+</div>
 
-<p>
-  <strong>Time:</strong>
-  <%= @event.start_time_with_tz.strftime('%m/%d %H:%M') %> ~ <%= @event.finish_time_with_tz.strftime('%m/%d %H:%M') %>
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <strong>Time:</strong> <%= @event.start_time_with_tz.strftime('%m/%d %H:%M') %> ~ <%= @event.finish_time_with_tz.strftime('%m/%d %H:%M') %>
+  </div>
+</div>
 
 <% unless @event.members.empty? %>
-<p>
-  <strong>Who will come?</strong><br>
-  <%= @event.members.map {|member| member.nickname }.join(', ') %>
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Who will come?</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <%= @event.members.map {|member| member.nickname }.join(', ') %>
+  </div>
+</div>
 <% end %>
 
-<% if @event.editable? @user %>
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<% elsif @event.joined? @user %>
-<%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post %>
-<% else %>
-<%= link_to 'Join', join_event_path(@event), method: :post %>
-<% end %>
-<%= link_to 'Back', events_path %>
+<div class="row">
+  <div class="col-xs-12">
+    <% if @event.editable? @user %>
+        <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %> |
+        <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', sytle: 'color: #FFF;' %> |
+    <% elsif @event.joined? @user %>
+        <%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post, class: 'btn btn-warning', style: 'color: #FFF;' %>
+    <% else %>
+        <%= link_to 'Join', join_event_path(@event), method: :post, class: 'btn btn-danger btn-lg', style: 'color: #FFF;' %>
+    <% end %>
+    <%= link_to 'Back', events_path, class: 'btn btn-success', style: 'color: #FFF;' %>
+  </div>
+</div>

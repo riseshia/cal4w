@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>WEIRDMEETUP!</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <link rel="icon" href="http://i0.wp.com/blog.weirdx.io/wp-content/uploads/2015/12/icon_black@1x.png?fit=60%2C60" sizes="192x192">
-  <link rel="apple-touch-icon-precomposed" href="http://i0.wp.com/blog.weirdx.io/wp-content/uploads/2015/12/icon_black@1x.png?fit=60%2C60">
-</head>
-<body>
-<% if current_user.present? %>
-<%= link_to "Logout", destroy_user_session_path, method: :delete, type: "submit" %>
-<% end %>
-<%= yield %>
+  <head>
+    <title>WEIRDMEETUP!</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
-</body>
+    <!-- FontAwasome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <%= csrf_meta_tags %>
+    <link rel="icon" href="http://i0.wp.com/blog.weirdx.io/wp-content/uploads/2015/12/icon_black@1x.png?fit=60%2C60" sizes="192x192">
+    <link rel="apple-touch-icon-precomposed" href="http://i0.wp.com/blog.weirdx.io/wp-content/uploads/2015/12/icon_black@1x.png?fit=60%2C60">
+  </head>
+  <body>
+    <% if current_user.present? %>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-offset-11 col-xs-1">
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, type: "submit", class: 'btn btn-danger', style: 'margin: 20px 0 20px 0;' %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+
+  </body>
 </html>

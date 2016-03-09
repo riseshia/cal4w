@@ -11,28 +11,57 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :subject %><br>
-    <%= f.text_field :subject %>
-  </div>
-  <div class="field">
-    <%= f.label :place %><br>
-    <%= f.text_field :place %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :start_time %><br>
-    <%= f.datetime_select :start_time, minute_step: 10 %>
-  </div>
-  <div class="field">
-    <%= f.label :finish_time %><br>
-    <%= f.datetime_select :finish_time, minute_step: 10 %>
+  <div class="row">
+    <div class="col-xs-11">
+      <div class="field form-group">
+        <%= f.label :subject %>: <%= f.text_field :subject, class: 'form-control' %>
+      </div>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row">
+    <div class="col-xs-11">
+      <div class="field">
+        <%= f.label :place %>: <%= f.text_field :place, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-11">
+      <div class="field">
+        <%= f.label :description %>
+      </div>
+    </div>
+    <div class="col-xs-11">
+      <div class="field">
+        <%= f.text_area :description, class: 'form-control', rows: '5' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-11">
+      <div class="field">
+        <%= f.label :start_time %> ~ <%= f.label :finish_time %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-11">
+      <div class="field">
+        <%= f.datetime_select :start_time, minute_step: 10, class: 'btn btn-default dropdown-toggle' %> ~ <%= f.datetime_select :finish_time, minute_step: 10, class: 'btn btn-default dropdown-toggle' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-11">
+      <div class="actions">
+        <%= f.submit "Create Meetup", class: 'btn btn-warning' %>
+      </div>
+    </div>
   </div>
 <% end %>

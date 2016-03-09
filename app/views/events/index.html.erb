@@ -1,15 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-xs-12">
+    <% if notice.present? %>
+      <div id="notice" class="alert alert-warning" style="margin: 20px 0 20px 0;"><%= notice %></div>
+    <% end %>
+  </div>
+</div>
 
-<div id='calendar'></div>
+<div class="row">
+  <div class="col-xs-12">
+    <div id='calendar'></div>
+  </div>
+</div>
 
-<h2>Next Events</h2>
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Next Events</h2>
+  </div>
+</div>
 
-<ul>
-<% @events.select { |e| e.ing_or_after? }.each do |event| %>
-  <li><%= event.start_time_with_tz.strftime('%m/%d %H:%M') %>~ <%= link_to "#{event.subject} in #{event.place}", event %> (참가: <%= event.member_names.join(', ') %>)</li>
-<% end %>
-</ul>
+<div class="row">
+  <div class="col-xs-12">
+    <ul>
+      <% @events.select { |e| e.ing_or_after? }.each do |event| %>
+        <li><%= event.start_time_with_tz.strftime('%m/%d %H:%M') %>~ <%= link_to "#{event.subject} in #{event.place}", event %> (참가: <%= event.member_names.join(', ') %>)</li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
-<br>
-
-<%= link_to 'New Event', new_event_path %>
+<div class="row">
+  <div class="col-xs-12">
+    <%= link_to 'New Event', new_event_path, class: 'btn btn-primary', style: 'color: #FFF;' %>
+  </div>
+</div>
