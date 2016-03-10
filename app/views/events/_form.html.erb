@@ -60,7 +60,7 @@
   <div class="row">
     <div class="col-xs-11">
       <div class="actions">
-        <%= f.submit "Create Meetup", class: 'btn btn-warning' %>
+        <%= f.submit event.persisted? ? "Update Meetup" : "Create Meetup", class: 'btn btn-warning' %>
       </div>
     </div>
   </div>
