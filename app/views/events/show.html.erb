@@ -44,8 +44,8 @@
 <div class="row">
   <div class="col-xs-12">
     <% if @event.editable? @user %>
-        <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %> |
-        <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', sytle: 'color: #FFF;' %> |
+        <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %>
+        <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', sytle: 'color: #FFF;' %>
     <% elsif @event.joined? @user %>
         <%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post, class: 'btn btn-warning', style: 'color: #FFF;' %>
     <% else %>
