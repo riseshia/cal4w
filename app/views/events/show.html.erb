@@ -49,7 +49,7 @@
     <% elsif @event.joined? @user %>
         <%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post, class: 'btn btn-warning', style: 'color: #FFF;' %>
     <% else %>
-        <%= link_to 'Join', join_event_path(@event), method: :post, class: 'btn btn-danger btn-lg', style: 'color: #FFF;' %>
+        <%= link_to 'Join', join_event_path(@event), method: :post, class: 'btn btn-danger', style: 'color: #FFF;' %>
     <% end %>
     <%= link_to 'Back', events_path, class: 'btn btn-success', style: 'color: #FFF;' %>
   </div>
