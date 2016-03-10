@@ -14,7 +14,7 @@
   <div class="col-xs-12">
     <ul>
       <% @events.select { |e| e.ing_or_after? }.each do |event| %>
-        <li><%= event.start_time_with_tz.strftime('%m/%d %H:%M') %>~ <%= link_to "#{event.subject} in #{event.place}", event %> (참가: <%= event.member_names.join(', ') %>)</li>
+        <li><%= render 'event_info', event: event %></li>
       <% end %>
     </ul>
   </div>
