@@ -61,23 +61,29 @@ class EventsController < ApplicationController
   private
 
   def notify_new_event event
-    return unless Rails.env.production?
-    Slack::Web::Client.new.chat_postMessage(channel: '#_meetup', text: "새 밋업 일정이 추가되었습니다.\n#{event.to_slack_message}\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
+    notify_to_slack '#_meetup', "새 밋업 일정이 추가되었습니다.\n#{event.to_slack_message}\n링크: #{event_url(event)}"
   end
 
   def notify_updated_event event
-    return unless Rails.env.production?
-    Slack::Web::Client.new.chat_postMessage(channel: '#_meetup', text: "밋업 일정이 변경되었습니다.\n#{event.to_slack_message}\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
+    notify_to_slack '#_meetup', "밋업 일정이 변경되었습니다.\n#{event.to_slack_message}\n링크: #{event_url(event)}"
   end
 
   def notify_new_member event, user
-    return unless Rails.env.production?
-    Slack::Web::Client.new.chat_postMessage(channel: event.user.nickname, text: "#{user.nickname}님이 '#{event.subject}' 밋업에 참가 신청하셨습니다.\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
+    notify_to_slack '#_meetup', "#{user.nickname}님이 '#{event.subject}' 밋업에 참가 신청하셨습니다.\n링크: #{event_url(event)}"
   end
 
   def notify_cancel_member event, user
+    notify_to_slack event.user.nickname, "#{user.nickname}님이 '#{event.subject}' 밋업 참가를 취소하셨습니다.\n링크: #{event_url(event)}"
+  end
+
+  def notify_to_slack(channel, text)
     return unless Rails.env.production?
-    Slack::Web::Client.new.chat_postMessage(channel: event.user.nickname, text: "#{user.nickname}님이 '#{event.subject}' 밋업 참가를 취소하셨습니다.\n링크: #{event_url(event)}", as_user: true, username: 'Cal4Weirdx')
+    Slack::Web::Client.new.chat_postMessage(
+      channel: channel,
+      text: text,
+      as_user: true,
+      username: 'Cal4Weirdx'
+    )
   end
 
   def set_event
