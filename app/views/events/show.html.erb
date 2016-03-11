@@ -24,7 +24,7 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <strong>Time:</strong> <%= @event.start_time_with_tz.strftime('%m/%d %H:%M') %> ~ <%= @event.finish_time_with_tz.strftime('%m/%d %H:%M') %>
+    <strong>Time:</strong> <%= @event.start_time.strftime('%m/%d %H:%M') %> ~ <%= @event.finish_time.strftime('%m/%d %H:%M') %>
   </div>
 </div>
 

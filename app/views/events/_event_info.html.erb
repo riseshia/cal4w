@@ -1,1 +1,1 @@
-<%= event.start_time_with_tz.strftime('%m/%d %H:%M') %>~ <%= link_to "#{event.subject} in #{event.place}", event %> (참가: <%= event.member_names.join(', ') %>)
+<%= event.start_time.strftime('%m/%d %H:%M') %>~ <%= link_to "#{event.subject} in #{event.place}", event %> (참가: <%= event.member_names.join(', ') %>)

@@ -25,36 +25,18 @@ class Event < ActiveRecord::Base
     members.map(&:nickname).unshift(user.nickname)
   end
 
-  def apply_timezone
-    self.start_time += 9.hours
-    self.finish_time += 9.hours
-  end
-
-  def restore_timezone
-    self.start_time -= 9.hours
-    self.finish_time -= 9.hours
-  end
-
-  def start_time_with_tz
-    start_time.in_time_zone('Seoul')
-  end
-
-  def finish_time_with_tz
-    finish_time.in_time_zone('Seoul')
-  end
-
   def shift_day_with(datetime)
     self.start_time += ((datetime - self.start_time)/86400).day
     self.finish_time += ((datetime - self.finish_time)/86400).day
   end
 
   def relative_time
-    if start_time_with_tz.today?
-      "오늘 #{start_time_with_tz.strftime('%H:%M')}시"
-    elsif (start_time_with_tz - 1.day).today?
-      "내일 #{start_time_with_tz.strftime('%H:%M')}시"
+    if start_time.today?
+      "오늘 #{start_time.strftime('%H:%M')}시"
+    elsif (start_time - 1.day).today?
+      "내일 #{start_time.strftime('%H:%M')}시"
     else
-      start_time_with_tz.strftime('%F %H:%M')
+      start_time.strftime('%F %H:%M')
     end
   end
 

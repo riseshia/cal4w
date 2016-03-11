@@ -28,14 +28,12 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new(start_time: Time.zone.now, finish_time: Time.zone.now + 1.hour)
-    @event.apply_timezone
     respond_with(@event)
   end
 
   def copy
     @new_event = @event.dup
     @new_event.shift_day_with(Time.zone.now)
-    @new_event.apply_timezone
     @event = @new_event
     render :new
   end
@@ -46,7 +44,6 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.restore_timezone
     @event.user = current_user
     @event.notify_new_event event_url(@event) if @event.save
     respond_with(@event)
@@ -54,7 +51,6 @@ class EventsController < ApplicationController
 
   def update
     @event.update(event_params)
-    @event.restore_timezone
     @event.notify_updated_event event_url(@event) if @event.save
     respond_with(@event)
   end
