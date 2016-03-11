@@ -1,7 +1,5 @@
 # SlackNotiable
 module SlackNotiable
-  module_function
-
   def notify_to_slack(channel, text)
     return unless Rails.env.production?
     Slack::Web::Client.new.chat_postMessage(
