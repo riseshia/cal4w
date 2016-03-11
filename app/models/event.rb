@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
   include SlackNotiable
+  include Colorable
 
   belongs_to :user
   has_and_belongs_to_many :members, class_name: 'User', association_foreign_key: 'user_id'
@@ -60,18 +61,7 @@ class Event < ActiveRecord::Base
     notify_to_slack user.nickname, "#{new_user.nickname}님이 '#{subject}' 밋업 참가를 취소하셨습니다.\n링크: #{target_url}"
   end
 
-
-
-  PALATTE = [
-    '#F49AC2', '#CB99C9', '#C23B22',
-    '#FFD1DC', '#DEA5A4', '#AEC6CF',
-    '#77DD77', '#CFCFC4', '#B39EB5',
-    '#FFB347', '#B19CD9', '#FF6961',
-    '#03C03C', '#FDFD96', '#836953',
-    '#779ECB', '#966FD6'
-  ]
-
-  def to_hex
-    PALATTE[user.id % PALATTE.size]
+  def to_hex_with
+    user.id
   end
 end
