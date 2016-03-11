@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  include SlackNotiable
+
   belongs_to :user
   has_and_belongs_to_many :members, class_name: 'User', association_foreign_key: 'user_id'
 
@@ -59,6 +61,24 @@ class Event < ActiveRecord::Base
   def to_slack_message
     "[#{subject}]\n주최자: #{user.nickname}\n시각: #{relative_time}\n장소: #{place}"
   end
+
+  def notify_new_event target_url
+    notify_to_slack '#_meetup', "새 밋업 일정이 추가되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
+  end
+
+  def notify_updated_event target_url
+    notify_to_slack '#_meetup', "밋업 일정이 변경되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
+  end
+
+  def notify_new_member new_user, target_url
+    notify_to_slack user.nickname, "#{new_user.nickname}님이 '#{subject}' 밋업에 참가 신청하셨습니다.\n링크: #{target_url}"
+  end
+
+  def notify_cancel_member new_user, target_url
+    notify_to_slack user.nickname, "#{new_user.nickname}님이 '#{subject}' 밋업 참가를 취소하셨습니다.\n링크: #{target_url}"
+  end
+
+
 
   PALATTE = [
     '#F49AC2', '#CB99C9', '#C23B22',

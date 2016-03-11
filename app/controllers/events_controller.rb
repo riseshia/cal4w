@@ -16,13 +16,13 @@ class EventsController < ApplicationController
 
   def join
     @event.members << current_user
-    notify_new_member @event, current_user
+    @event.notify_new_member current_user, event_url(@event)
     redirect_to @event, notice: 'Thanks to your join!'
   end
 
   def unjoin
     @event.members.destroy current_user
-    notify_cancel_member @event, current_user
+    @event.notify_cancel_member current_user, event_url(@event)
     redirect_to @event, notice: 'Ok, I believe we could see soon! :)'
   end
 
@@ -37,7 +37,6 @@ class EventsController < ApplicationController
     @new_event.shift_day_with(Time.zone.now)
     @new_event.apply_timezone
     @event = @new_event
-    
     render :new
   end
 
@@ -49,16 +48,14 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.restore_timezone
     @event.user = current_user
-    notify_new_event @event if @event.save
-
+    @event.notify_new_event event_url(@event) if @event.save
     respond_with(@event)
   end
 
   def update
     @event.update(event_params)
     @event.restore_timezone
-    notify_updated_event @event if @event.save
-
+    @event.notify_updated_event event_url(@event) if @event.save
     respond_with(@event)
   end
 
@@ -68,32 +65,6 @@ class EventsController < ApplicationController
   end
 
   private
-
-  def notify_new_event event
-    notify_to_slack '#_meetup', "새 밋업 일정이 추가되었습니다.\n#{event.to_slack_message}\n링크: #{event_url(event)}"
-  end
-
-  def notify_updated_event event
-    notify_to_slack '#_meetup', "밋업 일정이 변경되었습니다.\n#{event.to_slack_message}\n링크: #{event_url(event)}"
-  end
-
-  def notify_new_member event, user
-    notify_to_slack event.user.nickname, "#{user.nickname}님이 '#{event.subject}' 밋업에 참가 신청하셨습니다.\n링크: #{event_url(event)}"
-  end
-
-  def notify_cancel_member event, user
-    notify_to_slack event.user.nickname, "#{user.nickname}님이 '#{event.subject}' 밋업 참가를 취소하셨습니다.\n링크: #{event_url(event)}"
-  end
-
-  def notify_to_slack(channel, text)
-    return unless Rails.env.production?
-    Slack::Web::Client.new.chat_postMessage(
-      channel: channel,
-      text: text,
-      as_user: true,
-      username: 'Cal4Weirdx'
-    )
-  end
 
   def set_event
     @event = Event.find(params[:id])
