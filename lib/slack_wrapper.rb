@@ -1,10 +1,11 @@
-# SlackNotiable
-module SlackNotiable
-  def notify_to_slack(channel, text)
+module SlackWrapper
+  module_function
+
+  def notify(channel, message)
     return unless Rails.env.production?
     Slack::Web::Client.new.chat_postMessage(
       channel: channel,
-      text: text,
+      text: message,
       as_user: true,
       username: 'Cal4Weirdx'
     )

@@ -1,6 +1,5 @@
 # Event
 class Event < ActiveRecord::Base
-  include SlackNotiable
   include Colorable
 
   belongs_to :user
@@ -47,28 +46,28 @@ class Event < ActiveRecord::Base
   end
 
   def notify_new_event(target_url)
-    notify_to_slack(
+    SlackWrapper::notify(
       '#_meetup',
       "새 밋업 일정이 추가되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
     )
   end
 
   def notify_updated_event(target_url)
-    notify_to_slack(
+    SlackWrapper::notify(
       '#_meetup',
       "밋업 일정이 변경되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
     )
   end
 
   def notify_new_member(new_user, target_url)
-    notify_to_slack(
+    SlackWrapper::notify(
       user.nickname,
       "#{new_user.nickname}님이 '#{subject}' 밋업에 참가 신청하셨습니다.\n링크: #{target_url}"
     )
   end
 
   def notify_cancel_member(new_user, target_url)
-    notify_to_slack(
+    SlackWrapper::notify(
       user.nickname,
       "#{new_user.nickname}님이 '#{subject}' 밋업 참가를 취소하셨습니다.\n링크: #{target_url}"
     )
