@@ -1,3 +1,4 @@
+# Event
 class Event < ActiveRecord::Base
   include SlackNotiable
   include Colorable
@@ -27,8 +28,8 @@ class Event < ActiveRecord::Base
   end
 
   def shift_day_with(datetime)
-    self.start_time += ((datetime - self.start_time)/86400).day
-    self.finish_time += ((datetime - self.finish_time)/86400).day
+    self.start_time += ((datetime - self.start_time) / 86_400).day
+    self.finish_time += ((datetime - self.finish_time) / 86_400).day
   end
 
   def relative_time
@@ -45,20 +46,32 @@ class Event < ActiveRecord::Base
     "[#{subject}]\n주최자: #{user.nickname}\n시각: #{relative_time}\n장소: #{place}"
   end
 
-  def notify_new_event target_url
-    notify_to_slack '#_meetup', "새 밋업 일정이 추가되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
+  def notify_new_event(target_url)
+    notify_to_slack(
+      '#_meetup',
+      "새 밋업 일정이 추가되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
+    )
   end
 
-  def notify_updated_event target_url
-    notify_to_slack '#_meetup', "밋업 일정이 변경되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
+  def notify_updated_event(target_url)
+    notify_to_slack(
+      '#_meetup',
+      "밋업 일정이 변경되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
+    )
   end
 
-  def notify_new_member new_user, target_url
-    notify_to_slack user.nickname, "#{new_user.nickname}님이 '#{subject}' 밋업에 참가 신청하셨습니다.\n링크: #{target_url}"
+  def notify_new_member(new_user, target_url)
+    notify_to_slack(
+      user.nickname,
+      "#{new_user.nickname}님이 '#{subject}' 밋업에 참가 신청하셨습니다.\n링크: #{target_url}"
+    )
   end
 
-  def notify_cancel_member new_user, target_url
-    notify_to_slack user.nickname, "#{new_user.nickname}님이 '#{subject}' 밋업 참가를 취소하셨습니다.\n링크: #{target_url}"
+  def notify_cancel_member(new_user, target_url)
+    notify_to_slack(
+      user.nickname,
+      "#{new_user.nickname}님이 '#{subject}' 밋업 참가를 취소하셨습니다.\n링크: #{target_url}"
+    )
   end
 
   def to_hex_with

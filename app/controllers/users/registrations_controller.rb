@@ -1,3 +1,4 @@
+# Users::RegistrationsController
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :go_sign_in
   # before_filter :configure_sign_up_params, only: [:create]

@@ -1,5 +1,8 @@
+# EventsController
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :join, :unjoin, :update, :destroy, :copy]
+  before_action :set_event, only: [
+    :show, :edit, :join, :unjoin, :update, :destroy, :copy
+  ]
   before_action :permission_check, only: [:edit, :update, :destroy, :copy]
 
   respond_to :html, :json

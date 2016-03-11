@@ -1,3 +1,4 @@
+# Users::SessionsController
 class Users::SessionsController < Devise::SessionsController
   # before_filter :configure_sign_in_params, only: [:create]
   skip_before_action :authenticate_user!
@@ -28,7 +29,13 @@ class Users::SessionsController < Devise::SessionsController
 
   def send_token(nickname)
     user = User.create_via_slack(nickname)
-    Slack::Web::Client.new.chat_postMessage(channel: nickname, text: "Please click next link. This token only valid 10 minutes! #{callbacks_slack_url(name: user.nickname, token: user.token)}", as_user: true, username: 'Cal4Weirdx')
+    Slack::Web::Client.new.chat_postMessage(
+      channel: nickname,
+      text: "Please click next link. This token only valid 10 minutes!\
+      #{callbacks_slack_url(name: user.nickname, token: user.token)}",
+      as_user: true,
+      username: 'Cal4Weirdx'
+    )
   end
 
   # If you have extra params to permit, append them to the sanitizer.

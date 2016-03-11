@@ -1,5 +1,6 @@
 require 'application_responder'
 
+# ApplicationController
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 

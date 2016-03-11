@@ -7,13 +7,13 @@ module Colorable
     '#FFB347', '#B19CD9', '#FF6961',
     '#03C03C', '#FDFD96', '#836953',
     '#779ECB', '#966FD6'
-  ]
+  ].freeze
 
   def to_hex
     PALATTE[to_hex_with % PALATTE.size]
   end
 
   def to_hex_with
-    self.id
+    id
   end
 end
