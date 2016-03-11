@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5.1'
+gem 'rails'
 
 gem 'sqlite3'
 gem 'mysql2'
@@ -38,6 +38,7 @@ gem 'momentjs-rails'
 gem 'font-awesome-sass'
 
 gem 'puma'
+
 group :development do
   gem 'capistrano', require: false
   gem 'capistrano-rbenv', require: false
