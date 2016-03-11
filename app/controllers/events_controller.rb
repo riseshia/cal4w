@@ -69,7 +69,7 @@ class EventsController < ApplicationController
   end
 
   def notify_new_member event, user
-    notify_to_slack '#_meetup', "#{user.nickname}님이 '#{event.subject}' 밋업에 참가 신청하셨습니다.\n링크: #{event_url(event)}"
+    notify_to_slack event.user.nickname, "#{user.nickname}님이 '#{event.subject}' 밋업에 참가 신청하셨습니다.\n링크: #{event_url(event)}"
   end
 
   def notify_cancel_member event, user
