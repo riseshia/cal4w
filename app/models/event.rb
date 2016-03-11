@@ -41,6 +41,11 @@ class Event < ActiveRecord::Base
     finish_time.in_time_zone('Seoul')
   end
 
+  def shift_day_with(datetime)
+    self.start_time += ((datetime - self.start_time)/86400).day
+    self.finish_time += ((datetime - self.finish_time)/86400).day
+  end
+
   def relative_time
     if start_time_with_tz.today?
       "오늘 #{start_time_with_tz.strftime('%H:%M')}시"

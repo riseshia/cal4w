@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   resources :events do
     post :join, on: :member
     post :unjoin, on: :member
+    get :copy, on: :member
   end
 end

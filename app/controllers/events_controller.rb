@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :join, :unjoin, :update, :destroy]
-  before_action :permission_check, only: [:edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :join, :unjoin, :update, :destroy, :copy]
+  before_action :permission_check, only: [:edit, :update, :destroy, :copy]
 
   respond_to :html, :json
 
@@ -30,6 +30,15 @@ class EventsController < ApplicationController
     @event = Event.new(start_time: Time.zone.now, finish_time: Time.zone.now + 1.hour)
     @event.apply_timezone
     respond_with(@event)
+  end
+
+  def copy
+    @new_event = @event.dup
+    @new_event.shift_day_with(Time.zone.now)
+    @new_event.apply_timezone
+    @event = @new_event
+    
+    render :new
   end
 
   def edit
