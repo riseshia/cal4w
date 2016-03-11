@@ -42,7 +42,6 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event.apply_timezone
   end
 
   def create
