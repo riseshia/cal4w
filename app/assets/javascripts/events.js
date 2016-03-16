@@ -35,34 +35,37 @@ function dayButton(name, value, active) {
 }
 
 $(document).on('click', '.' + DATE_BUTTON_CLASS, function() {
-
   var value = parseInt($(this).val());
   var $selector = $(this).prop('selector');
 
   if(!$selector) throw new Error('Selector Prop required');
 
-  $selector.trigger('week.off');
-
-  var $start = $selector.prop('start');
-  var $end = $selector.prop('end');
-
   var date = new Date();
   date.setDate(date.getDate() + value);
 
-  fillDate($start, date);
-  fillDate($end, date);
+  $selector.prop('date', date);
+  $selector.trigger('change.date');
 });
 
-function fillDate($eles, date) {
-  var $selects = $eles.find('select');
-  var date = [
+function changeDate() {
+  $(this).prop('start').trigger('change.date');
+  $(this).prop('end').trigger('change.date');
+}
+
+function fillDateFromParent() {
+  var $selector = $(this);
+  var $selects = $selector.find('select');
+  var $parent = $(this).prop('parent');
+  var date = $parent.prop('date');
+
+  var values = [
     date.getFullYear(),
     date.getMonth() + 1,
     date.getDate()
   ];
+
   $selects.each(function(i) {
-    console.log($(this).val(), date[i]);
-    if(date[i]) $(this).val(date[i]);
+    if(values[i]) $(this).val(values[i]);
   });
 }
 
@@ -96,6 +99,10 @@ function quickDatetimeSelector(target) {
 
       $target.html(template);
       $target.prop('start', $start).prop('end', $end);
+      $target.on('change.date', changeDate);
+
+      $start.prop('parent', $target).on('change.date', fillDateFromParent);
+      $end.prop('parent', $target).on('change.date', fillDateFromParent);
 
       $target.find('button').prop('selector', $target).on('click', function() {
 
