@@ -78,7 +78,15 @@ $(document).on('click', '.' + DAY_BUTTON_CLASS, function() {
 function displayDay() {
   var $selector = $(this);
   var $buttons = $selector.find('.' + DAY_BUTTON_CLASS);
-  $buttons.prop('disabled', $selector.prop('week') === null);
+  var week = $selector.prop('week');
+  $buttons.prop('disabled', week === null);
+
+  if(week === 0) {
+    var today = (new Date()).getDay();
+    $buttons.each(function() {
+      $(this).prop('disabled', parseInt($(this).val()) < today);
+    });
+  }
 }
 
 function changeDate() {
