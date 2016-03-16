@@ -117,6 +117,7 @@ $.fn.quickDatetimeSelector = function(options) {
     var $selector = $(this);
     var $buttons = $selector.find('.' + settings.dayButtonClass);
     var week = $selector.prop('week');
+    var date = $selector.prop('date');
     $buttons.prop('disabled', week === null);
 
     if(week === 0) {
@@ -136,7 +137,7 @@ $.fn.quickDatetimeSelector = function(options) {
     var $selector = $(this);
     var $selects = $selector.find('select');
     var $parent = $(this).prop('parent');
-    var date = $parent.prop('date') || new Date();
+    var date = $parent.prop('date');
 
     var values = [
       date.getFullYear(),
@@ -168,6 +169,7 @@ $.fn.quickDatetimeSelector = function(options) {
       $start.prop('parent', $target).on('change.date', settings.changeDateTrigger);
       $end.prop('parent', $target).on('change.date', settings.changeDateTrigger);
 
+      $target.prop('date', new Date());
       $target.prop('week', 0);
       $target.trigger('change.date');
       $target.trigger('change.day');
