@@ -87,8 +87,8 @@ $.fn.quickDatetimeSelector = function(options) {
     $selector.prop('selectedDay', date.getDay());
     $selector.prop('week', week);
     $selector.prop('selectedWeek', week);
-    $selector.trigger('change.date');
-    $selector.trigger('change.day');
+    $selector.trigger('quickdatetime:change:date');
+    $selector.trigger('quickdatetime:change:day');
   }
 
   function clickWeekButton() {
@@ -98,7 +98,7 @@ $.fn.quickDatetimeSelector = function(options) {
     if(!$selector) throw new Error('Selector Prop required');
 
     $selector.prop('week', value);
-    $selector.trigger('change.day');
+    $selector.trigger('quickdatetime:change:day');
   }
 
   function clickDayButton() {
@@ -116,8 +116,8 @@ $.fn.quickDatetimeSelector = function(options) {
     $selector.prop('date', date);
     $selector.prop('selectedWeek', week);
     $selector.prop('selectedDay', day);
-    $selector.trigger('change.date');
-    $selector.trigger('change.day');
+    $selector.trigger('quickdatetime:change:date');
+    $selector.trigger('quickdatetime:change:day');
   }
 
   function displayDay() {
@@ -153,8 +153,8 @@ $.fn.quickDatetimeSelector = function(options) {
   }
 
   function changeDate() {
-    $(this).prop('start').trigger('change.date');
-    $(this).prop('end').trigger('change.date');
+    $(this).prop('start').trigger('quickdatetime:change:date');
+    $(this).prop('end').trigger('quickdatetime:change:date');
   }
 
   function fillDateFromParent() {
@@ -189,8 +189,8 @@ $.fn.quickDatetimeSelector = function(options) {
       var $end = $($target.data('endDatetime'));
 
       $target.html(settings.template);
-      $target.on('change.date', settings.onChangeDate);
-      $target.on('change.day', settings.onChangeDay);
+      $target.on('quickdatetime:change:date', settings.onChangeDate);
+      $target.on('quickdatetime:change:day', settings.onChangeDay);
       $target.find('button').prop('selector', $target);
 
       $target.on('click', '.' + settings.dateButtonClass, settings.onClickDateButton);
@@ -198,13 +198,13 @@ $.fn.quickDatetimeSelector = function(options) {
       $target.on('click', '.' + settings.dayButtonClass, settings.onClickDayButton);
 
       $target.prop('start', $start).prop('end', $end);
-      $start.prop('parent', $target).on('change.date', settings.changeDateTrigger);
-      $end.prop('parent', $target).on('change.date', settings.changeDateTrigger);
+      $start.prop('parent', $target).on('quickdatetime:change:date', settings.changeDateTrigger);
+      $end.prop('parent', $target).on('quickdatetime:change:date', settings.changeDateTrigger);
 
       $target.prop('date', new Date());
       $target.prop('week', 0);
-      $target.trigger('change.date');
-      $target.trigger('change.day');
+      $target.trigger('quickdatetime:change:date');
+      $target.trigger('quickdatetime:change:day');
     });
   }
 
