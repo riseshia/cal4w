@@ -19,6 +19,7 @@ $.fn.quickDatetimeSelector = function(options) {
     dateButtonClass: 'quick-datetime-select-date-button',
     weekButtonClass: 'quick-datetime-select-week-button',
     dayButtonClass: 'quick-datetime-select-day-button',
+    activeDayClass: 'btn-success',
     buttonFormatter: button,
     template: null,
     onClickDateButton: clickDateButton,
@@ -79,10 +80,13 @@ $.fn.quickDatetimeSelector = function(options) {
     if(!$selector) throw new Error('Selector Prop required');
 
     var date = new Date();
+    var week = 0;
     date.setDate(date.getDate() + value);
 
     $selector.prop('date', date);
-    $selector.prop('week', 0);
+    $selector.prop('selectedDay', date.getDay());
+    $selector.prop('week', week);
+    $selector.prop('selectedWeek', week);
     $selector.trigger('change.date');
     $selector.trigger('change.day');
   }
@@ -110,21 +114,41 @@ $.fn.quickDatetimeSelector = function(options) {
     date.setDate(firstDayOfTheWeek + day);
 
     $selector.prop('date', date);
+    $selector.prop('selectedWeek', week);
+    $selector.prop('selectedDay', day);
     $selector.trigger('change.date');
+    $selector.trigger('change.day');
   }
 
   function displayDay() {
     var $selector = $(this);
     var $buttons = $selector.find('.' + settings.dayButtonClass);
+
     var week = $selector.prop('week');
     var date = $selector.prop('date');
+    var currentDate = new Date();
+
+    var selectedWeek = $selector.prop('selectedWeek');
+    var selectedDay = $selector.prop('selectedDay');
+
     $buttons.prop('disabled', week === null);
 
     if(week === 0) {
-      var today = (new Date()).getDay();
+      var today = currentDate.getDay();
       $buttons.each(function() {
         $(this).prop('disabled', parseInt($(this).val()) < today);
       });
+    }
+
+    $buttons.removeClass(settings.activeDayClass);
+
+    if(week === selectedWeek) {
+      $buttons.each(function() {
+        if($(this).val() == selectedDay) {
+          $(this).addClass(settings.activeDayClass);
+          return false;
+        }
+      })
     }
   }
 
@@ -148,6 +172,14 @@ $.fn.quickDatetimeSelector = function(options) {
     $selects.each(function(i) {
       if(values[i]) $(this).val(values[i]);
     });
+  }
+
+  function getYMDDate(date) {
+    return [
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate()
+    ].join("/");
   }
 
   function init(ele) {
