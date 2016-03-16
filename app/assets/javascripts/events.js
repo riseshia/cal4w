@@ -34,6 +34,38 @@ function dayButton(name, value, active) {
   return button(DAY_BUTTON_CLASS, name, value, active);
 }
 
+$(document).on('click', '.' + DATE_BUTTON_CLASS, function() {
+
+  var value = parseInt($(this).val());
+  var $selector = $(this).prop('selector');
+
+  if(!$selector) throw new Error('Selector Prop required');
+
+  $selector.trigger('week.off');
+
+  var $start = $selector.prop('start');
+  var $end = $selector.prop('end');
+
+  var date = new Date();
+  date.setDate(date.getDate() + value);
+
+  fillDate($start, date);
+  fillDate($end, date);
+});
+
+function fillDate($eles, date) {
+  var $selects = $eles.find('select');
+  var date = [
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate()
+  ];
+  $selects.each(function(i) {
+    console.log($(this).val(), date[i]);
+    if(date[i]) $(this).val(date[i]);
+  });
+}
+
 function quickDatetimeSelector(target) {
 
   var template = [
@@ -59,7 +91,15 @@ function quickDatetimeSelector(target) {
   if($(target).length > 0) {
     $(target).each(function() {
       var $target = $(this);
+      var $start = $($target.data('startDatetime'));
+      var $end = $($target.data('endDatetime'));
+
       $target.html(template);
-    })
+      $target.prop('start', $start).prop('end', $end);
+
+      $target.find('button').prop('selector', $target).on('click', function() {
+
+      });
+    });
   }
 }
