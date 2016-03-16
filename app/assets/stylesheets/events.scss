@@ -5,3 +5,23 @@
 .fc-content {
   color: rgb(255,255,255);
 }
+
+$quick-datetime-selector-margin: 10px;
+$quick-datetime-selector-border: 1px solid #dfdfdf;
+
+.quick-datetime-selector-term,
+.quick-datetime-selector-week {
+  display: inline-block;
+}
+
+.quick-datetime-selector-term + .quick-datetime-selector-week {
+  margin-left: $quick-datetime-selector-margin;
+  padding-left: $quick-datetime-selector-margin;
+  border-left: $quick-datetime-selector-border;
+}
+
+.quick-datetime-selector-term,
+.quick-datetime-selector-week,
+.quick-datetime-selector-day {
+  margin-bottom: $quick-datetime-selector-margin;
+}

@@ -43,12 +43,20 @@
   <div class="row">
     <div class="col-xs-11">
       <div class="field form-group">
+        <label>Select the date:</label>
+        <div class="quick-datetime-select" data-start-datetime="#start-time" data-end-datetime="#end-time"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-11">
+      <div class="field form-group">
         <%= f.label :start_time %> ~ <%= f.label :finish_time %>
         <div>
           <span id="start-time"><%= f.datetime_select :start_time, minute_step: 10 %></span> ~
           <span id="end-time"><%= f.datetime_select :finish_time, minute_step: 10 %></span>
         </div>
-        <div class="quick-datetime-select" data-start-datetime="#start-time" data-end-datetime="#end-time"></div>
       </div>
     </div>
   </div>
