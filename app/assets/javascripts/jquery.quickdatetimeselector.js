@@ -4,6 +4,7 @@ $.fn.quickDatetimeSelector = function(options) {
     dateButtonClass: 'quick-datetime-select-date-button',
     weekButtonClass: 'quick-datetime-select-week-button',
     dayButtonClass: 'quick-datetime-select-day-button',
+    activeWeekClass: 'btn-info',
     activeDayClass: 'btn-success',
     buttonFormatter: button,
     template: null,
@@ -125,6 +126,7 @@ $.fn.quickDatetimeSelector = function(options) {
   function displayDay() {
     var $selector = $(this);
     var $buttons = $selector.find('.' + settings.dayButtonClass);
+    var $weekButtons = $selector.find('.' + settings.weekButtonClass);
 
     var week = $selector.prop('week');
     var date = $selector.prop('date');
@@ -148,6 +150,17 @@ $.fn.quickDatetimeSelector = function(options) {
       $buttons.each(function() {
         if($(this).val() == selectedDay) {
           $(this).addClass(settings.activeDayClass);
+          return false;
+        }
+      });
+    }
+
+    $weekButtons.removeClass(settings.activeWeekClass);
+
+    if(week === selectedWeek) {
+      $weekButtons.each(function() {
+        if($(this).val() == selectedWeek) {
+          $(this).addClass(settings.activeWeekClass);
           return false;
         }
       });
