@@ -13,10 +13,23 @@ $(document).on('ready page:load', function (event) {
   $(".quick-datetime-select").quickDatetimeSelector();
 });
 
-$.fn.quickDatetimeSelector = function() {
-  var DATE_BUTTON_CLASS = 'quick-datetime-select-date-button';
-  var WEEK_BUTTON_CLASS = 'quick-datetime-select-week-button';
-  var DAY_BUTTON_CLASS = 'quick-datetime-select-day-button';
+$.fn.quickDatetimeSelector = function(options) {
+
+  var settings = $.extend({
+    dateButtonClass: 'quick-datetime-select-date-button',
+    weekButtonClass: 'quick-datetime-select-week-button',
+    dayButtonClass: 'quick-datetime-select-day-button',
+    buttonFormatter: button,
+    template: null,
+    onClickDateButton: clickDateButton,
+    onClickWeekButton: clickWeekButton,
+    onClickDayButton: clickDayButton,
+    onChangeDate: changeDate,
+    onChangeDay: displayDay,
+    changeDateTrigger: fillDateFromParent
+  }, options);
+
+  settings.template = settings.template || template();
 
   function button(className, name, value, active) {
     active = active === false ? false : true;
@@ -24,36 +37,38 @@ $.fn.quickDatetimeSelector = function() {
   }
 
   function dateButton(name, value, active) {
-    return button(DATE_BUTTON_CLASS, name, value, active);
+    return settings.buttonFormatter(settings.dateButtonClass, name, value, active);
   }
 
   function weekButton(name, value, active) {
-    return button(WEEK_BUTTON_CLASS, name, value, active);
+    return settings.buttonFormatter(settings.weekButtonClass, name, value, active);
   }
 
   function dayButton(name, value, active) {
-    return button(DAY_BUTTON_CLASS, name, value, active);
+    return settings.buttonFormatter(settings.dayButtonClass, name, value, active);
   }
 
-  var template = [
-    '<div class="quick-datetime-selector">',
-      '<div class="quick-datetime-selector-term">',
-        dateButton('Today', 0),
-        dateButton('Tomorrow', 1),
-        weekButton('This Week', 0),
-        weekButton('Next Week', 1),
+  function template() {
+    return [
+      '<div class="quick-datetime-selector">',
+        '<div class="quick-datetime-selector-term">',
+          dateButton('Today', 0),
+          dateButton('Tomorrow', 1),
+          weekButton('This Week', 0),
+          weekButton('Next Week', 1),
+        '</div>',
+        '<div class="quick-datetime-selector-week">',
+          dayButton('Sunday', 0, false),
+          dayButton('Monday', 1, false),
+          dayButton('Tuesday', 2, false),
+          dayButton('Wednesday', 3, false),
+          dayButton('Thursday', 4, false),
+          dayButton('Friday', 5, false),
+          dayButton('Saturday', 6, false),
+        '</div>',
       '</div>',
-      '<div class="quick-datetime-selector-week">',
-        dayButton('Sunday', 0, false),
-        dayButton('Monday', 1, false),
-        dayButton('Tuesday', 2, false),
-        dayButton('Wednesday', 3, false),
-        dayButton('Thursday', 4, false),
-        dayButton('Friday', 5, false),
-        dayButton('Saturday', 6, false),
-      '</div>',
-    '</div>',
-  ].join("");
+    ].join("");
+  }
 
   function clickDateButton() {
     var value = parseInt($(this).val());
@@ -98,7 +113,7 @@ $.fn.quickDatetimeSelector = function() {
 
   function displayDay() {
     var $selector = $(this);
-    var $buttons = $selector.find('.' + DAY_BUTTON_CLASS);
+    var $buttons = $selector.find('.' + settings.dayButtonClass);
     var week = $selector.prop('week');
     $buttons.prop('disabled', week === null);
 
@@ -132,30 +147,25 @@ $.fn.quickDatetimeSelector = function() {
     });
   }
 
-  function init(target) {
-    if($(target).length > 0) {
-      $(target).each(function() {
-        var $target = $(this);
-        var $start = $($target.data('startDatetime'));
-        var $end = $($target.data('endDatetime'));
+  function init(ele) {
+    ele.each(function() {
+      var $target = $(this);
+      var $start = $($target.data('startDatetime'));
+      var $end = $($target.data('endDatetime'));
 
-        $target.on('click', '.' + DATE_BUTTON_CLASS, clickDateButton);
-        $target.on('click', '.' + WEEK_BUTTON_CLASS, clickWeekButton);
-        $target.on('click', '.' + DAY_BUTTON_CLASS, clickDayButton);
+      $target.html(settings.template);
+      $target.on('change.date', settings.onChangeDate);
+      $target.on('change.day', settings.onChangeDay);
+      $target.find('button').prop('selector', $target);
 
-        $target.html(template);
-        $target.prop('start', $start).prop('end', $end);
-        $target.on('change.date', changeDate);
-        $target.on('change.day', displayDay);
+      $target.on('click', '.' + settings.dateButtonClass, settings.onClickDateButton);
+      $target.on('click', '.' + settings.weekButtonClass, settings.onClickWeekButton);
+      $target.on('click', '.' + settings.dayButtonClass, settings.onClickDayButton);
 
-        $start.prop('parent', $target).on('change.date', fillDateFromParent);
-        $end.prop('parent', $target).on('change.date', fillDateFromParent);
-
-        $target.find('button').prop('selector', $target).on('click', function() {
-
-        });
-      });
-    }
+      $target.prop('start', $start).prop('end', $end);
+      $start.prop('parent', $target).on('change.date', settings.changeDateTrigger);
+      $end.prop('parent', $target).on('change.date', settings.changeDateTrigger);
+    });
   }
 
   init(this);
