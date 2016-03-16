@@ -182,6 +182,13 @@ $.fn.quickDatetimeSelector = function(options) {
     ].join("/");
   }
 
+  function changeDateManually() {
+    var $selector = $(this);
+    var $selects = $selector.find('select');
+    var $parent = $(this).prop('parent');
+    $parent.find('.' + settings.activeDayClass).removeClass(settings.activeDayClass);
+  }
+
   function init(ele) {
     ele.each(function() {
       var $target = $(this);
@@ -202,6 +209,8 @@ $.fn.quickDatetimeSelector = function(options) {
       $target.prop('start', $start).prop('end', $end);
       $start.prop('parent', $target).on('quickdatetime:change:date', settings.changeDateTrigger);
       $end.prop('parent', $target).on('quickdatetime:change:date', settings.changeDateTrigger);
+
+      $start.on('change.quickdatetime', changeDateManually);
 
       $target.prop('date', today);
       $target.prop('week', thisWeek);
