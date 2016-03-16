@@ -59,6 +59,22 @@ $(document).on('click', '.' + WEEK_BUTTON_CLASS, function() {
   $selector.trigger('change.day');
 });
 
+$(document).on('click', '.' + DAY_BUTTON_CLASS, function() {
+  var day = parseInt($(this).val());
+  var $selector = $(this).prop('selector');
+
+  if(!$selector) throw new Error('Selector Prop required');
+
+  var date = new Date();
+  var week = parseInt($selector.prop('week'));
+
+  var firstDayOfTheWeek = week * 7 + date.getDate() - date.getDay();
+  date.setDate(firstDayOfTheWeek + day);
+
+  $selector.prop('date', date);
+  $selector.trigger('change.date');
+});
+
 function displayDay() {
   var $selector = $(this);
   var $buttons = $selector.find('.' + DAY_BUTTON_CLASS);
