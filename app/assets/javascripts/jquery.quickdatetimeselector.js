@@ -12,7 +12,22 @@ $.fn.quickDatetimeSelector = function(options) {
     onClickDayButton: clickDayButton,
     onChangeDate: changeDate,
     onChangeDay: displayDay,
-    changeDateTrigger: fillDateFromParent
+    changeDateTrigger: fillDateFromParent,
+    locale: {
+      Today: 'Today',
+      Tomorrow: 'Tomorrow',
+      ThisWeek: 'This Week',
+      NextWeek: 'Next Week',
+      day: {
+        Sunday: 'Sunday',
+        Monday: 'Monday',
+        Tuesday: 'Tuesday',
+        Wednesday: 'Wednesday',
+        Thursday: 'Thursday',
+        Friday: 'Friday',
+        Saturday: 'Saturday'
+      }
+    }
   }, options);
 
   settings.template = settings.template || template();
@@ -35,24 +50,26 @@ $.fn.quickDatetimeSelector = function(options) {
   }
 
   function template() {
+    var locale = settings.locale;
+    var days = locale.day;
     return [
       '<div class="quick-datetime-selector">',
         '<div class="quick-datetime-selector-term">',
-          dateButton('Today', 0),
-          dateButton('Tomorrow', 1),
+          dateButton(locale.Today, 0),
+          dateButton(locale.Tomorrow, 1),
         '</div>',
         '<div class="quick-datetime-selector-week">',
-          weekButton('This Week', 0),
-          weekButton('Next Week', 1),
+          weekButton(locale.ThisWeek, 0),
+          weekButton(locale.NextWeek, 1),
         '</div>',
         '<div class="quick-datetime-selector-day">',
-          dayButton('Sunday', 0, false),
-          dayButton('Monday', 1, false),
-          dayButton('Tuesday', 2, false),
-          dayButton('Wednesday', 3, false),
-          dayButton('Thursday', 4, false),
-          dayButton('Friday', 5, false),
-          dayButton('Saturday', 6, false),
+          dayButton(days.Sunday, 0, false),
+          dayButton(days.Monday, 1, false),
+          dayButton(days.Tuesday, 2, false),
+          dayButton(days.Wednesday, 3, false),
+          dayButton(days.Thursday, 4, false),
+          dayButton(days.Friday, 5, false),
+          dayButton(days.Saturday, 6, false),
         '</div>',
       '</div>',
     ].join("");
