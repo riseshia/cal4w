@@ -176,14 +176,6 @@ $.fn.quickDatetimeSelector = function(options) {
     });
   }
 
-  function getYMDDate(date) {
-    return [
-      date.getFullYear(),
-      date.getMonth() + 1,
-      date.getDate()
-    ].join("/");
-  }
-
   function changeDateManually() {
     var $selector = $(this);
     var $selects = $selector.find('select');
