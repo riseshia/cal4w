@@ -44,7 +44,9 @@ $(document).on('click', '.' + DATE_BUTTON_CLASS, function() {
   date.setDate(date.getDate() + value);
 
   $selector.prop('date', date);
+  $selector.prop('week', null);
   $selector.trigger('change.date');
+  $selector.trigger('change.day');
 });
 
 $(document).on('click', '.' + WEEK_BUTTON_CLASS, function() {
@@ -54,7 +56,14 @@ $(document).on('click', '.' + WEEK_BUTTON_CLASS, function() {
   if(!$selector) throw new Error('Selector Prop required');
 
   $selector.prop('week', value);
+  $selector.trigger('change.day');
 });
+
+function displayDay() {
+  var $selector = $(this);
+  var $buttons = $selector.find('.' + DAY_BUTTON_CLASS);
+  $buttons.prop('disabled', $selector.prop('week') === null);
+}
 
 function changeDate() {
   $(this).prop('start').trigger('change.date');
@@ -109,6 +118,7 @@ function quickDatetimeSelector(target) {
       $target.html(template);
       $target.prop('start', $start).prop('end', $end);
       $target.on('change.date', changeDate);
+      $target.on('change.day', displayDay);
 
       $start.prop('parent', $target).on('change.date', fillDateFromParent);
       $end.prop('parent', $target).on('change.date', fillDateFromParent);
