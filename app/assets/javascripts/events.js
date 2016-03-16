@@ -187,6 +187,8 @@ $.fn.quickDatetimeSelector = function(options) {
       var $target = $(this);
       var $start = $($target.data('startDatetime'));
       var $end = $($target.data('endDatetime'));
+      var today = new Date();
+      var thisWeek = 0;
 
       $target.html(settings.template);
       $target.on('quickdatetime:change:date', settings.onChangeDate);
@@ -201,8 +203,11 @@ $.fn.quickDatetimeSelector = function(options) {
       $start.prop('parent', $target).on('quickdatetime:change:date', settings.changeDateTrigger);
       $end.prop('parent', $target).on('quickdatetime:change:date', settings.changeDateTrigger);
 
-      $target.prop('date', new Date());
-      $target.prop('week', 0);
+      $target.prop('date', today);
+      $target.prop('week', thisWeek);
+      $target.prop('selectedDay', today.getDay());
+      $target.prop('selectedWeek', thisWeek);
+
       $target.trigger('quickdatetime:change:date');
       $target.trigger('quickdatetime:change:day');
     });
