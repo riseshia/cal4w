@@ -150,7 +150,7 @@ $.fn.quickDatetimeSelector = function(options) {
           $(this).addClass(settings.activeDayClass);
           return false;
         }
-      })
+      });
     }
   }
 
