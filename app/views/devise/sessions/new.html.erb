@@ -9,7 +9,7 @@
     <%= form_tag(user_session_path) do %>
       <div class="field">
         <p><%= label_tag :nickname_on_slack %> (Including '@', i.e. '@slackbot')</p>
-        <p class="form-controll"><%= text_field_tag :nickname %></p>
+        <p class="form-controll"><%= text_field_tag :nickname, nil, placeholder: '@weirdmeetup' %></p>
       </div>
       <div class="actions">
         <%= submit_tag 'Send link to verify', class: 'btn btn-danger btn-lg' %>
