@@ -47,6 +47,15 @@ $(document).on('click', '.' + DATE_BUTTON_CLASS, function() {
   $selector.trigger('change.date');
 });
 
+$(document).on('click', '.' + WEEK_BUTTON_CLASS, function() {
+  var value = parseInt($(this).val());
+  var $selector = $(this).prop('selector');
+
+  if(!$selector) throw new Error('Selector Prop required');
+
+  $selector.prop('week', value);
+});
+
 function changeDate() {
   $(this).prop('start').trigger('change.date');
   $(this).prop('end').trigger('change.date');
