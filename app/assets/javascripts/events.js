@@ -80,7 +80,7 @@ $.fn.quickDatetimeSelector = function(options) {
     date.setDate(date.getDate() + value);
 
     $selector.prop('date', date);
-    $selector.prop('week', null);
+    $selector.prop('week', 0);
     $selector.trigger('change.date');
     $selector.trigger('change.day');
   }
