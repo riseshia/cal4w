@@ -6,10 +6,15 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <%= form_tag(user_session_path) do %>
+    <%= form_tag user_session_path, 'data-toggle' => 'validator', id: 'users_sign_in' do %>
       <div class="field">
         <p><%= label_tag :nickname_on_slack %> (Including '@', i.e. '@slackbot')</p>
-        <p class="form-controll"><%= text_field_tag :nickname %></p>
+        <div class="form-group input-group has-feedback" id="nickname-form">
+          <%= text_field_tag :nickname, nil, placeholder: '@weirdmeetup', class: 'form-control', 'aria-describedby': 'nickname-help',
+                     pattern: '^@([A-Za-z0-9_]{1,15})$', 'data-error': "Type your slack id including '@'",required: true %>
+          <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+          <div id="nickname-help" class="help-block with-errors"></div>
+        </div>
       </div>
       <div class="actions">
         <%= submit_tag 'Send link to verify', class: 'btn btn-danger btn-lg' %>
