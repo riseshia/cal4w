@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 # Event
 class Event < ActiveRecord::Base
   include Colorable
 
   belongs_to :user
-  has_and_belongs_to_many :members, class_name: 'User', association_foreign_key: 'user_id'
+  has_and_belongs_to_many :members, class_name: "User", association_foreign_key: "user_id"
 
   validates :subject, presence: true
   validates :place, presence: true
@@ -33,11 +34,11 @@ class Event < ActiveRecord::Base
 
   def relative_time
     if start_time.today?
-      "오늘 #{start_time.strftime('%H:%M')}시"
+      "오늘 #{start_time.strftime("%H:%M")}시"
     elsif (start_time - 1.day).today?
-      "내일 #{start_time.strftime('%H:%M')}시"
+      "내일 #{start_time.strftime("%H:%M")}시"
     else
-      start_time.strftime('%F %H:%M')
+      start_time.strftime("%F %H:%M")
     end
   end
 
@@ -46,28 +47,28 @@ class Event < ActiveRecord::Base
   end
 
   def notify_new_event(target_url)
-    SlackWrapper::notify(
+    SlackWrapper.notify(
       '#_meetup',
       "새 밋업 일정이 추가되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
     )
   end
 
   def notify_updated_event(target_url)
-    SlackWrapper::notify(
+    SlackWrapper.notify(
       '#_meetup',
       "밋업 일정이 변경되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
     )
   end
 
   def notify_new_member(new_user, target_url)
-    SlackWrapper::notify(
+    SlackWrapper.notify(
       user.nickname,
       "#{new_user.nickname}님이 '#{subject}' 밋업에 참가 신청하셨습니다.\n링크: #{target_url}"
     )
   end
 
   def notify_cancel_member(new_user, target_url)
-    SlackWrapper::notify(
+    SlackWrapper.notify(
       user.nickname,
       "#{new_user.nickname}님이 '#{subject}' 밋업 참가를 취소하셨습니다.\n링크: #{target_url}"
     )

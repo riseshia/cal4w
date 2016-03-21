@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Users::RegistrationsController
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :go_sign_in

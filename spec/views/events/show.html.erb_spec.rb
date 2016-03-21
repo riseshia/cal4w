@@ -1,7 +1,8 @@
-require 'rails_helper'
+# frozen_string_literal: true
+require "rails_helper"
 
-RSpec.describe 'events/show', type: :view do
-  context 'User is creator' do
+RSpec.describe "events/show", type: :view do
+  context "User is creator" do
     before(:each) do
       assign(:user, create(:user))
       event = assign(:event, create(:event))
@@ -9,7 +10,7 @@ RSpec.describe 'events/show', type: :view do
       event.members << new_member
     end
 
-    it 'renders attributes in <p>' do
+    it "renders attributes in <p>" do
       render
       expect(rendered).to match(/Subject/)
       expect(rendered).to match(/Place/)
@@ -19,14 +20,14 @@ RSpec.describe 'events/show', type: :view do
     end
   end
 
-  context 'User is not joined and not creator' do
+  context "User is not joined and not creator" do
     before(:each) do
       create(:user)
       assign(:user, create(:user2))
       assign(:event, create(:event))
     end
 
-    it 'renders attributes' do
+    it "renders attributes" do
       render
       expect(rendered).to match(/Subject/)
       expect(rendered).to match(/Place/)
@@ -36,7 +37,7 @@ RSpec.describe 'events/show', type: :view do
     end
   end
 
-  context 'User is joined and not creator' do
+  context "User is joined and not creator" do
     before(:each) do
       create(:user)
       event = create(:event)
@@ -46,7 +47,7 @@ RSpec.describe 'events/show', type: :view do
       event.members << new_member
     end
 
-    it 'renders attributes' do
+    it "renders attributes" do
       render
       expect(rendered).to match(/Subject/)
       expect(rendered).to match(/Place/)

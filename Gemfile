@@ -6,6 +6,9 @@ gem 'rails'
 gem 'sqlite3'
 gem 'mysql2'
 
+gem 'sprockets', '>= 3.0.0'
+gem 'sprockets-es6'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

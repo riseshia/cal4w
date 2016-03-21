@@ -1,4 +1,5 @@
-require 'application_responder'
+# frozen_string_literal: true
+require "application_responder"
 
 # ApplicationController
 class ApplicationController < ActionController::Base

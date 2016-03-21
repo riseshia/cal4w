@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SlackWrapper
   module_function
 
@@ -7,7 +8,7 @@ module SlackWrapper
       channel: channel,
       text: message,
       as_user: true,
-      username: 'Cal4Weirdx'
+      username: "Cal4Weirdx"
     )
   end
 end

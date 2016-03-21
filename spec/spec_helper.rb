@@ -1,6 +1,7 @@
-if ENV['CODECLIMATE_REPO_TOKEN']
-  require 'codeclimate-test-reporter'
-  SimpleCov.start 'rails'
+# frozen_string_literal: true
+if ENV["CODECLIMATE_REPO_TOKEN"]
+  require "codeclimate-test-reporter"
+  SimpleCov.start "rails"
   CodeClimate::TestReporter.start
 end
 

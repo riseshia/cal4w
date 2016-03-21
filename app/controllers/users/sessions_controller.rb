@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Users::SessionsController
 class Users::SessionsController < Devise::SessionsController
   # before_filter :configure_sign_in_params, only: [:create]
@@ -14,7 +15,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     if params[:nickname].present?
       send_token params[:nickname]
-      redirect_to user_session_path, notice: 'link is sent to verify you! please check WeirdSlack!'
+      redirect_to user_session_path, notice: "link is sent to verify you! please check WeirdSlack!"
     else
       redirect_to user_session_path
     end
@@ -29,7 +30,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def send_token(nickname)
     user = User.create_via_slack(nickname)
-    SlackWrapper::notify(
+    SlackWrapper.notify(
       nickname,
       "Please click next link. This token only valid 10 minutes!\n\
       #{callbacks_slack_url(name: user.nickname, token: user.token)}"
@@ -42,6 +43,6 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def fail_to_post_im
-    redirect_to user_session_path, notice: 'Nickname is not valid!'
+    redirect_to user_session_path, notice: "Nickname is not valid!"
   end
 end

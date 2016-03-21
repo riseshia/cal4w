@@ -116,3 +116,7 @@ bower.json
 .byebug_history
 
 .idea/
+
+# NPM
+npm-debug.log
+node_modules

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # EventsHelper
 module EventsHelper
   def classify_per_day(events)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # EventsController
 class EventsController < ApplicationController
   before_action :set_event, only: [
@@ -20,13 +21,13 @@ class EventsController < ApplicationController
   def join
     @event.members << current_user
     @event.notify_new_member current_user, event_url(@event)
-    redirect_to @event, notice: 'Thanks to your join!'
+    redirect_to @event, notice: "Thanks to your join!"
   end
 
   def unjoin
     @event.members.destroy current_user
     @event.notify_cancel_member current_user, event_url(@event)
-    redirect_to @event, notice: 'Ok, I believe we could see soon! :)'
+    redirect_to @event, notice: "Ok, I believe we could see soon! :)"
   end
 
   def new

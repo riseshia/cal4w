@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # ApplicationResponder
 class ApplicationResponder < ActionController::Responder
   include Responders::FlashResponder

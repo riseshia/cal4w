@@ -1,6 +1,7 @@
-require 'rails_helper'
+# frozen_string_literal: true
+require "rails_helper"
 
-RSpec.describe 'events/index', type: :view do
+RSpec.describe "events/index", type: :view do
   before(:each) do
     create(:user)
     assign(:events, [
@@ -8,8 +9,8 @@ RSpec.describe 'events/index', type: :view do
            ])
   end
 
-  it 'renders a list of events' do
+  it "renders a list of events" do
     render
-    assert_select 'a', text: 'Subject in Place'.to_s, count: 1
+    assert_select "a", text: "Subject in Place".to_s, count: 1
   end
 end

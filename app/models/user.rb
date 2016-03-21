@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # User
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -6,7 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   has_many :events
-  has_and_belongs_to_many :events, foreign_key: 'user_id'
+  has_and_belongs_to_many :events, foreign_key: "user_id"
 
   validates :provider, presence: true
 
@@ -20,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def self.from_slack(name, token)
-    user = find_by(provider: 'slack', nickname: name, token: token)
+    user = find_by(provider: "slack", nickname: name, token: token)
     return false if user.nil?
     return false if user.token != token
     return false if user.token_valid_until < Time.zone.now
@@ -30,7 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def self.create_via_slack(name)
-    user = find_or_create_by(provider: 'slack', nickname: name)
+    user = find_or_create_by(provider: "slack", nickname: name)
 
     user.token = Devise.friendly_token[0, 20]
     user.token_valid_until = Time.zone.now + 10.minutes
