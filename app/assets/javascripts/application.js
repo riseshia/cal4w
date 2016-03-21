@@ -16,5 +16,5 @@
 //= require moment
 //= require fullcalendar.min
 //= require bootstrap-sprockets
-//= require external/validator.min
+//= require validator.min
 //= require_tree .
