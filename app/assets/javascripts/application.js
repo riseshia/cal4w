@@ -17,4 +17,5 @@
 //= require fullcalendar.min
 //= require bootstrap-sprockets
 //= require validator.min
+//= require jquery.quickdatetimeselector
 //= require_tree .
