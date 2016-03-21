@@ -4,7 +4,10 @@ class Event < ActiveRecord::Base
   include Colorable
 
   belongs_to :user
-  has_and_belongs_to_many :members, class_name: "User", association_foreign_key: "user_id"
+  has_and_belongs_to_many \
+    :members,
+    class_name: "User",
+    association_foreign_key: "user_id"
 
   validates :subject, presence: true
   validates :place, presence: true
@@ -34,9 +37,9 @@ class Event < ActiveRecord::Base
 
   def relative_time
     if start_time.today?
-      "오늘 #{start_time.strftime("%H:%M")}시"
+      "오늘 #{start_time.strftime('%H:%M')}시"
     elsif (start_time - 1.day).today?
-      "내일 #{start_time.strftime("%H:%M")}시"
+      "내일 #{start_time.strftime('%H:%M')}시"
     else
       start_time.strftime("%F %H:%M")
     end

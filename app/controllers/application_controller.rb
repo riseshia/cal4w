@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
   private
 
   def no_permission
-    redirect_to root_path, notice: 'You don\'t have permission with this action.'
+    redirect_to root_path, notice: "You don't have permission with this action."
   end
 end

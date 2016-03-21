@@ -31,7 +31,10 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new(start_time: Time.zone.now, finish_time: Time.zone.now + 1.hour)
+    @event = Event.new(
+      start_time: Time.zone.now,
+      finish_time: Time.zone.now + 1.hour
+    )
     respond_with(@event)
   end
 
@@ -70,7 +73,9 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:subject, :place, :description, :start_time, :finish_time)
+    params.require(:event).permit(
+      :subject, :place, :description, :start_time, :finish_time
+    )
   end
 
   def permission_check

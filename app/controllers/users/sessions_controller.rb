@@ -15,7 +15,9 @@ class Users::SessionsController < Devise::SessionsController
   def create
     if params[:nickname].present?
       send_token params[:nickname]
-      redirect_to user_session_path, notice: "link is sent to verify you! please check WeirdSlack!"
+      redirect_to \
+        user_session_path,
+        notice: "link is sent to verify you! please check WeirdSlack!"
     else
       redirect_to user_session_path
     end

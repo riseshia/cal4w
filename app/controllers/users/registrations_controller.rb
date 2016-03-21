@@ -42,7 +42,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def go_sign_in
-    redirect_to new_user_session_path, notice: 'You don\'t have permission with this action.'
+    redirect_to \
+      new_user_session_path,
+      notice: 'You don\'t have permission with this action.'
   end
 
   # If you have extra params to permit, append them to the sanitizer.
