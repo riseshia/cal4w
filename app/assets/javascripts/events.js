@@ -33,6 +33,9 @@ $(document).on("ready page:load", function (event) {
 
     var placesSearchCB = function (status, data, pagination) {
       if (status === daum.maps.services.Status.OK) {
+        if (data.places.length == 0) { return; }
+
+        $("#mapPlaceholder").html('<div id="map" style="border:1px solid #000; width:500px; height:400px; margin:20px;"></div>');
         var mapContainer = document.getElementById('map'),
         mapOption = {
           center: new daum.maps.LatLng(37.566826, 126.9786567),
@@ -42,8 +45,8 @@ $(document).on("ready page:load", function (event) {
        
         var bounds = new daum.maps.LatLngBounds();
         for (var i=0; i<data.places.length; i++) {
-            displayMarker(data.places[i]);    
-            bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
+          displayMarker(data.places[i]);    
+          bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
         }       
         map.setBounds(bounds);
       } 
