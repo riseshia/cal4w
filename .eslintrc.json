@@ -23,11 +23,12 @@
     "prefer-const": 1
   },
   "globals": {
-    "Backbone": false,
-    "_": false,
-    "jQuery": false,
-    "$": false,
-    "app": false
+    "Backbone": true,
+    "_": true,
+    "jQuery": true,
+    "$": true,
+    "app": true,
+    "validator": true
   },
   "env": {
     "es6": true,
