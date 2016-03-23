@@ -6,14 +6,13 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <strong>Place:</strong> <%= @event.place %>
+    <strong>Place:</strong> <span id="place"><%= @event.place %></span>
   </div>
 </div>
 
 <div class="row">
   <div class="col-xs-offset-1 col-xs-10">
-    <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=<%= @event.place %>>&key=AIzaSyBEiea82PEaOp4Lhv588wXpkXrlM6zzWEo" allowfullscreen></iframe>
-
+    <div id="map" style="border:1px solid #000; width:500px; height:400px; margin:20px;"></div>
   </div>
 </div>
 
@@ -65,3 +64,10 @@
     <%= link_to 'Back', events_path, class: 'btn btn-success', style: 'color: #FFF;' %>
   </div>
 </div>
+
+<div id="map" style="width:100%;height:350px;"></div>
+
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=dcdd2520ea89a47b9bab5fece8fb7ba8&libraries=services"></script>
+<script>
+
+</script>

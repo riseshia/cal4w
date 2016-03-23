@@ -27,4 +27,40 @@ $(document).on("ready page:load", function (event) {
       }
     }
   })
+
+  if ($("#place").size() == 1) {
+    var map;
+
+    var placesSearchCB = function (status, data, pagination) {
+      if (status === daum.maps.services.Status.OK) {
+        var mapContainer = document.getElementById('map'),
+        mapOption = {
+          center: new daum.maps.LatLng(37.566826, 126.9786567),
+          level: 2
+        };  
+        map = new daum.maps.Map(mapContainer, mapOption); 
+       
+        var bounds = new daum.maps.LatLngBounds();
+        for (var i=0; i<data.places.length; i++) {
+            displayMarker(data.places[i]);    
+            bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
+        }       
+        map.setBounds(bounds);
+      } 
+    }
+
+    var displayMarker = function (place) {
+      var marker = new daum.maps.Marker({
+        map: map,
+        position: new daum.maps.LatLng(place.latitude, place.longitude) 
+      }),
+      infowindow = new daum.maps.InfoWindow({zIndex:1});
+
+      daum.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
+        infowindow.open(map, marker);
+      });
+    }
+    new daum.maps.services.Places().keywordSearch($("#place").text(), placesSearchCB); 
+  }
 })

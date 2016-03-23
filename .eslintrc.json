@@ -28,7 +28,8 @@
     "jQuery": true,
     "$": true,
     "app": true,
-    "validator": true
+    "validator": true,
+    "daum": true
   },
   "env": {
     "es6": true,
