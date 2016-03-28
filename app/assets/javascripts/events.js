@@ -32,8 +32,13 @@ $(document).on("ready page:load", function (event) {
     var map;
 
     var placesSearchCB = function (status, data, pagination) {
-      if (status === daum.maps.services.Status.OK) {
-        if (data.places.length == 0) { return; }
+      if (status === daum.maps.services.Status.ZERO_RESULT) {
+        $("#mapPlaceholder").html("<br>키워드를 통해서 장소를 찾을 수 없습니다.<br><br>");
+      } else if (status === daum.maps.services.Status.OK) {
+        if (data.places.length > 1) {
+          $("#mapPlaceholder").html("<br>키워드를 통해서 검색되는 장소가 2개 이상이므로 지도를 생략합니다.<br><br>");
+          return;
+        }
 
         $("#mapPlaceholder").html('<div id="map" style="border:1px solid #000; width:500px; height:400px; margin:20px;"></div>');
         var mapContainer = document.getElementById('map'),
