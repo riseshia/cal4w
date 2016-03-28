@@ -63,6 +63,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
+    @event.notify_destroyed_event unless @event.persisted? # destroyed
     respond_with(@event)
   end
 

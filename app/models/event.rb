@@ -63,6 +63,13 @@ class Event < ActiveRecord::Base
     )
   end
 
+  def notify_destroyed_event
+    SlackWrapper.notify(
+      '#_meetup',
+      "밋업 일정이 취소되었습니다.\n#{to_slack_message}"
+    )
+  end
+
   def notify_new_member(new_user, target_url)
     SlackWrapper.notify(
       user.nickname,
