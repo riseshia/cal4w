@@ -48,17 +48,19 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <% if @event.editable? @user %>
-      <% if @event.ing_or_after? %>
+    <% if @event.ing_or_after? %>
+      <% if @event.editable? @user %>
         <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %>
         <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', sytle: 'color: #FFF;' %>
+      <% elsif @event.joined? @user %>
+          <%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post, class: 'btn btn-warning', style: 'color: #FFF;' %>
       <% else %>
-        <%= link_to 'Copy', copy_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %>
+          <%= link_to 'Join', join_event_path(@event), method: :post, class: 'btn btn-danger', style: 'color: #FFF;' %>
       <% end %>
-    <% elsif @event.joined? @user %>
-        <%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post, class: 'btn btn-warning', style: 'color: #FFF;' %>
     <% else %>
-        <%= link_to 'Join', join_event_path(@event), method: :post, class: 'btn btn-danger', style: 'color: #FFF;' %>
+      <% if @event.editable? @user %>
+        <%= link_to 'Copy', copy_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %>
+      <% end %>        
     <% end %>
     <%= link_to 'Back', events_path, class: 'btn btn-success', style: 'color: #FFF;' %>
   </div>
