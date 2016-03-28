@@ -11,7 +11,7 @@
         <p><%= label_tag :nickname_on_slack %> (Including "@", i.e. "@slackbot")</p>
         <div class="form-group input-group has-feedback" id="nickname-form">
           <%= text_field_tag :nickname, nil, placeholder: "@weirdmeetup", class: "form-control", "aria-describedby": "nickname-help",
-                     pattern: "^@([A-Za-z0-9_]{1,15})$", "data-error": "Type your slack id including \"@\"", required: true %>
+                     pattern: "^@([A-Za-z0-9_.]{1,15})$", "data-error": "Type your slack id including \"@\"", required: true %>
           <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
           <div id="nickname-help" class="help-block with-errors"></div>
         </div>
