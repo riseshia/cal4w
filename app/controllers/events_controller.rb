@@ -82,4 +82,8 @@ class EventsController < ApplicationController
   def permission_check
     raise User::NoPermission unless @event.editable? current_user
   end
+
+  rescue_from ActiveRecord::RecordNotFound do
+    redirect_to root_path, notice: "해당하는 이벤트를 찾을 수 없습니다."
+  end
 end
