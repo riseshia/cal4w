@@ -13,6 +13,8 @@ class Event < ActiveRecord::Base
   validates :place, presence: true
   validates :user_id, presence: true
 
+  scope :with_user, -> { includes(:user) }
+
   def editable?(user)
     user.id == user_id
   end
