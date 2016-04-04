@@ -45,7 +45,7 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.3)
     ast (2.2.0)
-    autoprefixer-rails (6.3.5)
+    autoprefixer-rails (6.3.6)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
