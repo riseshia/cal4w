@@ -42,12 +42,6 @@ RSpec.describe EventsController, type: :controller do
       get :index, {}
       expect(assigns(:events)).to eq([event])
     end
-
-    it "return json object" do
-      event = Event.create! valid_attributes
-      get :index, format: :json
-      expect(assigns(:events)).to eq([event])
-    end
   end
 
   describe 'GET #show' do

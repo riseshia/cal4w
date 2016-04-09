@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     get 'callbacks/slack', to: 'callbacks#slack'
   end
 
+  namespace :api do
+    resources :events
+  end
+
   resources :events do
     post :join, on: :member
     post :unjoin, on: :member

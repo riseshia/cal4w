@@ -4,16 +4,14 @@ class EventsController < ApplicationController
   before_action :set_event, except: [:index, :new, :create]
   before_action :permission_check, only: [:edit, :update, :destroy, :copy]
 
-  respond_to :html, :json
+  respond_to :html
 
   def index
     @events = Event.with_user
-    respond_with(@events)
   end
 
   def show
     @user = current_user
-    respond_with(@event)
   end
 
   def join
