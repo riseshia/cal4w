@@ -1,37 +1,43 @@
 $(document).on("ready page:load", () => {
-  $("#calendar").fullCalendar({
-    header: {
-      left: "prev,next today",
-      center: "title",
-      right: "month,agendaWeek,agendaDay"
-    },
-    events: "/events/",
-    timezone: "local",
-    aspectRatio: 2.5
-  })
+  if ($("#calendar").size() === 1) {
+    $.getJSON("/api/events/").success((data) => {
+      $("#calendar").fullCalendar({
+        header: {
+          left: "prev,next today",
+          center: "title",
+          right: "month,agendaWeek,agendaDay"
+        },
+        events: data,
+        timezone: "local",
+        aspectRatio: 2.5
+      })
+    })
+  }
 
-  $(".quick-datetime-select").quickDatetimeSelector({
-    locale: {
-      Today: "오늘",
-      Tomorrow: "내일",
-      ThisWeek: "이번 주",
-      NextWeek: "다음 주",
-      day: {
-        Sunday: "일요일",
-        Monday: "월요일",
-        Tuesday: "화요일",
-        Wednesday: "수요일",
-        Thursday: "목요일",
-        Friday: "금요일",
-        Saturday: "토요일"
+  if ($(".quick-datetime-select").size() > 0) {
+    $(".quick-datetime-select").quickDatetimeSelector({
+      locale: {
+        Today: "오늘",
+        Tomorrow: "내일",
+        ThisWeek: "이번 주",
+        NextWeek: "다음 주",
+        day: {
+          Sunday: "일요일",
+          Monday: "월요일",
+          Tuesday: "화요일",
+          Wednesday: "수요일",
+          Thursday: "목요일",
+          Friday: "금요일",
+          Saturday: "토요일"
+        }
       }
-    }
-  })
+    })
+  }
 
   if ($("#place").size() === 1) {
     let map
 
-    let displayMarker = (place) => {
+    const displayMarker = (place) => {
       const marker = new daum.maps.Marker({
         map: map,
         position: new daum.maps.LatLng(place.latitude, place.longitude)
