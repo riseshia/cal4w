@@ -17,6 +17,7 @@
 		<dl>
 			<dt>방문자:</dt>
 			<dd><%= @event.members.map {|member| member.nickname }.join(', ') %></dd>
+		</dl>
 	<% end %>
 
 	<div class="row">
