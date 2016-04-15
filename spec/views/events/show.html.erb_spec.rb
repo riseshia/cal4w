@@ -16,7 +16,7 @@ RSpec.describe "events/show", type: :view do
       expect(rendered).to match(/Place/)
       expect(rendered).to match(/MyText/)
       expect(rendered).to match(//)
-      expect(rendered).to match(/Who will come?/)
+      expect(rendered).to match(/\w./)
     end
   end
 

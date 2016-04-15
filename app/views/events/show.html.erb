@@ -1,71 +1,46 @@
-<div class="row">
-  <div class="col-xs-12">
-    <strong>Subject:</strong> <%= @event.subject %>
-  </div>
-</div>
+<div class="show_container">
+	<h1><%= @event.subject %></h1>
+	<dl>
+		<dt>장소:</dt>
+		<dd id="place"><%= @event.place %></dd>
+		<dd id="mapPlaceholder"></dd>
+		<dt>소개:</dt>
+		<dd><%= @event.description %></dd>
+		<dt>주최자:</dt>
+		<dd><%= @event.user.nickname %></dd>
+		<dt>모임시간</dt>
+		<dd><%= @event.start_time.strftime('%m/%d %H:%M') %> ~ <%= @event.finish_time.strftime('%m/%d %H:%M') %></dd>
+	</dl>
 
-<div class="row">
-  <div class="col-xs-12">
-    <strong>Place:</strong> <span id="place"><%= @event.place %></span>
-  </div>
-</div>
+	<% unless @event.members.empty? %>
+		<h2>누가 방문하나요?</h2>
+		<dl>
+			<dt>방문자:</dt>
+			<dd><%= @event.members.map {|member| member.nickname }.join(', ') %></dd>
+		</dl>
+	<% end %>
 
-<div class="row">
-  <div class="col-xs-12" id="mapPlaceholder">
-  </div>
-</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<% if @event.ing_or_after? %>
+				<% if @event.editable? @user %>
+					<%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %>
+					<%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', sytle: 'color: #FFF;' %>
+				<% elsif @event.joined? @user %>
+						<%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post, class: 'btn btn-warning', style: 'color: #FFF;' %>
+				<% else %>
+						<%= link_to 'Join', join_event_path(@event), method: :post, class: 'btn btn-danger', style: 'color: #FFF;' %>
+				<% end %>
+			<% else %>
+				<% if @event.editable? @user %>
+					<%= link_to 'Copy', copy_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %>
+				<% end %>        
+			<% end %>
+			<%= link_to 'Back', events_path, class: 'btn btn-success', style: 'color: #FFF;' %>
+		</div>
+	</div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <strong>Description:</strong> <%= @event.description %>
-  </div>
-</div>
+	<div id="map" style="width:100%;height:350px;"></div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <strong>Creator:</strong> <%= @event.user.nickname %>
-  </div>
+	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=dcdd2520ea89a47b9bab5fece8fb7ba8&libraries=services"></script>
 </div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <strong>Time:</strong> <%= @event.start_time.strftime('%m/%d %H:%M') %> ~ <%= @event.finish_time.strftime('%m/%d %H:%M') %>
-  </div>
-</div>
-
-<% unless @event.members.empty? %>
-<div class="row">
-  <div class="col-xs-12">
-    <h2>Who will come?</h2>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <%= @event.members.map {|member| member.nickname }.join(', ') %>
-  </div>
-</div>
-<% end %>
-
-<div class="row">
-  <div class="col-xs-12">
-    <% if @event.ing_or_after? %>
-      <% if @event.editable? @user %>
-        <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %>
-        <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', sytle: 'color: #FFF;' %>
-      <% elsif @event.joined? @user %>
-          <%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post, class: 'btn btn-warning', style: 'color: #FFF;' %>
-      <% else %>
-          <%= link_to 'Join', join_event_path(@event), method: :post, class: 'btn btn-danger', style: 'color: #FFF;' %>
-      <% end %>
-    <% else %>
-      <% if @event.editable? @user %>
-        <%= link_to 'Copy', copy_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %>
-      <% end %>        
-    <% end %>
-    <%= link_to 'Back', events_path, class: 'btn btn-success', style: 'color: #FFF;' %>
-  </div>
-</div>
-
-<div id="map" style="width:100%;height:350px;"></div>
-
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=dcdd2520ea89a47b9bab5fece8fb7ba8&libraries=services"></script>
