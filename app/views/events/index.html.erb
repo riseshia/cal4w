@@ -12,6 +12,7 @@
 
 <div class="row">
   <div class="col-xs-12">
+    <%= react_component("EventList", data: @events) %>
     <ul>
       <% classify_per_day(@events).each do |day, events| %>
         <% events.each do |event| %>
