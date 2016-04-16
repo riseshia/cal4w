@@ -19,7 +19,7 @@ RSpec.describe Event, type: :model do
     @event = create(:event)
   end
 
-  describe '#editable?' do
+  describe "#editable?" do
     it "expect return true" do
       expect(@event.editable?(@user)).to be(true)
     end
@@ -30,7 +30,7 @@ RSpec.describe Event, type: :model do
     end
   end
 
-  describe '#joined?' do
+  describe "#joined?" do
     it "expect return true when user is creator" do
       expect(@event.joined?(@user)).to be(true)
     end
