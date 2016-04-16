@@ -2,10 +2,16 @@
 require "rails_helper"
 
 RSpec.describe Event, type: :model do
+  describe "Active Record Associations" do
+    it { expect belong_to(:user) }
+    it { expect have_many(:events_users) }
+    it { expect have_many(:members).through(:events_users).source(:user) }
+  end
+
   describe "Active Record Validations" do
-    it { should validate_presence_of(:user_id) }
-    it { should validate_presence_of(:subject) }
-    it { should validate_presence_of(:place) }
+    it { expect validate_presence_of(:user_id) }
+    it { expect validate_presence_of(:subject) }
+    it { expect validate_presence_of(:place) }
   end
 
   before(:example) do
@@ -14,28 +20,28 @@ RSpec.describe Event, type: :model do
   end
 
   describe '#editable?' do
-    it "should return true" do
+    it "expect return true" do
       expect(@event.editable?(@user)).to be(true)
     end
 
-    it "should return false" do
+    it "expect return false" do
       user = create(:user2)
       expect(@event.editable?(user)).to be(false)
     end
   end
 
   describe '#joined?' do
-    it "should return true when user is creator" do
+    it "expect return true when user is creator" do
       expect(@event.joined?(@user)).to be(true)
     end
 
-    it "should return true when user is joined" do
+    it "expect return true when user is joined" do
       user = create(:user2)
       @event.members << user
       expect(@event.joined?(user)).to be(true)
     end
 
-    it "should return false when user is not joined" do
+    it "expect return false when user is not joined" do
       user = create(:user2)
       expect(@event.joined?(user)).to be(false)
     end

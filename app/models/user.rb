@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
-  has_many :events
-  has_and_belongs_to_many :events, foreign_key: "user_id"
+  has_many :events_users
+  has_many :events, through: :events_users
 
   validates :provider, presence: true
 
@@ -21,13 +21,11 @@ class User < ActiveRecord::Base
   end
 
   def self.from_slack(name)
-    user = find_or_create_by(provider: "slack", nickname: name)
-
-    user.token = Devise.friendly_token[0, 20]
-    user.token_valid_until = Time.zone.now + 10.minutes
-    user.password = Devise.friendly_token[0, 20]
-    user.save
-    user
+    find_or_create_by(provider: "slack", nickname: name) do |user|
+      user.token = Devise.friendly_token[0, 20]
+      user.token_valid_until = Time.zone.now + 10.minutes
+      user.password = Devise.friendly_token[0, 20]
+    end
   end
 
   def email_required?
