@@ -19,7 +19,7 @@ module Api
       end
 
       it "return json object" do
-        event = Event.create! valid_attributes
+        event = create(:event)
         get :index, format: :json
         expect(assigns(:events)).to eq([event])
       end
@@ -27,7 +27,7 @@ module Api
 
     describe "GET #show" do
       it "returns http success" do
-        event = Event.create! valid_attributes
+        event = create(:event)
         get :show, id: event.to_param, format: :json
         expect(response).to have_http_status(:success)
       end

@@ -24,11 +24,17 @@ RSpec.describe EventsController, type: :controller do
   # Event. As you add validations to Event, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    attributes_for(:event)
+    {
+      subject: "Subject",
+      place: "Place",
+      description: "MyText",
+      start_time: Time.zone.now,
+      finish_time: Time.zone.now + 1.hour
+    }
   end
 
   let(:invalid_attributes) do
-    skip("Add a hash of attributes invalid for your model")
+    { subject: nil }
   end
 
   before(:example) do
@@ -38,7 +44,7 @@ RSpec.describe EventsController, type: :controller do
 
   describe 'GET #index' do
     it "assigns all events as @events" do
-      event = Event.create! valid_attributes
+      event = create(:event)
       get :index, {}
       expect(assigns(:events)).to eq([event])
     end
@@ -46,7 +52,7 @@ RSpec.describe EventsController, type: :controller do
 
   describe 'GET #show' do
     it "assigns the requested event as @event" do
-      event = Event.create! valid_attributes
+      event = create(:event)
       get :show, id: event.to_param
       expect(assigns(:event)).to eq(event)
     end
@@ -54,22 +60,20 @@ RSpec.describe EventsController, type: :controller do
 
   describe 'POST #join' do
     it "creates a new Member" do
-      create(:user2)
-      event2 = create(:event2)
+      event = create(:event)
       expect do
-        post :join, id: event2.to_param
-      end.to change(event2.members, :count).by(1)
+        post :join, id: event.to_param
+      end.to change(event.members, :count).by(1)
     end
   end
 
   describe 'POST #unjoin' do
     it "creates a new Member" do
-      create(:user2)
-      event2 = create(:event2)
-      event2.members << @user
+      event = create(:event)
+      event.members << @user
       expect do
-        post :unjoin, id: event2.to_param
-      end.to change(event2.members, :count).by(-1)
+        post :unjoin, id: event.to_param
+      end.to change(event.members, :count).by(-1)
     end
   end
 
@@ -82,13 +86,13 @@ RSpec.describe EventsController, type: :controller do
 
   describe 'GET #edit' do
     it "assigns the requested event as @event" do
-      event = Event.create! valid_attributes
+      event = create(:event, user: @user)
       get :edit, id: event.to_param
       expect(assigns(:event)).to eq(event)
     end
 
     it "will be redirected root_path if try to edit the others event" do
-      event = Event.create! attributes_for(:event2)
+      event = create(:event)
       get :edit, id: event.to_param
       expect(response).to redirect_to("/")
     end
@@ -130,24 +134,24 @@ RSpec.describe EventsController, type: :controller do
   describe 'PUT #update' do
     context "with valid params" do
       let(:new_attributes) do
-        skip("Add a hash of attributes valid for your model")
+        { subject: "New Subject" }
       end
 
       it "updates the requested event" do
-        event = Event.create! valid_attributes
+        event = create(:event, user: @user)
         put :update, id: event.to_param, event: new_attributes
         event.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:event)).to eq(event)
       end
 
       it "assigns the requested event as @event" do
-        event = Event.create! valid_attributes
+        event = create(:event, user: @user)
         put :update, id: event.to_param, event: valid_attributes
         expect(assigns(:event)).to eq(event)
       end
 
       it "redirects to the event" do
-        event = Event.create! valid_attributes
+        event = create(:event, user: @user)
         put :update, id: event.to_param, event: valid_attributes
         expect(response).to redirect_to(event)
       end
@@ -155,13 +159,13 @@ RSpec.describe EventsController, type: :controller do
 
     context "with invalid params" do
       it "assigns the event as @event" do
-        event = Event.create! valid_attributes
+        event = create(:event, user: @user)
         put :update, id: event.to_param, event: invalid_attributes
         expect(assigns(:event)).to eq(event)
       end
 
       it "re-renders the 'edit' template" do
-        event = Event.create! valid_attributes
+        event = create(:event, user: @user)
         put :update, id: event.to_param, event: invalid_attributes
         expect(response).to render_template("edit")
       end
@@ -170,14 +174,14 @@ RSpec.describe EventsController, type: :controller do
 
   describe 'DELETE #destroy' do
     it "destroys the requested event" do
-      event = Event.create! valid_attributes
+      event = create(:event, user: @user)
       expect do
         delete :destroy, id: event.to_param
       end.to change(Event, :count).by(-1)
     end
 
     it "redirects to the events list" do
-      event = Event.create! valid_attributes
+      event = create(:event, user: @user)
       delete :destroy, id: event.to_param
       expect(response).to redirect_to(events_url)
     end

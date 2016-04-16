@@ -4,10 +4,8 @@ class Event < ActiveRecord::Base
   include Colorable
 
   belongs_to :user
-  has_and_belongs_to_many \
-    :members,
-    class_name: "User",
-    association_foreign_key: "user_id"
+  has_many :events_users
+  has_many :members, through: :events_users, source: :user
 
   validates :subject, presence: true
   validates :place, presence: true

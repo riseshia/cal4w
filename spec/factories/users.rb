@@ -1,16 +1,10 @@
 # frozen_string_literal: true
 FactoryGirl.define do
   factory :user, class: User do
-    email "test@email.com"
-    password "teafdafsdfa"
-    provider "weirdx"
-    nickname "name"
-  end
-
-  factory :user2, class: User do
-    email "test2@email.com"
-    password "teafdafsdfa"
-    provider "weirdx"
-    nickname "name2"
+    sequence(:id)
+    provider "slack"
+    sequence(:email) { |n| "test#{n}@email.com" }
+    sequence(:password) { |n| "password#{n}" }
+    sequence(:nickname) { |n| "name#{n}" }
   end
 end

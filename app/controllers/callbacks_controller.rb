@@ -7,7 +7,7 @@ class CallbacksController < Devise::OmniauthCallbacksController
   end
 
   def slack
-    @user = User.from_slack(params[:name], params[:token])
+    @user = User.find_by(nickname: params[:name], token: params[:token])
     if @user
       @user.remember_me = true
       sign_in_and_redirect @user
