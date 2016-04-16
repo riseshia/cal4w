@@ -15,8 +15,8 @@ RSpec.describe Event, type: :model do
   end
 
   before(:example) do
-    @user = create(:user)
     @event = create(:event)
+    @user = @event.user
   end
 
   describe "#editable?" do
@@ -25,7 +25,7 @@ RSpec.describe Event, type: :model do
     end
 
     it "expect return false" do
-      user = create(:user2)
+      user = create(:user)
       expect(@event.editable?(user)).to be(false)
     end
   end
@@ -36,13 +36,13 @@ RSpec.describe Event, type: :model do
     end
 
     it "expect return true when user is joined" do
-      user = create(:user2)
+      user = create(:user)
       @event.members << user
       expect(@event.joined?(user)).to be(true)
     end
 
     it "expect return false when user is not joined" do
-      user = create(:user2)
+      user = create(:user)
       expect(@event.joined?(user)).to be(false)
     end
   end

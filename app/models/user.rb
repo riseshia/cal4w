@@ -21,11 +21,18 @@ class User < ActiveRecord::Base
   end
 
   def self.from_slack(name)
-    find_or_create_by(provider: "slack", nickname: name) do |user|
-      user.token = Devise.friendly_token[0, 20]
-      user.token_valid_until = Time.zone.now + 10.minutes
-      user.password = Devise.friendly_token[0, 20]
+    user = find_or_create_by(provider: "slack", nickname: name) do |model|
+      model.password = Devise.friendly_token[0, 20]
     end
+    user.generate_token
+  end
+
+  def generate_token
+    update_attributes(
+      token: Devise.friendly_token[0, 20],
+      token_valid_until: Time.zone.now + 10.minutes
+    )
+    self
   end
 
   def email_required?
