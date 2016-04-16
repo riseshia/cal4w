@@ -18,4 +18,8 @@
 //= require bootstrap-sprockets
 //= require validator.min
 //= require jquery.quickdatetimeselector
-//= require_tree .
+//= require react
+//= require react_ujs
+//= require components
+//= require events
+//= require sessions
