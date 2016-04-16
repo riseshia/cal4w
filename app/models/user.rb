@@ -20,17 +20,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.from_slack(name, token)
-    user = find_by(provider: "slack", nickname: name, token: token)
-    return false if user.nil?
-    return false if user.token != token
-    return false if user.token_valid_until < Time.zone.now
-
-    user.save
-    user
-  end
-
-  def self.create_via_slack(name)
+  def self.from_slack(name)
     user = find_or_create_by(provider: "slack", nickname: name)
 
     user.token = Devise.friendly_token[0, 20]

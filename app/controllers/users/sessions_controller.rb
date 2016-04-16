@@ -31,7 +31,7 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def send_token(nickname)
-    user = User.create_via_slack(nickname)
+    user = User.from_slack(nickname)
     SlackWrapper.notify(
       nickname,
       "Please click next link. This token only valid 10 minutes!\n\
