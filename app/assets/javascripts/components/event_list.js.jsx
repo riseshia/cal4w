@@ -8,8 +8,13 @@ class EventList extends React.Component {
       this.setState({ data: data })
     }.bind(this))
   }
+  byEnable() {
+    return this.state.data.filter((event) => {
+      return moment(event.end) > moment()
+    })
+  }
   render() {
-    var eventNodes = this.state.data.map(function (event) {
+    var eventNodes = this.byEnable().map(function (event) {
       return (
         <Event key={event.id} startTime={event.start} subject={event.subject} place={event.place}/>
       )
