@@ -13,14 +13,37 @@ class EventList extends React.Component {
       return moment(event.end) > moment()
     })
   }
+  perDay() {
+    if (this.state.data.length === 0) {
+      return []
+    }
+    // const enableEvent = this.byEnable()
+    const enableEvent = this.state.data
+    let list = []
+    let day = { list: [], key: null }
+    let currentDate
+    enableEvent.forEach((event) => {
+      const eventDate = moment(event.start).format("MM-DD")
+      currentDate = currentDate || eventDate
+      if (eventDate !== currentDate) {
+        list.push(day)
+        day = { list: [] }
+        currentDate = eventDate
+      }
+      day.key = currentDate
+      day.list.push(event)
+    }, this)
+    list.push(day)
+    return list
+  }
   render() {
-    var eventNodes = this.byEnable().map(function (event) {
+    const eventlistNodes = this.perDay().map((events) => {
       return (
-        <Event key={event.id} startTime={event.start} subject={event.subject} place={event.place}/>
+        <EventListPerDay key={events.key} data={events.list} />
       )
     })
     return (
-      <ul>{eventNodes}</ul>
+      <ul>{eventlistNodes}</ul>
     )
   }
 }

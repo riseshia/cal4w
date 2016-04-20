@@ -1,0 +1,13 @@
+class EventListPerDay extends React.Component {
+  render() {
+    let eventNodes = this.props.data.map((event) => {
+      const key = "event-" + event.id
+      return (
+        <Event key={key} startTime={event.start} place={event.place} id={event.id} />
+      )
+    })
+    return (
+      <div className="per-day">{eventNodes}</div>
+    )
+  }
+}

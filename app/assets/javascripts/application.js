@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require polyfill.array
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
