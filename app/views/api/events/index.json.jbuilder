@@ -6,4 +6,5 @@ json.array!(@events) do |event|
   json.start event.start_time.iso8601
   json.end event.finish_time.iso8601
   json.color event.to_hex
+  json.member_names event.member_names
 end
