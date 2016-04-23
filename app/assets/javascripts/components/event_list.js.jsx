@@ -17,8 +17,7 @@ class EventList extends React.Component {
     if (this.state.data.length === 0) {
       return []
     }
-    // const enableEvent = this.byEnable()
-    const enableEvent = this.state.data
+    const enableEvent = this.byEnable()
     let list = []
     let day = { list: [], key: null }
     let currentDate
