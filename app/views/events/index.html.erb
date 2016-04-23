@@ -1,20 +1,5 @@
-<div class="row">
-  <div class="col-xs-12">
-    <%= react_component("Calendar") %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <h2>Next Events</h2>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <%= react_component("EventList", data: @events) %>
-  </div>
-</div>
+<%= react_component("Calendar") %>
+<%= react_component("EventList", data: @events) %>
 
 <div class="row">
   <div class="col-xs-12">

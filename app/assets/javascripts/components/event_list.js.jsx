@@ -42,7 +42,18 @@ class EventList extends React.Component {
       )
     })
     return (
-      <ul>{eventlistNodes}</ul>
+      <div>
+        <div className="row">
+          <div className="col-xs-12">
+            <h2>Next Events</h2>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <ul>{eventlistNodes}</ul>
+          </div>
+        </div>
+      </div>
     )
   }
 }
