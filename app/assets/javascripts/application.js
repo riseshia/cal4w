@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require polyfill.array
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
@@ -18,4 +19,8 @@
 //= require bootstrap-sprockets
 //= require validator.min
 //= require jquery.quickdatetimeselector
-//= require_tree .
+//= require react
+//= require react_ujs
+//= require components
+//= require events
+//= require sessions

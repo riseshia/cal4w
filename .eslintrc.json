@@ -20,7 +20,8 @@
     "no-var" : 2,
     "no-undef" : 1,
     "prefer-arrow-callback": 2,
-    "prefer-const": 1
+    "prefer-const": 1,
+    "no-unused-vars" : 0
   },
   "globals": {
     "Backbone": true,
@@ -29,7 +30,8 @@
     "$": true,
     "app": true,
     "validator": true,
-    "daum": true
+    "daum": true,
+    "React": true
   },
   "env": {
     "es6": true,

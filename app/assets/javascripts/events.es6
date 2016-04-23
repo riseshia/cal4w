@@ -1,19 +1,4 @@
 $(document).on("ready page:load", () => {
-  if ($("#calendar").size() === 1) {
-    $.getJSON("/api/events/").success((data) => {
-      $("#calendar").fullCalendar({
-        header: {
-          left: "prev,next today",
-          center: "title",
-          right: "month,agendaWeek,agendaDay"
-        },
-        events: data,
-        timezone: "local",
-        aspectRatio: 2.5
-      })
-    })
-  }
-
   if ($(".quick-datetime-select").size() > 0) {
     $(".quick-datetime-select").quickDatetimeSelector({
       locale: {
@@ -28,9 +13,9 @@ $(document).on("ready page:load", () => {
           Wednesday: "수요일",
           Thursday: "목요일",
           Friday: "금요일",
-          Saturday: "토요일"
-        }
-      }
+          Saturday: "토요일",
+        },
+      },
     })
   }
 
@@ -40,7 +25,7 @@ $(document).on("ready page:load", () => {
     const displayMarker = (place) => {
       const marker = new daum.maps.Marker({
         map: map,
-        position: new daum.maps.LatLng(place.latitude, place.longitude)
+        position: new daum.maps.LatLng(place.latitude, place.longitude),
       })
       const infowindow = new daum.maps.InfoWindow({ zIndex: 1 })
 
@@ -63,12 +48,12 @@ $(document).on("ready page:load", () => {
         const mapContainer = document.getElementById("map")
         const mapOption = {
           center: new daum.maps.LatLng(37.566826, 126.9786567),
-          level: 2
+          level: 2,
         }
         map = new daum.maps.Map(mapContainer, mapOption)
 
         const bounds = new daum.maps.LatLngBounds()
-        for (let i=0; i<data.places.length; i++) {
+        for (let i = 0; i < data.places.length; i++) {
           displayMarker(data.places[i])
           bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude))
         }

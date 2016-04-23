@@ -87,6 +87,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.1)
+    connection_pool (2.2.0)
     database_cleaner (1.5.2)
     debug_inspector (0.0.2)
     devise (4.0.0)
@@ -202,6 +203,13 @@ GEM
     rake (11.1.2)
     rdoc (4.2.2)
       json (~> 1.4)
+    react-rails (1.6.2)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      rails (>= 3.2)
+      tilt
     require_all (1.3.3)
     responders (2.1.2)
       railties (>= 4.2.0, < 5.1)
@@ -319,6 +327,7 @@ DEPENDENCIES
   puma
   rails
   rails_best_practices
+  react-rails
   responders
   rspec-mocks
   rspec-rails (~> 3.0)
