@@ -24,3 +24,4 @@
 //= require components
 //= require events
 //= require sessions
+//= require summernote

@@ -2,6 +2,13 @@
 // They will automatically be included in application.scss.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.map {
+  border:1px solid #000;
+  height:400px;
+  margin:20px;
+  width:500px;
+}
+
 .fc-content {
   color: rgb(255,255,255);
 }
