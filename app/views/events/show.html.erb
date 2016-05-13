@@ -5,7 +5,7 @@
 		<dd id="place"><%= @event.place %></dd>
 		<dd id="mapPlaceholder"></dd>
 		<dt>소개:</dt>
-		<dd><%= @event.description %></dd>
+		<dd><%= @event.description.html_safe %></dd>
 		<dt>주최자:</dt>
 		<dd><%= @event.user.nickname %></dd>
 		<dt>모임시간</dt>

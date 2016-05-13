@@ -24,7 +24,7 @@ $(document).on("ready page:load", () => {
 
     const displayMarker = (place) => {
       const marker = new daum.maps.Marker({
-        map: map,
+        map,
         position: new daum.maps.LatLng(place.latitude, place.longitude),
       })
       const infowindow = new daum.maps.InfoWindow({ zIndex: 1 })
@@ -44,7 +44,7 @@ $(document).on("ready page:load", () => {
           return
         }
 
-        $("#mapPlaceholder").html("<div id='map' style='border:1px solid #000; width:500px; height:400px; margin:20px;'></div>")
+        $("#mapPlaceholder").html("<div id='map' class='map'></div>")
         const mapContainer = document.getElementById("map")
         const mapOption = {
           center: new daum.maps.LatLng(37.566826, 126.9786567),
@@ -62,5 +62,9 @@ $(document).on("ready page:load", () => {
     }
 
     new daum.maps.services.Places().keywordSearch($("#place").text(), placesSearchCB)
+  }
+
+  if ($(".summernote").length !== 0) {
+    $(".summernote").summernote({ height: 300 })
   }
 })
