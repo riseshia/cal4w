@@ -85,6 +85,6 @@ class Event < ActiveRecord::Base
   end
 
   def to_hex_with
-    user.id
+    user&.id || 0
   end
 end
