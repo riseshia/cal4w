@@ -16,7 +16,7 @@
 		<h2>누가 방문하나요?</h2>
 		<dl>
 			<dt>방문자:</dt>
-			<dd><%= @event.members.map {|member| member.nickname }.join(', ') %></dd>
+			<dd><%= @event.members.map { |member| member.nickname }.join(', ') %></dd>
 		</dl>
 	<% end %>
 

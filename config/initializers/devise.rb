@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -8,13 +9,14 @@ Devise.setup do |config|
   # `secret_key` by default.
   # You can change it below and use your own secret key.
   # config.secret_key = '72e0ac91523ae1bb982d4fa779bfb5a2fba1d550c2a9299275950'\
-  # '258d7b094c771c6c0b31d4550c8b69693ef92a48311b191a8cfcc6c3fc01461e58d1fdd616a'
+  # '258d7b094c771c6c0b31d4550c8b69693ef92a48311b19'\
+  # '1a8cfcc6c3fc01461e58d1fdd616a'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me@example.com'
+  config.mailer_sender = "please-change-me@example.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -23,7 +25,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -58,7 +60,7 @@ Devise.setup do |config|
   config.strip_whitespace_keys = [:uid]
 
   # Tell if authentication through request.params is enabled. True by default.
-  # It can be set to an array that will enable params authentication only 
+  # It can be set to an array that will enable params authentication only
   # for the given strategies,
   # for example, `config.params_authenticatable = [:database]` will
   # enable it only for database (email + password) authentication.
@@ -104,7 +106,7 @@ Devise.setup do |config|
   # Limiting the stretches to just one in testing will increase the performance
   # of your test suite dramatically. However, it is STRONGLY RECOMMENDED to not
   # use a value less than 10 in other environments. Note that, for bcrypt
-  # (the default encryptor), the cost increases exponentially with the number 
+  # (the default encryptor), the cost increases exponentially with the number
   # of stretches (e.g. a value of 20 is already extremely slow: approx.
   # 60 seconds for 1 calculation).
   config.stretches = Rails.env.test? ? 1 : 10
@@ -172,7 +174,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.
-  # :failed_attempts = Locks an account after a number of 
+  # :failed_attempts = Locks an account after a number of
   #                    failed attempts to sign in.
   # :none            = No lock strategy. You should handle locking by yourself.
   # config.lock_strategy = :failed_attempts
@@ -258,10 +260,10 @@ Devise.setup do |config|
   #                 ENV['WEIRDX_APP_ID'],
   #                 ENV['WEIRDX_APP_SECRET'],
   #                 scope: 'read'
-  config.omniauth :slack,
-                  ENV['SLACK_CLIENT_ID'],
-                  ENV['SLACK_CLIENT_SECRET'],
-                  scope: 'identity.basic',
+  config.omniauth :slack_signin,
+                  ENV["SLACK_CLIENT_ID"],
+                  ENV["SLACK_CLIENT_SECRET"],
+                  scope: "identity.basic",
                   team: ENV["WEIRDX_TEAM_ID"]
 
   # ==> Warden configuration
@@ -277,7 +279,7 @@ Devise.setup do |config|
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this
   # engine is mountable, there are some extra configurations to be taken into
-  # account. 
+  # account.
   # The following options are available, assuming the engine is mounted as:
   #
   #     mount MyEngine, at: '/my_engine'

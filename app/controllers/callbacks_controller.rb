@@ -6,7 +6,7 @@ class CallbacksController < Devise::OmniauthCallbacksController
     sign_in_and_redirect @user
   end
 
-  def slack
+  def slack_signin
     @user = User.from_omniauth(request.env["omniauth.auth"])
     if @user
       @user.remember_me = true

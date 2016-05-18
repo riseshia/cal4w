@@ -32,7 +32,7 @@ gem 'responders'
 
 gem 'devise'
 gem 'omniauth-weirdx', github: 'riseshia/omniauth-weirdx'
-gem 'omniauth-slack', github: 'riseshia/omniauth-slack'
+gem 'omniauth-slack_signin', github: 'riseshia/omniauth-slack_signin'
 gem 'slack-ruby-client'
 
 gem 'figaro'

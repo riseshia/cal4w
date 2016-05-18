@@ -12,4 +12,8 @@ module SlackWrapper
       username: "Cal4Weirdx"
     )
   end
+
+  def user_name(uid)
+    Slack::Web::Client.new.users_info(user: uid.upcase).user.name
+  end
 end

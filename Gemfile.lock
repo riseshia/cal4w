@@ -1,8 +1,8 @@
 GIT
-  remote: git://github.com/riseshia/omniauth-slack.git
-  revision: 8398f1f248fc9ba6bbd56a040f80a592fab99afa
+  remote: git://github.com/riseshia/omniauth-slack_signin.git
+  revision: 485d4fe51107b97120cdacdecf3fb12c37c140fb
   specs:
-    omniauth-slack (2.3.0)
+    omniauth-slack_signin (0.1.0)
       omniauth-oauth2 (~> 1.3.1)
 
 GIT
@@ -337,7 +337,7 @@ DEPENDENCIES
   jquery-rails
   momentjs-rails
   mysql2
-  omniauth-slack!
+  omniauth-slack_signin!
   omniauth-weirdx!
   puma
   rails

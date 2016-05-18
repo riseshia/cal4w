@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:slack]
+         :omniauthable, omniauth_providers: [:slack_signin]
 
   has_many :events_users
   has_many :events, through: :events_users
@@ -14,9 +14,9 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
     return nil if auth.info.team.id != ENV["WEIRDX_TEAM_ID"]
-    where(provider: auth.provider, uid: auth.info.nickname.id).
-    first_or_create do |user|
-      user.nickname = auth.info.nickname.name
+    where(provider: auth.provider, uid: auth.info.user.id)
+      .first_or_create do |user|
+      user.nickname = SlackWrapper.user_name(auth.info.user.id)
       user.password = Devise.friendly_token[0, 20]
     end
   end

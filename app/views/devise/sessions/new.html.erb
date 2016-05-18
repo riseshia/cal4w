@@ -6,12 +6,10 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <%- resource_class.omniauth_providers.each do |provider| %>
-      <%= link_to image_tag("https://api.slack.com/img/sign_in_with_slack.png",
-                            alt: "Sign in with Slack", height: "40", width: "172",
-                            srcset: "https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"),
-                            omniauth_authorize_path(resource_name, provider) %>
-    <% end -%>
+    <%= link_to image_tag("https://api.slack.com/img/sign_in_with_slack.png",
+                          alt: "Sign in with Slack", height: "40", width: "172",
+                          srcset: "https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"),
+                          omniauth_authorize_path(resource_name, "slack_signin") %>
   </div>
 </div>
 
