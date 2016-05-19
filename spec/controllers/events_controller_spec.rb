@@ -43,10 +43,9 @@ RSpec.describe EventsController, type: :controller do
   end
 
   describe 'GET #index' do
-    it "assigns all events as @events" do
-      event = create(:event)
+    it "return http status 200" do
       get :index, {}
-      expect(assigns(:events)).to eq([event])
+      expect(response).to have_http_status(:success)
     end
   end
 

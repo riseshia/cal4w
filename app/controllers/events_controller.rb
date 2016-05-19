@@ -7,7 +7,6 @@ class EventsController < ApplicationController
   respond_to :html
 
   def index
-    @events = Event.with_user
   end
 
   def show
