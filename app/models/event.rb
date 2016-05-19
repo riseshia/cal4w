@@ -27,7 +27,7 @@ class Event < ActiveRecord::Base
   end
 
   def member_names
-    members.map(&:nickname).unshift(user.nickname)
+    members.map(&:mention_name).unshift(user.mention_name)
   end
 
   def shift_day_with(datetime)

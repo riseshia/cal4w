@@ -7,7 +7,7 @@
 		<dt>소개:</dt>
 		<dd><%= @event.description.html_safe %></dd>
 		<dt>주최자:</dt>
-		<dd><%= @event.user.nickname %></dd>
+		<dd><%= @event.user.mention_name %></dd>
 		<dt>모임시간</dt>
 		<dd><%= @event.start_time.strftime('%m/%d %H:%M') %> ~ <%= @event.finish_time.strftime('%m/%d %H:%M') %></dd>
 	</dl>
@@ -16,7 +16,7 @@
 		<h2>누가 방문하나요?</h2>
 		<dl>
 			<dt>방문자:</dt>
-			<dd><%= @event.members.map { |member| member.nickname }.join(', ') %></dd>
+			<dd><%= @event.members.map(&:mention_name).join(', ') %></dd>
 		</dl>
 	<% end %>
 
