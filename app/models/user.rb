@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
   def email_required?
     false
   end
+
+  def mention_name
+    "@" + nickname
+  end
 end
 
 # User::NoPermission

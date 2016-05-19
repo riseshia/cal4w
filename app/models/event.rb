@@ -72,14 +72,14 @@ class Event < ActiveRecord::Base
 
   def notify_new_member(new_user, target_url)
     SlackWrapper.notify(
-      user.nickname,
+      user.mention_name,
       "#{new_user.nickname}님이 '#{subject}' 밋업에 참가 신청하셨습니다.\n링크: #{target_url}"
     )
   end
 
   def notify_cancel_member(new_user, target_url)
     SlackWrapper.notify(
-      user.nickname,
+      user.mention_name,
       "#{new_user.nickname}님이 '#{subject}' 밋업 참가를 취소하셨습니다.\n링크: #{target_url}"
     )
   end
