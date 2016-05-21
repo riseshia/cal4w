@@ -29,7 +29,7 @@ RSpec.describe EventsController, type: :controller do
       place: "Place",
       description: "MyText",
       start_time: Time.zone.now,
-      finish_time: Time.zone.now + 1.hour
+      planned_time: "5"
     }
   end
 

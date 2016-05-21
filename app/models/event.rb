@@ -9,9 +9,27 @@ class Event < ActiveRecord::Base
 
   validates :subject, presence: true
   validates :place, presence: true
+  validates :start_time, presence: true
+  validates :finish_time, presence: true
   validates :user_id, presence: true
 
   scope :with_users, -> { includes(:user, :members) }
+
+  before_validation :set_finish_time
+
+  def planned_time
+    if finish_time.nil? && start_time.nil?
+      1
+    elsif finish_time.present? && start_time.present?
+      ((finish_time - start_time) / 1.hour).to_i
+    else
+      @planned_time
+    end
+  end
+
+  def planned_time=(data)
+    @planned_time = data.to_i
+  end
 
   def editable?(user)
     user.id == user_id
@@ -86,5 +104,11 @@ class Event < ActiveRecord::Base
 
   def to_hex_with
     user&.id || 0
+  end
+
+  def set_finish_time
+    if start_time.present? && planned_time.present?
+      self.finish_time = start_time + planned_time.hour
+    end
   end
 end
