@@ -65,7 +65,7 @@ RSpec.describe Event, type: :model do
     it "will include only date" do
       datetime = Time.zone.now.beginning_of_day + 2.days
       event = build(:event, start_time: datetime)
-      expect(event.relative_time).to eq(datetime.strftime("%H:%M %:z"))
+      expect(event.relative_time).to eq(datetime.strftime("%F %H:%M %:z"))
     end
   end
 end
