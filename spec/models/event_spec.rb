@@ -46,4 +46,26 @@ RSpec.describe Event, type: :model do
       expect(@event.joined?(user)).to be(false)
     end
   end
+
+  describe "#relative_time" do
+    it "will include 오늘" do
+      datetime = Time.zone.now.beginning_of_day + 1.hour
+      formatted = datetime.strftime("%H:%M %:z")
+      event = build(:event, start_time: datetime)
+      expect(event.relative_time).to eq("오늘 #{formatted}")
+    end
+
+    it "will include 내일" do
+      datetime = Time.zone.now.beginning_of_day + 1.day
+      formatted = datetime.strftime("%H:%M %:z")
+      event = build(:event, start_time: datetime)
+      expect(event.relative_time).to eq("내일 #{formatted}")
+    end
+
+    it "will include only date" do
+      datetime = Time.zone.now.beginning_of_day + 2.days
+      event = build(:event, start_time: datetime)
+      expect(event.relative_time).to eq(datetime.strftime("%H:%M %:z"))
+    end
+  end
 end

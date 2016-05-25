@@ -55,11 +55,11 @@ class Event < ActiveRecord::Base
 
   def relative_time
     if start_time.today?
-      "오늘 #{start_time.strftime('%H:%M')}시"
+      "오늘 #{start_time.strftime('%H:%M %:z')}"
     elsif (start_time - 1.day).today?
-      "내일 #{start_time.strftime('%H:%M')}시"
+      "내일 #{start_time.strftime('%H:%M %:z')}"
     else
-      start_time.strftime("%F %H:%M")
+      start_time.strftime("%F %H:%M %:z")
     end
   end
 
