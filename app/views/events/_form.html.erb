@@ -1,4 +1,4 @@
-<%= form_for(event) do |f| %>
+<%= form_for(event, html: {class: "event-form"}) do |f| %>
   <% if event.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -40,9 +40,12 @@
     <div class="col-xs-11">
       <div class="field form-group">
         <%= f.label "시작 예정 시각" %>:
-        <div class="quick-datetime-select" data-start-datetime="#start-time" data-end-datetime="#end-time"></div>
+        <div class="quick-datetime-select" data-start-datetime="#start-time"></div>
         <div>
-          <span id="start-time"><%= f.datetime_select :start_time, minute_step: 10 %></span>
+          <span id="start-time">
+            <%= f.datetime_select :start_time, minute_step: 10 %>
+            <%= f.select :timezone, timezone_options %>
+          </span>
         </div>
       </div>
     </div>
@@ -54,17 +57,21 @@
         <div class="col-sm-3">
           <%= f.label "예상 소요 시간" %>:
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-1">
           <span id="until-hour"><%= f.phone_field :planned_time, class: "form-control" %></span>
         </div>
-      </div>
+        <div class="col-sm-2 hour-label">시간</div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-xs-11">
       <div class="actions">
-        <%= f.submit event.persisted? ? "Update Meetup" : "Create Meetup", class: "btn btn-warning" %>
+      <% if event.persisted? %>
+        <%= f.submit "Update Meetup", class: "btn btn-warning", id: "update-submit" %>
+      <% else %>
+        <%= f.submit "Create Meetup", class: "btn btn-warning", id: "create-submit" %>
+      <% end %>
       </div>
     </div>
   </div>

@@ -17,6 +17,8 @@ class Event < ActiveRecord::Base
 
   before_validation :set_finish_time
 
+  attr_accessor :timezone
+
   def planned_time
     if finish_time.nil? && start_time.nil?
       1

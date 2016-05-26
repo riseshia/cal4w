@@ -169,7 +169,6 @@ $.fn.quickDatetimeSelector = function(options) {
 
   function changeDate() {
     $(this).prop('start').trigger('quickdatetime:change:date');
-    $(this).prop('end').trigger('quickdatetime:change:date');
   }
 
   function fillDateFromParent() {
@@ -200,7 +199,6 @@ $.fn.quickDatetimeSelector = function(options) {
     ele.each(function() {
       var $target = $(this);
       var $start = $($target.data('startDatetime'));
-      var $end = $($target.data('endDatetime'));
       var today = new Date();
       var thisWeek = 0;
 
@@ -213,9 +211,8 @@ $.fn.quickDatetimeSelector = function(options) {
       $target.on('click', '.' + settings.weekButtonClass, settings.onClickWeekButton);
       $target.on('click', '.' + settings.dayButtonClass, settings.onClickDayButton);
 
-      $target.prop('start', $start).prop('end', $end);
+      $target.prop('start', $start);
       $start.prop('parent', $target).on('quickdatetime:change:date', settings.changeDateTrigger);
-      $end.prop('parent', $target).on('quickdatetime:change:date', settings.changeDateTrigger);
 
       $start.on('change.quickdatetime', changeDateManually);
 
