@@ -1,5 +1,5 @@
 $(document).on("ready page:load", () => {
-  if ($(".quick-datetime-select").size() > 0) {
+  if ($(".quick-datetime-select").length > 0) {
     $(".quick-datetime-select").quickDatetimeSelector({
       locale: {
         Today: "오늘",
@@ -19,7 +19,54 @@ $(document).on("ready page:load", () => {
     })
   }
 
-  if ($("#place").size() === 1) {
+  if ($("#event_timezone").length === 1) {
+    // Setup current timezone
+    const $timezone = $("#event_timezone")
+    const browserOffset = (new Date()).getTimezoneOffset()
+    const offset = $timezone.find(`option[value=${browserOffset}]`).val()
+    $timezone.val(offset)
+
+    const getDate = () => {
+      const year = Number($("#event_start_time_1i").val())
+      const month = Number($("#event_start_time_2i").val())
+      const day = Number($("#event_start_time_3i").val())
+      const hour = Number($("#event_start_time_4i").val())
+      const min = Number($("#event_start_time_5i").val())
+
+      return new Date(year, month, day, hour, min)
+    }
+
+    const setDate = (date) => {
+      let new_min = Math.floor(date.getMinutes() / 10) * 10
+      if (new_min == 0) { new_min = "00" }
+
+      $("#event_start_time_1i").val(date.getFullYear())
+      $("#event_start_time_2i").val(date.getMonth())
+      $("#event_start_time_3i").val(date.getDate())
+      $("#event_start_time_4i").val(date.getHours())
+      $("#event_start_time_5i").val(new_min)
+    }
+
+    const manipulateDate = (minOffset) => {
+      let date = getDate()
+      const min = date.getMinutes()
+
+      date.setMinutes(min + minOffset)
+      setDate(date)
+    }
+
+    if ($("#update-submit").length === 1) {
+      manipulateDate(- Number(offset) - 540)
+    }
+
+    // Transform UTC before submit
+    $(".event-form").submit(function (event) {
+      manipulateDate(Number(offset) + 540)
+      return true
+    })
+  }
+
+  if ($("#place").length === 1) {
     let map
 
     const displayMarker = (place) => {
