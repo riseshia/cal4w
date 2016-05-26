@@ -24,6 +24,7 @@ $(document).on("ready page:load", () => {
     const $timezone = $("#event_timezone")
     const browserOffset = (new Date()).getTimezoneOffset()
     const offset = $timezone.find(`option[value=${browserOffset}]`).val()
+    const defaultOffset = 540
     $timezone.val(offset)
 
     const getDate = () => {
@@ -37,14 +38,14 @@ $(document).on("ready page:load", () => {
     }
 
     const setDate = (date) => {
-      let new_min = Math.floor(date.getMinutes() / 10) * 10
-      if (new_min == 0) { new_min = "00" }
+      let newMin = Math.floor(date.getMinutes() / 10) * 10
+      if (newMin === 0) { newMin = "00" }
 
       $("#event_start_time_1i").val(date.getFullYear())
       $("#event_start_time_2i").val(date.getMonth())
       $("#event_start_time_3i").val(date.getDate())
       $("#event_start_time_4i").val(date.getHours())
-      $("#event_start_time_5i").val(new_min)
+      $("#event_start_time_5i").val(newMin)
     }
 
     const manipulateDate = (minOffset) => {
@@ -56,12 +57,12 @@ $(document).on("ready page:load", () => {
     }
 
     if ($("#update-submit").length === 1) {
-      manipulateDate(- Number(offset) - 540)
+      manipulateDate(- Number(offset) - defaultOffset)
     }
 
     // Transform UTC before submit
-    $(".event-form").submit(function (event) {
-      manipulateDate(Number(offset) + 540)
+    $(".event-form").submit((event) => {
+      manipulateDate(Number(offset) + defaultOffset)
       return true
     })
   }
