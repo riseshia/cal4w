@@ -1,0 +1,30 @@
+.show_container {
+  font-size:18px;
+  line-height:180px;
+  color:#181818;
+  h1 {
+    font-size:2em;
+    line-height:2em;
+  }
+  h2 {
+    font-size:1.5em;
+  }
+  dl {
+    overflow:hidden;
+  }
+  dt {
+    float:left;
+    width:220px;
+  }
+  dd {
+    overflow:hidden;
+  }
+}
+
+.nav-bar {
+  text-align: right;
+
+  a {
+    margin: 20px 0 20px 10px;
+  }
+}
