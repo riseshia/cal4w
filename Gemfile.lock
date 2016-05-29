@@ -60,7 +60,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.2)
-    byebug (9.0.4)
+    byebug (9.0.5)
     capistrano (3.5.0)
       airbrussh (>= 1.0.0)
       capistrano-harrow
@@ -262,7 +262,7 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    slack-ruby-client (0.7.3)
+    slack-ruby-client (0.7.4)
       activesupport
       faraday
       faraday_middleware
