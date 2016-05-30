@@ -6,8 +6,8 @@ module Colorable
     "#FFD1DC", "#DEA5A4", "#AEC6CF",
     "#77DD77", "#CFCFC4", "#B39EB5",
     "#FFB347", "#B19CD9", "#FF6961",
-    "#03C03C", "#FDFD96", "#836953",
-    "#779ECB", "#966FD6"
+    "#03C03C", "#2FAACE", "#836953",
+    "#779ECB", "#966FD6", "#A55FEB"
   ].freeze
 
   def to_hex
