@@ -6,7 +6,7 @@ class Calendar extends React.Component {
         center: "title",
         right: "month,agendaWeek,agendaDay",
       },
-      events: nextProps.data,
+      events: "/api/events/",
       timezone: "local",
       aspectRatio: 2.5,
     })
