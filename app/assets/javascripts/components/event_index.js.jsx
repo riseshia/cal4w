@@ -5,7 +5,9 @@ class EventIndex extends React.Component {
   }
 
   componentDidMount() {
-    $.getJSON("/api/events/").success((data) => {
+    const today = moment()
+    const todayStr = today.format("YYYY-MM-DD")
+    $.getJSON("/api/events/", {start: todayStr, _: +today}).success((data) => {
       this.setState({data: data})
     }.bind(this))
   }
