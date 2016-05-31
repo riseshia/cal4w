@@ -14,6 +14,12 @@ class Event < ActiveRecord::Base
   validates :user_id, presence: true
 
   scope :with_users, -> { includes(:user, :members) }
+  scope :since_date, lambda { |date|
+    where("start_time > ?", Time.zone.parse(date)) if date
+  }
+  scope :until_date, lambda { |date|
+    where("start_time < ?", Time.zone.parse(date)) if date
+  }
 
   before_validation :set_finish_time
 
