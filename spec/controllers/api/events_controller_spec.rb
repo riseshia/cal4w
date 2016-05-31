@@ -23,6 +23,18 @@ module Api
         get :index, format: :json
         expect(assigns(:events)).to eq([event])
       end
+
+      it "returns events in range" do
+        past_event = create(:event_2days_ago)
+        future_event = create(:event_tomorrow)
+        param = Time.zone.now.strftime("%F")
+
+        get :index, format: :json, start: param
+        expect(assigns(:events)).to eq([future_event])
+
+        get :index, format: :json, end: param
+        expect(assigns(:events)).to eq([past_event])
+      end
     end
 
     describe "GET #show" do

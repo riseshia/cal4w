@@ -5,7 +5,11 @@ module Api
     respond_to :json
 
     def index
-      @events = Event.with_users.order(start_time: :asc)
+      @events = Event
+                .with_users
+                .since_date(params[:start])
+                .until_date(params[:end])
+                .order(start_time: :asc)
     end
 
     def show
