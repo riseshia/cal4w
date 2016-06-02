@@ -19,9 +19,9 @@ $(document).on("ready page:load", () => {
     })
   }
 
-  if ($("#event_timezone").length === 1) {
+  if ($("#event_form_timezone").length === 1) {
     // Setup current timezone
-    const $timezone = $("#event_timezone")
+    const $timezone = $("#event_form_timezone")
     const browserOffset = (new Date()).getTimezoneOffset()
     const offset = $timezone.find(`option[value=${browserOffset}]`).val()
     const defaultOffset = 540
