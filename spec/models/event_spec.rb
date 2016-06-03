@@ -19,6 +19,14 @@ RSpec.describe Event, type: :model do
     @user = @event.user
   end
 
+  describe "#init_with_user" do
+    it "will have user object" do
+      user = build(:user)
+      event = Event.init_with_user({}, user)
+      expect(event.user).to eq(user)
+    end
+  end
+
   describe "#editable?" do
     it "expect return true" do
       expect(@event.editable?(@user)).to be(true)

@@ -26,11 +26,11 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new(
+    @event_form = EventForm.new(
       start_time: Time.zone.now,
-      finish_time: Time.zone.now + 1.hour
+      planned_time: 1
     )
-    respond_with(@event)
+    # respond_with(@event)
   end
 
   def copy
@@ -41,19 +41,30 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @event_form = EventForm.init_with_event(@event)
   end
 
   def create
-    @event = Event.new(event_params)
-    @event.user = current_user
-    @event.notify_new_event event_url(@event) if @event.save
-    respond_with(@event)
+    @event_form = EventForm.new(event_form_params)
+    if @event_form.valid?
+      @event = Event.init_with_user(@event_form.attributes, current_user)
+      @event.save!(validate: false)
+      @event.notify_new_event event_url(@event)
+      redirect_to @event, notice: "성공적으로 밋업을 만들었습니다."
+    else
+      render :new
+    end
   end
 
   def update
-    @event.update(event_params)
-    @event.notify_updated_event event_url(@event) if @event.save
-    respond_with(@event)
+    @event_form = EventForm.new(event_form_params, @event)
+    if @event_form.valid?
+      @event.update(@event_form.attributes)
+      @event.notify_updated_event event_url(@event)
+      redirect_to @event, notice: "성공적으로 밋업을 변경했습니다."
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -68,8 +79,8 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
 
-  def event_params
-    params.require(:event).permit(
+  def event_form_params
+    params.require(:event_form).permit(
       :subject, :place, :description, :start_time, :planned_time
     )
   end
