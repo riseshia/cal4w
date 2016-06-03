@@ -47,8 +47,7 @@ class EventsController < ApplicationController
   def create
     @event_form = EventForm.new(event_form_params)
     if @event_form.valid?
-      @event = Event.new(@event_form.attributes)
-      @event.user = current_user
+      @event = Event.init_with_user(@event_form.attributes, current_user)
       @event.save!(validate: false)
       @event.notify_new_event event_url(@event)
       redirect_to @event, notice: "성공적으로 밋업을 만들었습니다."

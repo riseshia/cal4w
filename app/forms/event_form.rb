@@ -19,7 +19,7 @@ class EventForm
     @subject = params[:subject]
     @place = params[:place]
     @description = params[:description]
-    @start_time = struct_start_time(params)
+    @start_time = extract_start_time(params)
     @planned_time = params[:planned_time].to_i
     @timezone = params[:timezone]
     @event = event
@@ -54,12 +54,20 @@ class EventForm
 
   private
 
+  def extract_start_time(params)
+    if params["start_time"].present?
+      Time.zone.parse(params["start_time"])
+    else
+      struct_start_time(params)
+    end
+  end
+
   def struct_start_time(params)
-    return unless params["start_time(1i)"]
+    return if params["start_time(1i)"].nil?
     attrs = (1..5).map do |i|
       params["start_time(#{i}i)"].to_i
     end
-    DateTime.new(attrs[0], attrs[1], attrs[2], attrs[3], attrs[4], 0, "+9")
+    Time.zone.local(attrs[0], attrs[1], attrs[2], attrs[3], attrs[4], 0)
   end
 
   def set_finish_time

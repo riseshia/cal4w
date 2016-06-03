@@ -21,6 +21,12 @@ class Event < ActiveRecord::Base
     where("start_time < ?", Time.zone.parse(date)) if date
   }
 
+  def self.init_with_user(attrs, user)
+    event = new(attrs)
+    event.user = user
+    event
+  end
+
   def editable?(user)
     user.id == user_id
   end
