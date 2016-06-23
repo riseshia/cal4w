@@ -299,7 +299,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
-    unicode-display_width (1.0.5)
+    unicode-display_width (1.1.0)
     warden (1.2.6)
       rack (>= 1.0)
     web-console (2.3.0)
