@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates :provider, presence: true
 
   def self.from_omniauth(auth)
-    return nil if auth.info.team.id != ENV["WEIRDX_TEAM_ID"]
+    raise User::DifferentGroup if auth.info.team.id != ENV["WEIRDX_TEAM_ID"]
     where(provider: auth.provider, uid: auth.info.user.id)
       .first_or_create do |user|
       user.nickname = SlackWrapper.user_name(auth.info.user.id)
@@ -33,5 +33,11 @@ end
 # User::NoPermission
 class User
   class NoPermission < StandardError
+  end
+
+  class NotFound < StandardError
+  end
+
+  class DifferentGroup < StandardError
   end
 end
