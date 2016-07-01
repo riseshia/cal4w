@@ -337,7 +337,7 @@ DEPENDENCIES
   omniauth-slack_signin
   omniauth-weirdx!
   puma
-  rails
+  rails (~> 4.2)
   rails_best_practices
   react-rails
   responders
