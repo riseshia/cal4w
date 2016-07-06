@@ -17,8 +17,14 @@
     <% if current_user.present? %>
     <div class="container">
       <div class="row">
-        <div class="col-xs-offset-9 col-xs-3">
-          <div class="nav-bar">
+        <div class="col-xs-3">
+          <div class="nav-bar pull-left">
+            <%= link_to "Go to Index", events_path, class: "btn btn-default" %>
+            <%= link_to "New Event", new_event_path, class: "btn btn-success" %>
+          </div>
+        </div>
+        <div class="col-xs-offset-6 col-xs-3">
+          <div class="nav-bar pull-right">
             <%= link_to "Issue or Bug?", "https://github.com/riseshia/cal4w/issues", class: "btn btn-info", target: "_blank" %>
             <%= link_to "Logout", destroy_user_session_path, method: :delete, type: "submit", class: "btn btn-danger" %>
           </div>
@@ -27,11 +33,9 @@
     </div>
     <% end %>
 
-
     <div class="container">
       <%= render "layouts/notice" %>
       <%= yield %>
     </div>
-
   </body>
 </html>

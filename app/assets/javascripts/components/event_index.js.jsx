@@ -16,11 +16,6 @@ class EventIndex extends React.Component {
       <div>
         <Calendar data={this.state.data} />
         <EventList data={this.state.data} />
-        <div className="row">
-          <div className="col-xs-12">
-            <a className="btn btn-primary new-event" href="/events/new">New Event</a>
-          </div>
-        </div>
       </div>
     )
   }

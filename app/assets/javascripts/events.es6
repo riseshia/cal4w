@@ -1,4 +1,4 @@
-$(document).on("ready page:load", () => {
+$(document).on("ready turbolinks:load", () => {
   if ($(".quick-datetime-select").length > 0) {
     $(".quick-datetime-select").quickDatetimeSelector({
       locale: {
@@ -41,7 +41,7 @@ $(document).on("ready page:load", () => {
       let newMin = Math.floor(date.getMinutes() / 10) * 10
       if (newMin === 0) { newMin = "00" }
       let newHour = date.getHours()
-      if (newHour < 10) { newHour = "0" + newHour }
+      if (newHour < 10) { newHour = `0${newHour}` }
 
       $("#event_start_time_1i").val(date.getFullYear())
       $("#event_start_time_2i").val(date.getMonth())
@@ -51,7 +51,7 @@ $(document).on("ready page:load", () => {
     }
 
     const manipulateDate = (minOffset) => {
-      let date = getDate()
+      const date = getDate()
       const min = date.getMinutes()
 
       date.setMinutes(min + minOffset)

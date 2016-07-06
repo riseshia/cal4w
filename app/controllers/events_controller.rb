@@ -30,7 +30,6 @@ class EventsController < ApplicationController
       start_time: Time.zone.now,
       planned_time: 1
     )
-    # respond_with(@event)
   end
 
   def copy
