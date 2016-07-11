@@ -23,5 +23,4 @@
 //= require react_ujs
 //= require components
 //= require events
-//= require sessions
 //= require summernote
