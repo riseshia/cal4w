@@ -195,7 +195,7 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_best_practices (1.16.0)
+    rails_best_practices (1.17.0)
       activesupport
       code_analyzer (>= 0.4.3)
       erubis
