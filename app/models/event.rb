@@ -65,21 +65,21 @@ class Event < ActiveRecord::Base
 
   def notify_new_event(target_url)
     SlackWrapper.notify(
-      '#_meetup',
+      "#_meetup",
       "새 밋업 일정이 추가되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
     )
   end
 
   def notify_updated_event(target_url)
     SlackWrapper.notify(
-      '#_meetup',
+      "#_meetup",
       "밋업 일정이 변경되었습니다.\n#{to_slack_message}\n링크: #{target_url}"
     )
   end
 
   def notify_destroyed_event
     SlackWrapper.notify(
-      '#_meetup',
+      "#_meetup",
       "밋업 일정이 취소되었습니다.\n#{to_slack_message}"
     )
   end
