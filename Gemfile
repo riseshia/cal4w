@@ -42,8 +42,6 @@ gem "bootstrap-sass"
 gem "momentjs-rails"
 gem "font-awesome-sass"
 
-gem "puma"
-
 group :development do
   gem "capistrano", require: false
   gem "capistrano-rbenv", require: false
