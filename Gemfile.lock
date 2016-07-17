@@ -344,6 +344,7 @@ DEPENDENCIES
   mysql2
   omniauth-slack_signin
   omniauth-weirdx!
+  puma
   rails (~> 5.0.0)
   rails-controller-testing
   rails_best_practices
