@@ -65,7 +65,8 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "database_cleaner"
 
-  gem "rubocop"
-  gem "rails_best_practices"
-  gem "codeclimate-test-reporter", require: nil
+  gem "rubocop", require: false
+  gem "rails_best_practices", require: false
+  gem "codeclimate-test-reporter", require: false
+  gem "rails-controller-testing"
 end
