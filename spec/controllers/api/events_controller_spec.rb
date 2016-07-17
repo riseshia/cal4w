@@ -14,13 +14,13 @@ module Api
 
     describe "GET #index" do
       it "returns http success" do
-        get :index, format: :json
+        get :index, params: { format: :json }
         expect(response).to have_http_status(:success)
       end
 
       it "return json object" do
         event = create(:event)
-        get :index, format: :json
+        get :index, params: { format: :json }
         expect(assigns(:events)).to eq([event])
       end
 
@@ -29,10 +29,10 @@ module Api
         future_event = create(:event_tomorrow)
         param = Time.zone.now.strftime("%F")
 
-        get :index, format: :json, start: param
+        get :index, params: { format: :json, start: param }
         expect(assigns(:events)).to eq([future_event])
 
-        get :index, format: :json, end: param
+        get :index, params: { format: :json, end: param }
         expect(assigns(:events)).to eq([past_event])
       end
     end
@@ -40,7 +40,7 @@ module Api
     describe "GET #show" do
       it "returns http success" do
         event = create(:event)
-        get :show, id: event.to_param, format: :json
+        get :show, params: { id: event.to_param, format: :json }
         expect(response).to have_http_status(:success)
       end
     end

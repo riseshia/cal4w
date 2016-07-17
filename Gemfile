@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "rails", "~> 4.2"
+gem "rails", "~> 5.0.0"
 
 gem "sqlite3"
 gem "mysql2"
@@ -42,8 +42,6 @@ gem "bootstrap-sass"
 gem "momentjs-rails"
 gem "font-awesome-sass"
 
-gem "puma"
-
 group :development do
   gem "capistrano", require: false
   gem "capistrano-rbenv", require: false
@@ -67,7 +65,8 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "database_cleaner"
 
-  gem "rubocop"
-  gem "rails_best_practices"
-  gem "codeclimate-test-reporter", require: nil
+  gem "rubocop", require: false
+  gem "rails_best_practices", require: false
+  gem "codeclimate-test-reporter", require: false
+  gem "rails-controller-testing"
 end
