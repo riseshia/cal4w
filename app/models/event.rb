@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Event
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   include Colorable
 
   belongs_to :user
