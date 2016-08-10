@@ -82,7 +82,7 @@ GEM
     capistrano3-puma (1.2.1)
       capistrano (~> 3.0)
       puma (>= 2.6)
-    code_analyzer (0.4.5)
+    code_analyzer (0.4.6)
       sexp_processor
     codeclimate-test-reporter (0.6.0)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -219,7 +219,7 @@ GEM
     rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
-    react-rails (1.8.1)
+    react-rails (1.8.2)
       babel-transpiler (>= 0.7.0)
       coffee-script-source (~> 1.8)
       connection_pool
@@ -271,7 +271,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    slack-ruby-client (0.7.5)
+    slack-ruby-client (0.7.6)
       activesupport
       faraday
       faraday_middleware
