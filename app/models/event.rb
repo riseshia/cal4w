@@ -10,7 +10,7 @@ class Event < ApplicationRecord
   validates :subject, presence: true
   validates :place, presence: true
   validates :start_time, presence: true
-  validates :finish_time, presence: true
+  validates :planned_time, presence: true
   validates :user_id, presence: true
 
   scope :with_users, -> { includes(:user, :members) }
@@ -36,6 +36,10 @@ class Event < ApplicationRecord
     members.exists?(user.id)
   end
 
+  def finish_time
+    start_time + planned_time.hours
+  end
+
   def ing_or_after?
     finish_time > Time.zone.now
   end
@@ -46,16 +50,15 @@ class Event < ApplicationRecord
 
   def shift_day_with(datetime)
     self.start_time += ((datetime - self.start_time) / 86_400).day
-    self.finish_time += ((datetime - self.finish_time) / 86_400).day
   end
 
   def relative_time
     if start_time.today?
-      "오늘 #{start_time.strftime('%H:%M %:z')}"
+      "오늘 #{start_time.strftime('%H:%M')} #{tz_from_offset}"
     elsif (start_time - 1.day).today?
-      "내일 #{start_time.strftime('%H:%M %:z')}"
+      "내일 #{start_time.strftime('%H:%M')} #{tz_from_offset}"
     else
-      start_time.strftime("%F %H:%M %:z")
+      start_time.strftime("%F %H:%M") + " #{tz_from_offset}"
     end
   end
 
@@ -100,5 +103,14 @@ class Event < ApplicationRecord
 
   def to_hex_with
     user&.id || 0
+  end
+
+  private
+
+  def tz_from_offset
+    sign = timezone_offset.positive? ? "-" : "+"
+    hour = timezone_offset.abs / 60
+    min = timezone_offset.abs % 60
+    "#{sign}#{format('%02d', hour)}:#{format('%02d', min)}"
   end
 end

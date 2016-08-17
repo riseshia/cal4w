@@ -25,11 +25,16 @@ RSpec.describe EventsController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     {
-      subject: "Subject",
-      place: "Place",
-      description: "MyText",
-      start_time: Time.zone.now,
-      planned_time: "5"
+      :subject => "Subject",
+      :place => "Place",
+      :description => "MyText",
+      "start_time(1i)" => "2016",
+      "start_time(2i)" => "8",
+      "start_time(3i)" => "19",
+      "start_time(4i)" => "21",
+      "start_time(5i)" => "00",
+      :timezone_offset => "-600",
+      :planned_time => "5"
     }
   end
 

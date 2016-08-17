@@ -26,10 +26,7 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event_form = EventForm.new(
-      start_time: Time.zone.now,
-      planned_time: 1
-    )
+    @event_form = EventForm.new(planned_time: 1)
   end
 
   def copy
@@ -80,7 +77,8 @@ class EventsController < ApplicationController
 
   def event_form_params
     params.require(:event_form).permit(
-      :subject, :place, :description, :start_time, :planned_time
+      :subject, :place, :description,
+      :start_time, :planned_time, :timezone_offset
     )
   end
 
