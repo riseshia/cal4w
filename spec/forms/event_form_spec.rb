@@ -33,7 +33,6 @@ RSpec.describe EventForm, type: :model do
       actual = event_form.attributes
       expected_datetime = Time.new(2016, 8, 19, 21, 0, 0, "+10:00")
       expect(actual[:start_time]).to eq(expected_datetime)
-      expect(actual[:finish_time]).to eq(expected_datetime + 1.hour)
     end
 
     it "returns 21:00 from 21:00 +1000 with event" do

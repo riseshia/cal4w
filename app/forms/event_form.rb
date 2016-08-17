@@ -6,9 +6,7 @@ class EventForm
 
   attr_accessor :event
   attr_accessor :subject, :place, :description,
-                :start_time, :finish_time, :timezone_offset
-
-  before_validation :set_finish_time
+                :planned_time, :start_time, :timezone_offset
 
   validates :subject, presence: true
   validates :place, presence: true
@@ -31,16 +29,6 @@ class EventForm
     new(attrs, event)
   end
 
-  def planned_time
-    if finish_time.nil? && start_time.nil?
-      1
-    elsif finish_time.present? && start_time.present?
-      ((finish_time - start_time) / 1.hour).to_i
-    else
-      @planned_time
-    end
-  end
-
   def persisted?
     event.present?
   end
@@ -50,7 +38,7 @@ class EventForm
       place: place,
       description: description,
       start_time: start_time,
-      finish_time: finish_time,
+      planned_time: planned_time,
       timezone_offset: timezone_offset }
   end
 
@@ -73,15 +61,9 @@ class EventForm
   end
 
   def tz_from_offset
-    sign = timezone_offset > 0 ? "-" : "+"
+    sign = timezone_offset.positive? ? "-" : "+"
     hour = timezone_offset.abs / 60
     min = timezone_offset.abs % 60
-    "#{sign}#{format("%02d", hour)}:#{format("%02d", min)}"
-  end
-
-  def set_finish_time
-    if start_time.present? && planned_time.present?
-      self.finish_time = start_time + planned_time.hour
-    end
+    "#{sign}#{format('%02d', hour)}:#{format('%02d', min)}"
   end
 end

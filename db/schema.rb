@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160817060940) do
+ActiveRecord::Schema.define(version: 20160817072153) do
 
   create_table "events", force: :cascade do |t|
     t.string   "subject"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20160817060940) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.datetime "start_time"
-    t.datetime "finish_time"
     t.integer  "timezone_offset", default: -540, null: false
+    t.integer  "planned_time",    default: 1,    null: false
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 

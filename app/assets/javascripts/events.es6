@@ -38,16 +38,17 @@ $(document).on("ready turbolinks:load", () => {
     }
 
     const setDate = (date) => {
+      debugger
       let newMin = Math.floor(date.getMinutes() / 10) * 10
       if (newMin === 0) { newMin = "00" }
       let newHour = date.getHours()
       if (newHour < 10) { newHour = `0${newHour}` }
 
-      $("#event_start_time_1i").val(date.getFullYear())
-      $("#event_start_time_2i").val(date.getMonth())
-      $("#event_start_time_3i").val(date.getDate())
-      $("#event_start_time_4i").val(newHour)
-      $("#event_start_time_5i").val(newMin)
+      $("#event_form_start_time_1i").val(date.getFullYear())
+      $("#event_form_start_time_2i").val(date.getMonth())
+      $("#event_form_start_time_3i").val(date.getDate())
+      $("#event_form_start_time_4i").val(newHour)
+      $("#event_form_start_time_5i").val(newMin)
     }
 
     const manipulateDate = (minOffset) => {
@@ -58,9 +59,15 @@ $(document).on("ready turbolinks:load", () => {
       setDate(date)
     }
 
+    // Init start_time with local time
+    const now = new Date()
+    now.setMinutes(0)
+    now.setHours(now.getHours() + 1)
+    setDate(now)
+
     // Transform UTC before submit
     $(".event-form").submit((event) => {
-      manipulateDate(Number(offset) + defaultOffset)
+      manipulateDate(Number(minOffset) + defaultOffset)
       return true
     })
   }

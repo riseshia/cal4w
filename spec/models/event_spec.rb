@@ -12,6 +12,8 @@ RSpec.describe Event, type: :model do
     it { expect validate_presence_of(:user_id) }
     it { expect validate_presence_of(:subject) }
     it { expect validate_presence_of(:place) }
+    it { expect validate_presence_of(:start_time) }
+    it { expect validate_presence_of(:planned_time) }
   end
 
   before(:example) do
@@ -56,21 +58,28 @@ RSpec.describe Event, type: :model do
   end
 
   describe "#relative_time" do
-    it "will include 오늘" do
+    it "returns string include 오늘" do
       datetime = Time.zone.now.beginning_of_day + 1.hour
       formatted = datetime.strftime("%H:%M %:z")
       event = build(:event, start_time: datetime)
       expect(event.relative_time).to eq("오늘 #{formatted}")
     end
 
-    it "will include 내일" do
+    it "returns string include 오늘 with tz +10:00" do
+      datetime = Time.zone.now.beginning_of_day + 1.hour
+      formatted = datetime.strftime("%H:%M") + " +10:00"
+      event = build(:event, start_time: datetime, timezone_offset: -600)
+      expect(event.relative_time).to eq("오늘 #{formatted}")
+    end
+
+    it "returns string include 내일" do
       datetime = Time.zone.now.beginning_of_day + 1.day
       formatted = datetime.strftime("%H:%M %:z")
       event = build(:event, start_time: datetime)
       expect(event.relative_time).to eq("내일 #{formatted}")
     end
 
-    it "will include only date" do
+    it "returns string include only date" do
       datetime = Time.zone.now.beginning_of_day + 2.days
       event = build(:event, start_time: datetime)
       expect(event.relative_time).to eq(datetime.strftime("%F %H:%M %:z"))
