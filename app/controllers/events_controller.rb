@@ -29,13 +29,6 @@ class EventsController < ApplicationController
     @event_form = EventForm.new(planned_time: 1)
   end
 
-  def copy
-    @new_event = @event.dup
-    @new_event.shift_day_with(Time.zone.now)
-    @event = @new_event
-    render :new
-  end
-
   def edit
     @event_form = EventForm.init_with_event(@event)
   end

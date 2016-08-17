@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
   root "events#index"
 
@@ -19,6 +20,5 @@ Rails.application.routes.draw do
   resources :events do
     post :join, on: :member
     post :unjoin, on: :member
-    get :copy, on: :member
   end
 end
