@@ -25,7 +25,9 @@ class EventForm
   end
 
   def self.init_with_event(event)
-    attrs = event.attributes.each_with_object({}) { |(k, v), obj| obj[k.to_sym] = v }
+    attrs = event
+            .attributes
+            .each_with_object({}) { |(k, v), obj| obj[k.to_sym] = v }
     new(attrs, event)
   end
 
@@ -45,7 +47,6 @@ class EventForm
   private
 
   SERVER_TZ_OFFSET = -540
-
   def extract_start_time(params)
     if params[:start_time].present?
       params[:start_time] + (SERVER_TZ_OFFSET - timezone_offset).minutes

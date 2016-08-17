@@ -52,13 +52,19 @@ class Event < ApplicationRecord
     self.start_time += ((datetime - self.start_time) / 86_400).day
   end
 
+  SERVER_TZ_OFFSET = -540
+  def start_time_with_tz
+    @start_time_with_tz ||=
+      start_time + (SERVER_TZ_OFFSET - timezone_offset).minutes
+  end
+
   def relative_time
-    if start_time.today?
-      "오늘 #{start_time.strftime('%H:%M')} #{tz_from_offset}"
-    elsif (start_time - 1.day).today?
-      "내일 #{start_time.strftime('%H:%M')} #{tz_from_offset}"
+    if start_time_with_tz.today?
+      "오늘 #{start_time_with_tz.strftime('%H:%M')} #{tz_from_offset}"
+    elsif (start_time_with_tz - 1.day).today?
+      "내일 #{start_time_with_tz.strftime('%H:%M')} #{tz_from_offset}"
     else
-      start_time.strftime("%F %H:%M") + " #{tz_from_offset}"
+      start_time_with_tz.strftime("%F %H:%M") + " #{tz_from_offset}"
     end
   end
 
@@ -104,8 +110,6 @@ class Event < ApplicationRecord
   def to_hex_with
     user&.id || 0
   end
-
-  private
 
   def tz_from_offset
     sign = timezone_offset.positive? ? "-" : "+"

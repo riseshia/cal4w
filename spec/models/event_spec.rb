@@ -66,8 +66,8 @@ RSpec.describe Event, type: :model do
     end
 
     it "returns string include 오늘 with tz +10:00" do
-      datetime = Time.zone.now.beginning_of_day + 1.hour
-      formatted = datetime.strftime("%H:%M") + " +10:00"
+      datetime = Time.zone.now.beginning_of_day
+      formatted = (datetime + 1.hour).strftime("%H:%M") + " +10:00"
       event = build(:event, start_time: datetime, timezone_offset: -600)
       expect(event.relative_time).to eq("오늘 #{formatted}")
     end
