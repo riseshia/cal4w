@@ -2,8 +2,6 @@
 module Api
   # Api::EventsController
   class EventsController < Api::BaseController
-    respond_to :json
-
     def index
       @events = Event
                 .with_users
