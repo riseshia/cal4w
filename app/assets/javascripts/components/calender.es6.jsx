@@ -1,5 +1,5 @@
 class Calendar extends React.Component {
-  componentWillReceiveProps(nextProps) {
+  componentDidMount(nextProps) {
     $("#calendar").fullCalendar({
       header: {
         left: "prev,next today",
