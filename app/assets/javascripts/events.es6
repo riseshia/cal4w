@@ -19,9 +19,9 @@ $(document).on("ready turbolinks:load", () => {
     })
   }
 
-  if ($("#event_form_timezone").length === 1) {
+  if ($("#new_event_form").length) {
     // Setup current timezone
-    const $timezone = $("#event_form_timezone")
+    const $timezone = $("#event_form_timezone_offset")
     const browserOffset = (new Date()).getTimezoneOffset()
     const offset = $timezone.find(`option[value=${browserOffset}]`).val()
     const defaultOffset = 540
@@ -56,10 +56,6 @@ $(document).on("ready turbolinks:load", () => {
 
       date.setMinutes(min + minOffset)
       setDate(date)
-    }
-
-    if ($("#update-submit").length === 1) {
-      manipulateDate(- Number(offset) - defaultOffset)
     }
 
     // Transform UTC before submit
