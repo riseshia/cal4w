@@ -349,7 +349,6 @@ DEPENDENCIES
   rails-controller-testing
   rails_best_practices
   react-rails
-  responders
   rspec-mocks
   rspec-rails (~> 3.0)
   rubocop

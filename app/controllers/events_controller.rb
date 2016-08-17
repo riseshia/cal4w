@@ -4,8 +4,6 @@ class EventsController < ApplicationController
   before_action :set_event, except: [:index, :new, :create]
   before_action :permission_check, only: [:edit, :update, :destroy, :copy]
 
-  respond_to :html
-
   def index
   end
 
@@ -59,7 +57,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     @event.notify_destroyed_event unless @event.persisted? # destroyed
-    respond_with(@event)
+    redirect_to events_url, notice: "밋업이 취소되었습니다."
   end
 
   private
