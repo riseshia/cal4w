@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# SlackWrapper
 module SlackWrapper
   module_function
 

@@ -21,6 +21,7 @@ class User < ApplicationRecord
     end
   end
 
+  # For DEVISE
   def email_required?
     false
   end

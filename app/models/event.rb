@@ -48,10 +48,6 @@ class Event < ApplicationRecord
     members.map(&:mention_name).unshift(user.mention_name)
   end
 
-  def shift_day_with(datetime)
-    self.start_time += ((datetime - self.start_time) / 86_400).day
-  end
-
   SERVER_TZ_OFFSET = -540
   def start_time_with_tz
     @start_time_with_tz ||=
