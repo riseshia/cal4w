@@ -8,14 +8,14 @@
     <dt>주최자:</dt>
     <dd><%= @event.user.mention_name %></dd>
     <dt>모임시간</dt>
-    <dd><%= @event.start_time.strftime('%m/%d %H:%M') %> ~ <%= @event.finish_time.strftime('%m/%d %H:%M') %></dd>
+    <dd><%= @event.start_time.strftime("%m/%d %H:%M") %> ~ <%= @event.finish_time.strftime("%m/%d %H:%M") %></dd>
   </dl>
 
   <% unless @event.members.empty? %>
     <h2>누가 방문하나요?</h2>
     <dl>
       <dt>방문자:</dt>
-      <dd><%= @event.members.map(&:mention_name).join(', ') %></dd>
+      <dd><%= @event.members.map(&:mention_name).join(", ") %></dd>
     </dl>
   <% end %>
 
@@ -23,15 +23,18 @@
     <div class="col-xs-12">
       <% if @event.ing_or_after? %>
         <% if @event.editable? @user %>
-          <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-primary', style: 'color: #FFF;' %>
-          <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', sytle: 'color: #FFF;' %>
+          <%= link_to "Edit", edit_event_path(@event), class: "btn btn-primary", style: "color: #FFF;" %>
         <% elsif @event.joined? @user %>
-            <%= link_to 'I cannot go T-T', unjoin_event_path(@event), method: :post, class: 'btn btn-warning', style: 'color: #FFF;' %>
+            <%= link_to "I cannot go T-T", unjoin_event_path(@event), method: :post, class: "btn btn-warning", style: "color: #FFF;" %>
         <% else %>
-            <%= link_to 'Join', join_event_path(@event), method: :post, class: 'btn btn-danger', style: 'color: #FFF;' %>
+            <%= link_to "Join", join_event_path(@event), method: :post, class: "btn btn-danger", style: "color: #FFF;" %>
+        <% end %>
+      <% else %>
+        <% if @event.editable? @user %>
+          <%= link_to "Destroy", @event, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger", sytle: "color: #FFF;" %>
         <% end %>
       <% end %>
-      <%= link_to 'Back', events_path, class: 'btn btn-success', style: 'color: #FFF;' %>
+      <%= link_to "Back", events_path, class: "btn btn-success", style: "color: #FFF;" %>
     </div>
   </div>
 </div>
