@@ -13,6 +13,7 @@ class EventForm
   validates :start_time, presence: true
   validates :planned_time, presence: true, numericality: true
   validates :timezone_offset, presence: true
+  validate :start_time_cannot_be_in_the_past
 
   def initialize(params = {}, event = nil)
     @subject = params[:subject]
@@ -66,5 +67,11 @@ class EventForm
     hour = timezone_offset.abs / 60
     min = timezone_offset.abs % 60
     "#{sign}#{format('%02d', hour)}:#{format('%02d', min)}"
+  end
+
+  def start_time_cannot_be_in_the_past
+    if start_time && start_time < Time.zone.now
+      errors.add(:start_time, "is past datetime.")
+    end
   end
 end
