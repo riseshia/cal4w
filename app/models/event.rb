@@ -4,7 +4,7 @@ class Event < ApplicationRecord
   include Colorable
 
   belongs_to :user
-  has_many :events_users
+  has_many :events_users, dependent: :destroy
   has_many :members, through: :events_users, source: :user
 
   validates :subject, presence: true
@@ -48,12 +48,6 @@ class Event < ApplicationRecord
     members.map(&:mention_name).unshift(user.mention_name)
   end
 
-  SERVER_TZ_OFFSET = -540
-  def start_time_with_tz
-    @start_time_with_tz ||=
-      start_time + (SERVER_TZ_OFFSET - timezone_offset).minutes
-  end
-
   def relative_time
     if on_today?
       "오늘 #{start_time_with_tz.strftime('%H:%M')} #{tz_from_offset}"
@@ -62,10 +56,6 @@ class Event < ApplicationRecord
     else
       start_time_with_tz.strftime("%F %H:%M") + " #{tz_from_offset}"
     end
-  end
-
-  def to_slack_message
-    "[#{subject}]\n주최자: #{user.nickname}\n시각: #{relative_time}\n장소: #{place}"
   end
 
   def notify_new_event(target_url)
@@ -103,8 +93,16 @@ class Event < ApplicationRecord
     )
   end
 
-  def to_hex_with
-    user&.id || 0
+  private
+
+  def to_slack_message
+    "[#{subject}]\n주최자: #{user.nickname}\n시각: #{relative_time}\n장소: #{place}"
+  end
+
+  SERVER_TZ_OFFSET = -540
+  def start_time_with_tz
+    @start_time_with_tz ||=
+      start_time + (SERVER_TZ_OFFSET - timezone_offset).minutes
   end
 
   def tz_from_offset
@@ -112,6 +110,10 @@ class Event < ApplicationRecord
     hour = timezone_offset.abs / 60
     min = timezone_offset.abs % 60
     "#{sign}#{format('%02d', hour)}:#{format('%02d', min)}"
+  end
+
+  def to_hex_with
+    user&.id || 0
   end
 
   def on_today?
