@@ -55,9 +55,9 @@ class Event < ApplicationRecord
   end
 
   def relative_time
-    if start_time_with_tz.today?
+    if on_today?
       "오늘 #{start_time_with_tz.strftime('%H:%M')} #{tz_from_offset}"
-    elsif (start_time_with_tz - 1.day).today?
+    elsif on_tomorrow?
       "내일 #{start_time_with_tz.strftime('%H:%M')} #{tz_from_offset}"
     else
       start_time_with_tz.strftime("%F %H:%M") + " #{tz_from_offset}"
@@ -112,5 +112,13 @@ class Event < ApplicationRecord
     hour = timezone_offset.abs / 60
     min = timezone_offset.abs % 60
     "#{sign}#{format('%02d', hour)}:#{format('%02d', min)}"
+  end
+
+  def on_today?
+    start_time_with_tz.today?
+  end
+
+  def on_tomorrow?
+    (start_time_with_tz - 1.day).today?
   end
 end
