@@ -28,7 +28,7 @@ RSpec.describe EventsController, type: :controller do
       :subject => "Subject",
       :place => "Place",
       :description => "MyText",
-      "start_time(1i)" => "2016",
+      "start_time(1i)" => "2020",
       "start_time(2i)" => "8",
       "start_time(3i)" => "19",
       "start_time(4i)" => "21",

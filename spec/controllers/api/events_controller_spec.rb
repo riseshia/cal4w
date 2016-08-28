@@ -24,9 +24,17 @@ module Api
         expect(assigns(:events)).to eq([event])
       end
 
+      let(:event_2days_ago) do
+        event = Event.new(subject: "Subject", place: "Place",
+                          description: "Description", user: create(:user),
+                          start_time: 2.days.ago, planned_time: 1)
+        event.save(validate: false)
+        event
+      end
+
       it "returns events in range" do
-        past_event = create(:event_2days_ago)
-        future_event = create(:event_tomorrow)
+        past_event = event_2days_ago
+        future_event = create(:event, start_time: 1.day.from_now)
         param = Time.zone.now.strftime("%F")
 
         get :index, params: { format: :json, start: param }
