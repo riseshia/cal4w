@@ -38,7 +38,6 @@ $(document).on("ready turbolinks:load", () => {
     }
 
     const setDate = (date) => {
-      debugger
       let newMin = Math.floor(date.getMinutes() / 10) * 10
       if (newMin === 0) { newMin = "00" }
       let newHour = date.getHours()
@@ -67,7 +66,7 @@ $(document).on("ready turbolinks:load", () => {
 
     // Transform UTC before submit
     $(".event-form").submit((event) => {
-      manipulateDate(Number(minOffset) + defaultOffset)
+      manipulateDate(defaultOffset)
       return true
     })
   }
