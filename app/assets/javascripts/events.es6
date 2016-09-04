@@ -45,7 +45,7 @@ $(document).on("ready turbolinks:load", () => {
       if (newHour < 10) { newHour = `0${newHour}` }
 
       $("#event_form_start_time_1i").val(date.getFullYear())
-      $("#event_form_start_time_2i").val(date.getMonth())
+      $("#event_form_start_time_2i").val(date.getMonth() + 1)
       $("#event_form_start_time_3i").val(date.getDate())
       $("#event_form_start_time_4i").val(newHour)
       $("#event_form_start_time_5i").val(newMin)
