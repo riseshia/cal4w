@@ -28,11 +28,11 @@ $(document).on("ready turbolinks:load", () => {
     $timezone.val(offset)
 
     const getDate = () => {
-      const year = Number($("#event_start_time_1i").val())
-      const month = Number($("#event_start_time_2i").val())
-      const day = Number($("#event_start_time_3i").val())
-      const hour = Number($("#event_start_time_4i").val())
-      const min = Number($("#event_start_time_5i").val())
+      const year = Number($("#event_form_start_time_1i").val())
+      const month = Number($("#event_form_start_time_2i").val())
+      const day = Number($("#event_form_start_time_3i").val())
+      const hour = Number($("#event_form_start_time_4i").val())
+      const min = Number($("#event_form_start_time_5i").val())
 
       return new Date(year, month, day, hour, min)
     }
