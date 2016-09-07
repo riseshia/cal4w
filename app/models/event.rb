@@ -4,8 +4,8 @@ class Event < ApplicationRecord
   include Colorable
 
   belongs_to :user
-  has_many :events_users, dependent: :destroy
-  has_many :members, through: :events_users, source: :user
+  has_many :event_users, dependent: :destroy
+  has_many :members, through: :event_users, source: :user
 
   validates :subject, presence: true
   validates :place, presence: true

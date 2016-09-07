@@ -7,8 +7,8 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:slack_signin]
 
-  has_many :events_users
-  has_many :events, through: :events_users
+  has_many :event_users
+  has_many :events, through: :event_users
 
   validates :provider, presence: true
 

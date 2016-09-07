@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe EventsUser, type: :model do
+RSpec.describe EventUser, type: :model do
   describe "Active Record Associations" do
     it { expect belong_to(:user) }
     it { expect belong_to(:event) }
