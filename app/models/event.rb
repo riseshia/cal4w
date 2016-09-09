@@ -36,8 +36,17 @@ class Event < ApplicationRecord
     members.exists?(user.id)
   end
 
+  def start_time_with_tz
+    @start_time_with_tz ||=
+      start_time - timezone_offset.minutes
+  end
+
   def finish_time
     start_time + planned_time.hours
+  end
+  
+  def finish_time_with_tz
+    start_time_with_tz + planned_time.hours
   end
 
   def ing_or_after?
@@ -97,12 +106,6 @@ class Event < ApplicationRecord
 
   def to_slack_message
     "[#{subject}]\n주최자: #{user.nickname}\n시각: #{relative_time}\n장소: #{place}"
-  end
-
-  SERVER_TZ_OFFSET = -540
-  def start_time_with_tz
-    @start_time_with_tz ||=
-      start_time + (SERVER_TZ_OFFSET - timezone_offset).minutes
   end
 
   def tz_from_offset

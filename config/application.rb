@@ -18,7 +18,7 @@ module Cal4w
     # auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names.
     # Default is UTC.
-    config.time_zone = "Seoul"
+    config.time_zone = "UTC"
 
     config.autoload_paths << Rails.root.join("lib")
     config.autoload_paths << Rails.root.join("app/forms")

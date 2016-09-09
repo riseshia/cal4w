@@ -19,12 +19,4 @@ module EventsHelper
   def timezone_options
     TIMEZONE_OPTIONS
   end
-
-  def event_submit_path(event_form)
-    if event_form.persisted?
-      event_path(event_form.event)
-    else
-      events_path
-    end
-  end
 end
