@@ -1,23 +1,5 @@
 <div class="show_container">
-  <h1><%= @event.subject %></h1>
-  <dl>
-    <dt>장소:</dt>
-    <dd><%= @event.place %></dd>
-    <dt>소개:</dt>
-    <dd><%= @event.description.html_safe %></dd>
-    <dt>주최자:</dt>
-    <dd><%= @event.user.mention_name %></dd>
-    <dt>모임시간</dt>
-    <dd><%= @event.start_time_with_tz.strftime("%m/%d %H:%M") %> ~ <%= @event.finish_time_with_tz.strftime("%m/%d %H:%M") %></dd>
-  </dl>
-
-  <% unless @event.members.empty? %>
-    <h2>누가 방문하나요?</h2>
-    <dl>
-      <dt>방문자:</dt>
-      <dd><%= @event.members.map(&:mention_name).join(", ") %></dd>
-    </dl>
-  <% end %>
+  <%= react_component("EventShow", id: @event.id) %>
 
   <div class="row">
     <div class="col-xs-12">
@@ -37,3 +19,4 @@
     </div>
   </div>
 </div>
+
