@@ -44,7 +44,7 @@ class Event < ApplicationRecord
   def finish_time
     start_time + planned_time.hours
   end
-  
+
   def finish_time_with_tz
     start_time_with_tz + planned_time.hours
   end
@@ -53,8 +53,12 @@ class Event < ApplicationRecord
     finish_time > Time.zone.now
   end
 
+  def joiner_names
+    members.map(&:mention_name)
+  end
+
   def member_names
-    members.map(&:mention_name).unshift(user.mention_name)
+    joiner_names.unshift(user.mention_name)
   end
 
   def relative_time
