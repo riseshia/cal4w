@@ -21,11 +21,10 @@ const setDate = (date) => {
   $("#event_start_time_5i").val(newMin)
 }
 
-const convertToLocal = () => {
-  const minOffset = Number($("#event_timezone_offset").val())
+const convertToLocal = (offset) => {
   const date = getDate()
   const min = date.getMinutes()
-  date.setMinutes(min - minOffset)
+  date.setMinutes(min - offset)
   setDate(date)
 }
 
@@ -38,27 +37,16 @@ const convertToUTC = () => {
   setDate(date)
 }
 
-$(document).on("turbolinks:load", () => {
-  if ($(".quick-datetime-select").length > 0) {
-    $(".quick-datetime-select").quickDatetimeSelector({
-      locale: {
-        Today: "오늘",
-        Tomorrow: "내일",
-        ThisWeek: "이번 주",
-        NextWeek: "다음 주",
-        day: {
-          Sunday: "일요일",
-          Monday: "월요일",
-          Tuesday: "화요일",
-          Wednesday: "수요일",
-          Thursday: "목요일",
-          Friday: "금요일",
-          Saturday: "토요일",
-        },
-      },
-    })
+const getLocalTzOffset = () => {
+  if ($("#new_event").length) {
+    const offset = (new Date()).getTimezoneOffset()
+    $("#event_timezone_offset").val(offset)
+    return offset
   }
+  return Number($("#event_timezone_offset").val())
+}
 
+$(document).on("turbolinks:load", () => {
   if ($(".event-form").length) {
     // Transform UTC before submit
     $("input[type='submit']").click(event => {
@@ -67,10 +55,10 @@ $(document).on("turbolinks:load", () => {
     })
 
     // Transform to local Time when loaded
-    convertToLocal()
+    convertToLocal(getLocalTzOffset())
   }
 
-  if ($(".summernote").length) {
+  if ($(".summernote").length && !$(".note-editor").length) {
     $(".summernote").summernote({ height: 300 })
   }
 })
