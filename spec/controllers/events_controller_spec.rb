@@ -39,7 +39,14 @@ RSpec.describe EventsController, type: :controller do
   end
 
   let(:invalid_attributes) do
-    { subject: nil }
+    {
+      subject: nil,
+      "start_time(1i)" => "2016",
+      "start_time(2i)" => "8",
+      "start_time(3i)" => "19",
+      "start_time(4i)" => "21",
+      "start_time(5i)" => "00"
+    }
   end
 
   before(:example) do
@@ -93,25 +100,25 @@ RSpec.describe EventsController, type: :controller do
     context "with valid params" do
       it "creates a new Event" do
         expect do
-          post :create, params: { event_form: valid_attributes }
+          post :create, params: { event: valid_attributes }
         end.to change(Event, :count).by(1)
       end
 
       it "assigns a newly created event as @event" do
-        post :create, params: { event_form: valid_attributes }
+        post :create, params: { event: valid_attributes }
         expect(assigns(:event)).to be_a(Event)
         expect(assigns(:event)).to be_persisted
       end
 
       it "redirects to the created event" do
-        post :create, params: { event_form: valid_attributes }
+        post :create, params: { event: valid_attributes }
         expect(response).to redirect_to(Event.last)
       end
     end
 
     context "with invalid params" do
       it "re-renders the 'new' template" do
-        post :create, params: { event_form: invalid_attributes }
+        post :create, params: { event: invalid_attributes }
         expect(response).to render_template("new")
       end
     end
@@ -120,27 +127,36 @@ RSpec.describe EventsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) do
-        { subject: "New Subject" }
+        {
+          "start_time(1i)" => "2020",
+          "start_time(2i)" => "8",
+          "start_time(3i)" => "19",
+          "start_time(4i)" => "21",
+          "start_time(5i)" => "00"
+        }
       end
 
       it "updates the requested event" do
         event = create(:event, user: @user)
-        put :update, params: { id: event.to_param, event_form: new_attributes }
+        updated_attributes = event.attributes.merge(new_attributes)
+        put :update, params: { id: event.to_param, event: updated_attributes }
         event.reload
         expect(assigns(:event)).to eq(event)
       end
 
       it "assigns the requested event as @event" do
         event = create(:event, user: @user)
+        updated_attributes = event.attributes.merge(new_attributes)
         put :update,
-            params: { id: event.to_param, event_form: valid_attributes }
+            params: { id: event.to_param, event: updated_attributes }
         expect(assigns(:event)).to eq(event)
       end
 
       it "redirects to the event" do
         event = create(:event, user: @user)
+        updated_attributes = event.attributes.merge(new_attributes)
         put :update,
-            params: { id: event.to_param, event_form: valid_attributes }
+            params: { id: event.to_param, event: updated_attributes }
         expect(response).to redirect_to(event)
       end
     end
@@ -148,8 +164,9 @@ RSpec.describe EventsController, type: :controller do
     context "with invalid params" do
       it "re-renders the 'edit' template" do
         event = create(:event, user: @user)
+        updated_attributes = event.attributes.merge(invalid_attributes)
         put :update,
-            params: { id: event.to_param, event_form: invalid_attributes }
+            params: { id: event.to_param, event: updated_attributes }
         expect(response).to render_template("edit")
       end
     end

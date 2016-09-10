@@ -28,21 +28,19 @@ RSpec.describe EventForm, type: :model do
     end
 
     it "returns 20:00 +0900 from 21:00 +1000 with params" do
-      event_form = EventForm.new(event_attr)
+      event_form = EventForm.init_with_params(event_attr)
       event_form.valid?
-      actual = event_form.attributes
-      expected_datetime = Time.new(2020, 8, 19, 21, 0, 0, "+10:00")
-      expect(actual[:start_time]).to eq(expected_datetime)
+      expected_datetime = Time.new(2020, 8, 19, 21, 0, 0, "+00:00")
+      expect(event_form.start_time).to eq(expected_datetime)
     end
 
     it "returns 21:00 from 21:00 +1000 with event" do
       event = build(:event,
-                    start_time: Time.new(2020, 8, 19, 21, 0, 0, "+10:00"),
+                    start_time: Time.new(2020, 8, 19, 21, 0, 0, "+00:00"),
                     timezone_offset: -600)
       event_form = EventForm.init_with_event(event)
-      actual = event_form.attributes
       expected_datetime = Time.zone.local(2020, 8, 19, 21, 0, 0)
-      expect(actual[:start_time]).to eq(expected_datetime)
+      expect(event_form.start_time).to eq(expected_datetime)
     end
   end
 

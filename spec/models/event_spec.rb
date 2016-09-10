@@ -60,29 +60,23 @@ RSpec.describe Event, type: :model do
   describe "#relative_time" do
     it "returns string include 오늘" do
       datetime = Time.zone.now.beginning_of_day + 1.hour
-      formatted = datetime.strftime("%H:%M %:z")
-      event = build(:event, start_time: datetime)
-      expect(event.relative_time).to eq("오늘 #{formatted}")
-    end
-
-    it "returns string include 오늘 with tz +10:00" do
-      datetime = Time.zone.now.beginning_of_day
-      formatted = (datetime + 1.hour).strftime("%H:%M") + " +10:00"
-      event = build(:event, start_time: datetime, timezone_offset: -600)
+      event = build(:event, start_time: datetime, timezone_offset: -540)
+      formatted = event.start_time_with_tz.strftime("%H:%M") + " +09:00"
       expect(event.relative_time).to eq("오늘 #{formatted}")
     end
 
     it "returns string include 내일" do
       datetime = Time.zone.now.beginning_of_day + 1.day
-      formatted = datetime.strftime("%H:%M %:z")
-      event = build(:event, start_time: datetime)
+      event = build(:event, start_time: datetime, timezone_offset: -540)
+      formatted = event.start_time_with_tz.strftime("%H:%M") + " +09:00"
       expect(event.relative_time).to eq("내일 #{formatted}")
     end
 
     it "returns string include only date" do
       datetime = Time.zone.now.beginning_of_day + 2.days
-      event = build(:event, start_time: datetime)
-      expect(event.relative_time).to eq(datetime.strftime("%F %H:%M %:z"))
+      event = build(:event, start_time: datetime, timezone_offset: -540)
+      formatted = event.start_time_with_tz.strftime("%F %H:%M") + " +09:00"
+      expect(event.relative_time).to eq(formatted)
     end
   end
 end
