@@ -40,14 +40,10 @@
     <div class="col-xs-11">
       <div class="field form-group">
         <%= f.label "시작 예정 시각(현지)" %>:
-        <div class="quick-datetime-select" data-start-datetime="#start-time"></div>
-        <div>
-          <span id="start-time">
-            <%= event.start_time %>
-            <%= f.datetime_select :start_time, minute_step: 10 %>
-            <%= f.select :timezone_offset, timezone_options %>
-          </span>
-        </div>
+        <span id="start-time">
+          <%= f.datetime_select :start_time, minute_step: 10 %>
+          <%= f.select :timezone_offset, timezone_options %>
+        </span>
       </div>
     </div>
   </div>
