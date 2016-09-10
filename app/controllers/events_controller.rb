@@ -24,7 +24,8 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event_form = EventForm.new(planned_time: 1)
+    @event = Event.new(start_time: Time.zone.now + 1.hour)
+    @event_form = EventForm.init_with_event(@event)
   end
 
   def edit
@@ -32,9 +33,9 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event_form = EventForm.new(event_form_params)
+    @event_form = EventForm.init_with_params(event_form_params)
+    @event = Event.init_with_user(@event_form.attributes, current_user)
     if @event_form.valid?
-      @event = Event.init_with_user(@event_form.attributes, current_user)
       @event.save!(validate: false)
       @event.notify_new_event event_url(@event)
       redirect_to @event, notice: "성공적으로 밋업을 만들었습니다."
@@ -44,9 +45,9 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event_form = EventForm.new(event_form_params, @event)
+    @event_form = EventForm.init_with_params(event_form_params)
     if @event_form.valid?
-      @event.update(@event_form.attributes)
+      @event.update_attributes(@event_form.attributes)
       @event.notify_updated_event event_url(@event)
       redirect_to @event, notice: "성공적으로 밋업을 변경했습니다."
     else
@@ -67,7 +68,7 @@ class EventsController < ApplicationController
   end
 
   def event_form_params
-    params.require(:event_form).permit(
+    params.require(:event).permit(
       :subject, :place, :description,
       :start_time, :planned_time, :timezone_offset
     )

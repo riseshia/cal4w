@@ -8,7 +8,7 @@
     <dt>주최자:</dt>
     <dd><%= @event.user.mention_name %></dd>
     <dt>모임시간</dt>
-    <dd><%= @event.start_time.strftime("%m/%d %H:%M") %> ~ <%= @event.finish_time.strftime("%m/%d %H:%M") %></dd>
+    <dd><%= @event.start_time_with_tz.strftime("%m/%d %H:%M") %> ~ <%= @event.finish_time_with_tz.strftime("%m/%d %H:%M") %></dd>
   </dl>
 
   <% unless @event.members.empty? %>
@@ -29,10 +29,9 @@
         <% else %>
             <%= link_to "Join", join_event_path(@event), method: :post, class: "btn btn-danger", style: "color: #FFF;" %>
         <% end %>
-      <% else %>
-        <% if @event.editable? @user %>
-          <%= link_to "Destroy", @event, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger", sytle: "color: #FFF;" %>
-        <% end %>
+      <% end %>
+      <% if @event.editable? @user %>
+        <%= link_to "Destroy", @event, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger", sytle: "color: #FFF;" %>
       <% end %>
       <%= link_to "Back", events_path, class: "btn btn-success", style: "color: #FFF;" %>
     </div>
