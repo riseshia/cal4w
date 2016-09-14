@@ -47,7 +47,7 @@ GEM
       tzinfo (~> 1.1)
     airbrussh (1.1.1)
       sshkit (>= 1.6.1, != 1.7.0)
-    arel (7.1.1)
+    arel (7.1.2)
     ast (2.3.0)
     autoprefixer-rails (6.4.1.1)
       execjs
@@ -73,7 +73,7 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
-    capistrano-rails (1.1.7)
+    capistrano-rails (1.1.8)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     capistrano-rbenv (2.0.4)
