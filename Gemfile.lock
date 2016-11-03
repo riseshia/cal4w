@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/summernote/summernote-rails.git
-  revision: c3d2f9864af6141e4b8f7776b9f1b0e5280b2b62
+  revision: 7164544358250b8a04b37ba50a55059207ce5ff4
   branch: i53
   specs:
     summernote-rails (0.8.2.0)
