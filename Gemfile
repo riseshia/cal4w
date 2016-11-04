@@ -28,7 +28,7 @@ gem "jbuilder", "~> 2.0"
 # bundle exec rake doc:rails generates the API under doc/api.
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "react-rails"
-gem "summernote-rails", github: "summernote/summernote-rails", branch: "i53"
+gem "summernote-rails"
 
 gem "devise"
 gem "omniauth-weirdx", github: "riseshia/omniauth-weirdx"
