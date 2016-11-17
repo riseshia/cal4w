@@ -68,5 +68,6 @@ group :development, :test do
   gem "rubocop", require: false
   gem "rails_best_practices", require: false
   gem "codeclimate-test-reporter", require: false
+  gem "simplecov"
   gem "rails-controller-testing"
 end
