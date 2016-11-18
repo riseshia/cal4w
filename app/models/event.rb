@@ -61,14 +61,8 @@ class Event < ApplicationRecord
     joiner_names.unshift(user.mention_name)
   end
 
-  def relative_time
-    if on_today?
-      "오늘 #{start_time_with_tz.strftime('%H:%M')} #{tz_from_offset}"
-    elsif on_tomorrow?
-      "내일 #{start_time_with_tz.strftime('%H:%M')} #{tz_from_offset}"
-    else
-      start_time_with_tz.strftime("%F %H:%M") + " #{tz_from_offset}"
-    end
+  def human_readable_time
+    start_time_with_tz.strftime("%F %H:%M") + " #{tz_from_offset}"
   end
 
   def notify_new_event(target_url)
@@ -109,7 +103,10 @@ class Event < ApplicationRecord
   private
 
   def to_slack_message
-    "[#{subject}]\n주최자: #{user.nickname}\n시각: #{relative_time}\n장소: #{place}"
+    "[#{subject}]\n" \
+    "주최자: #{user.nickname}\n" \
+    "시각: #{human_readable_time}\n" \
+    "장소: #{place}"
   end
 
   def tz_from_offset
