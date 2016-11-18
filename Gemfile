@@ -56,18 +56,17 @@ group :development do
 end
 
 group :development, :test do
-  # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug"
-  gem "rspec-rails", "~> 3.0"
-  gem "rspec-mocks"
+  gem "codeclimate-test-reporter", require: false
+  gem "coveralls", require: false
+  gem "database_cleaner"
   gem "factory_girl"
   gem "factory_girl_rails"
-  gem "shoulda-matchers"
-  gem "database_cleaner"
-
-  gem "rubocop", require: false
-  gem "rails_best_practices", require: false
-  gem "codeclimate-test-reporter", require: false
-  gem "simplecov"
   gem "rails-controller-testing"
+  gem "rails_best_practices", require: false
+  gem "rspec-mocks"
+  gem "rspec-rails", "~> 3.0"
+  gem "rubocop", require: false
+  gem "shoulda-matchers"
+  gem "simplecov"
 end
