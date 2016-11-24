@@ -34,6 +34,7 @@ RSpec.describe EventsController, type: :controller do
       "start_time(4i)" => "21",
       "start_time(5i)" => "00",
       :timezone_offset => "-600",
+      :timezone=> "Seoul",
       :planned_time => "5"
     }
   end

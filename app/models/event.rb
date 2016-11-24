@@ -11,7 +11,7 @@ class Event < ApplicationRecord
   validates :place, presence: true
   validates :start_time, presence: true
   validates :planned_time, presence: true
-  validates :user_id, presence: true
+  validates :timezone, presence: true
 
   scope :with_users, -> { includes(:user, :members) }
   scope :since_date, lambda { |date|

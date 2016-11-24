@@ -42,7 +42,7 @@
         <%= f.label "시작 예정 시각(현지)" %>:
         <span id="start-time">
           <%= f.datetime_select :start_time, minute_step: 10 %>
-          <%= f.select :timezone_offset, timezone_options %>
+          <%= f.time_zone_select :timezone, ActiveSupport::TimeZone.all.sort %>
         </span>
       </div>
     </div>
