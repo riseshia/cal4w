@@ -39,7 +39,6 @@ gem "figaro"
 
 # UI
 gem "bootstrap-sass"
-gem "momentjs-rails"
 gem "font-awesome-sass"
 
 group :development do

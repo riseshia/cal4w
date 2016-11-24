@@ -7,11 +7,11 @@ class Event < ApplicationRecord
   has_many :event_users, dependent: :destroy
   has_many :members, through: :event_users, source: :user
 
-  validates :subject, presence: true
+  validates :title, presence: true
   validates :place, presence: true
   validates :start_time, presence: true
   validates :planned_time, presence: true
-  validates :user_id, presence: true
+  validates :timezone, presence: true
 
   scope :with_users, -> { includes(:user, :members) }
   scope :since_date, lambda { |date|
@@ -27,6 +27,10 @@ class Event < ApplicationRecord
     event
   end
 
+  def start_time_in_tz
+    start_time.in_time_zone(timezone)
+  end
+
   def editable?(user)
     user.id == user_id
   end
@@ -36,17 +40,8 @@ class Event < ApplicationRecord
     members.exists?(user.id)
   end
 
-  def start_time_with_tz
-    @start_time_with_tz ||=
-      start_time - timezone_offset.minutes
-  end
-
   def finish_time
     start_time + planned_time.hours
-  end
-
-  def finish_time_with_tz
-    start_time_with_tz + planned_time.hours
   end
 
   def ing_or_after?
@@ -62,7 +57,7 @@ class Event < ApplicationRecord
   end
 
   def human_readable_time
-    start_time_with_tz.strftime("%F %H:%M") + " #{tz_from_offset}"
+    start_time
   end
 
   def notify_new_event(target_url)
@@ -89,42 +84,27 @@ class Event < ApplicationRecord
   def notify_new_member(new_user, target_url)
     SlackWrapper.notify(
       user.mention_name,
-      "#{new_user.nickname}님이 '#{subject}' 밋업에 참가 신청하셨습니다.\n링크: #{target_url}"
+      "#{new_user.nickname}님이 '#{title}' 밋업에 참가 신청하셨습니다.\n링크: #{target_url}"
     )
   end
 
   def notify_cancel_member(new_user, target_url)
     SlackWrapper.notify(
       user.mention_name,
-      "#{new_user.nickname}님이 '#{subject}' 밋업 참가를 취소하셨습니다.\n링크: #{target_url}"
+      "#{new_user.nickname}님이 '#{title}' 밋업 참가를 취소하셨습니다.\n링크: #{target_url}"
     )
   end
 
   private
 
   def to_slack_message
-    "[#{subject}]\n" \
+    "[#{title}]\n" \
     "주최자: #{user.nickname}\n" \
     "시각: #{human_readable_time}\n" \
     "장소: #{place}"
   end
 
-  def tz_from_offset
-    sign = timezone_offset.positive? ? "-" : "+"
-    hour = timezone_offset.abs / 60
-    min = timezone_offset.abs % 60
-    "#{sign}#{format('%02d', hour)}:#{format('%02d', min)}"
-  end
-
   def to_hex_with
     user&.id || 0
-  end
-
-  def on_today?
-    start_time_with_tz.today?
-  end
-
-  def on_tomorrow?
-    (start_time_with_tz - 1.day).today?
   end
 end

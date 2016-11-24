@@ -3,12 +3,11 @@ class EventShow extends React.Component {
     super(props)
 
     this.state = {
-      subject: "",
+      title: "",
       place: "",
       owener: "",
       description: "",
       start_time: "",
-      timezone_offset: null,
       joiner_names: []
     }
   }
@@ -39,7 +38,7 @@ class EventShow extends React.Component {
     return (
       <div className="row">
         <div className="col-xs-12">
-          <h1>{ this.state.subject }</h1>
+          <h1>{ this.state.title }</h1>
           <dl>
             <dt>장소:</dt>
             <dd>{ this.state.place }</dd>

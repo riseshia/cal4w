@@ -4,7 +4,7 @@ require "rails_helper"
 # Type is 'model' to get support from shoulda
 RSpec.describe EventForm, type: :model do
   describe "Active Record Validations" do
-    it { expect validate_presence_of(:subject) }
+    it { expect validate_presence_of(:title) }
     it { expect validate_presence_of(:place) }
     it { expect validate_presence_of(:start_time) }
     it { expect validate_presence_of(:planned_time) }
@@ -15,7 +15,7 @@ RSpec.describe EventForm, type: :model do
   describe "Timezone validations" do
     let(:user) { create(:user) }
     let(:event_attr) do
-      { :subject => "test",
+      { :title => "test",
         :place => "asdfasd",
         :description => "<p>asdf</p>",
         "start_time(1i)" => "2020",
