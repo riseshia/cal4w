@@ -6,13 +6,12 @@ class EventForm
 
   attr_accessor :persisted
   attr_accessor :subject, :place, :description,
-                :planned_time, :start_time, :timezone_offset, :timezone
+                :planned_time, :start_time, :timezone
 
   validates :subject, presence: true
   validates :place, presence: true
   validates :start_time, presence: true
   validates :planned_time, presence: true, numericality: true
-  validates :timezone_offset, presence: true
   validates :timezone, presence: true
   validate :start_time_cannot_be_in_the_past
 
@@ -21,7 +20,6 @@ class EventForm
     self.place = params[:place]
     self.description = params[:description]
     self.start_time = params[:start_time]
-    self.timezone_offset = params[:timezone_offset].to_i
     self.timezone = params[:timezone]
     self.planned_time = params[:planned_time]&.to_i || 1
   end
@@ -45,8 +43,7 @@ class EventForm
       description: description,
       start_time: start_time,
       planned_time: planned_time,
-      timezone: timezone,
-      timezone_offset: timezone_offset }
+      timezone: timezone }
   end
 
   private

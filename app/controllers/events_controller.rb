@@ -70,7 +70,7 @@ class EventsController < ApplicationController
   def event_form_params
     params.require(:event).permit(
       :subject, :place, :description,
-      :start_time, :planned_time, :timezone_offset, :timezone
+      :start_time, :planned_time, :timezone
     )
   end
 

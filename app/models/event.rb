@@ -36,17 +36,8 @@ class Event < ApplicationRecord
     members.exists?(user.id)
   end
 
-  def start_time_with_tz
-    @start_time_with_tz ||=
-      start_time - timezone_offset.minutes
-  end
-
   def finish_time
     start_time + planned_time.hours
-  end
-
-  def finish_time_with_tz
-    start_time_with_tz + planned_time.hours
   end
 
   def ing_or_after?
@@ -62,7 +53,7 @@ class Event < ApplicationRecord
   end
 
   def human_readable_time
-    start_time_with_tz.strftime("%F %H:%M") + " #{tz_from_offset}"
+    start_time
   end
 
   def notify_new_event(target_url)
@@ -109,22 +100,7 @@ class Event < ApplicationRecord
     "장소: #{place}"
   end
 
-  def tz_from_offset
-    sign = timezone_offset.positive? ? "-" : "+"
-    hour = timezone_offset.abs / 60
-    min = timezone_offset.abs % 60
-    "#{sign}#{format('%02d', hour)}:#{format('%02d', min)}"
-  end
-
   def to_hex_with
     user&.id || 0
-  end
-
-  def on_today?
-    start_time_with_tz.today?
-  end
-
-  def on_tomorrow?
-    (start_time_with_tz - 1.day).today?
   end
 end

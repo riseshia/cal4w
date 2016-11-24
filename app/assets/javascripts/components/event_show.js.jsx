@@ -8,7 +8,6 @@ class EventShow extends React.Component {
       owener: "",
       description: "",
       start_time: "",
-      timezone_offset: null,
       joiner_names: []
     }
   }
