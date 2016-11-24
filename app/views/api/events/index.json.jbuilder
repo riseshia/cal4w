@@ -1,7 +1,7 @@
 json.array!(@events) do |event|
   json.id event.id
   json.user_id event.user_id
-  json.title event.subject
+  json.title event.title
   json.place event.place
   json.description event.description
   json.start event.start_time.iso8601

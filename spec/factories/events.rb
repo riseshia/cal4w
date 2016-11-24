@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 FactoryGirl.define do
   factory :event, class: Event do
-    subject "Subject"
+    title "Subject"
     place "Place"
     description "MyText"
     association :user, strategy: :build

@@ -10,7 +10,7 @@ RSpec.describe Event, type: :model do
 
   describe "Active Record Validations" do
     it { expect validate_presence_of(:user_id) }
-    it { expect validate_presence_of(:subject) }
+    it { expect validate_presence_of(:title) }
     it { expect validate_presence_of(:place) }
     it { expect validate_presence_of(:start_time) }
     it { expect validate_presence_of(:planned_time) }
@@ -54,15 +54,6 @@ RSpec.describe Event, type: :model do
     it "expect return false when user is not joined" do
       user = create(:user)
       expect(@event.joined?(user)).to be(false)
-    end
-  end
-
-  describe "#human_readable_time" do
-    it "returns string include only date" do
-      datetime = Time.zone.now.beginning_of_day + 2.days
-      event = build(:event, start_time: datetime, timezone_offset: -540)
-      formatted = event.start_time_with_tz.strftime("%F %H:%M") + " +09:00"
-      expect(event.human_readable_time).to eq(formatted)
     end
   end
 end

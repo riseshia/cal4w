@@ -25,7 +25,7 @@ RSpec.describe EventsController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     {
-      :subject => "Subject",
+      :title => "Subject",
       :place => "Place",
       :description => "MyText",
       "start_time(1i)" => "2020",
@@ -41,7 +41,7 @@ RSpec.describe EventsController, type: :controller do
 
   let(:invalid_attributes) do
     {
-      subject: nil,
+      title: nil,
       "start_time(1i)" => "2016",
       "start_time(2i)" => "8",
       "start_time(3i)" => "19",

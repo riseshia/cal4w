@@ -25,7 +25,7 @@ module Api
       end
 
       let(:event_2days_ago) do
-        event = Event.new(subject: "Subject", place: "Place",
+        event = Event.new(title: "Subject", place: "Place",
                           description: "Description", user: create(:user),
                           start_time: 2.days.ago, planned_time: 1)
         event.save(validate: false)

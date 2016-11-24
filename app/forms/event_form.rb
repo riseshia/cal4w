@@ -5,10 +5,10 @@ class EventForm
   include ActiveModel::Validations::Callbacks
 
   attr_accessor :persisted
-  attr_accessor :subject, :place, :description,
+  attr_accessor :title, :place, :description,
                 :planned_time, :start_time, :timezone
 
-  validates :subject, presence: true
+  validates :title, presence: true
   validates :place, presence: true
   validates :start_time, presence: true
   validates :planned_time, presence: true, numericality: true
@@ -16,7 +16,7 @@ class EventForm
   validate :start_time_cannot_be_in_the_past
 
   def initialize(params = {})
-    self.subject = params[:subject]
+    self.title = params[:title]
     self.place = params[:place]
     self.description = params[:description]
     self.start_time = params[:start_time]
@@ -38,7 +38,7 @@ class EventForm
   end
 
   def attributes
-    { subject: subject,
+    { title: title,
       place: place,
       description: description,
       start_time: start_time,
