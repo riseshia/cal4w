@@ -5,7 +5,7 @@ class Event extends React.Component {
     return (
       <li>
         {moment(this.props.startTime).format("MM/DD HH:mm")}~
-        <a href={url}>{this.props.subject} in {this.props.place}</a>
+        <a href={url}>{this.props.title} in {this.props.place}</a>
         (참가: {member_names})
       </li>
     )

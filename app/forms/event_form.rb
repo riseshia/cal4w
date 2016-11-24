@@ -61,6 +61,7 @@ module DateTimeUtil
 
   def extract_time(params, attr_name)
     dt = (1..5).map { |i| params["#{attr_name}(#{i}i)"].to_i }
-    Time.new(*dt, 0, "+00:00").utc
+    Time.zone = params[:timezone]
+    Time.zone.local(*dt, 0)
   end
 end

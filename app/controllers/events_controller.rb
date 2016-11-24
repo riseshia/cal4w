@@ -29,6 +29,7 @@ class EventsController < ApplicationController
   end
 
   def edit
+    Time.zone = @event.timezone
     @event_form = EventForm.init_with_event(@event)
   end
 
@@ -40,11 +41,13 @@ class EventsController < ApplicationController
       @event.notify_new_event event_url(@event)
       redirect_to @event, notice: "성공적으로 밋업을 만들었습니다."
     else
+      @event.start_time = @event.start_time_in_tz
       render :new
     end
   end
 
   def update
+    Time.zone = @event.timezone
     @event_form = EventForm.init_with_params(event_form_params)
     if @event_form.valid?
       @event.update_attributes(@event_form.attributes)

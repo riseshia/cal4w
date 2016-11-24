@@ -27,6 +27,10 @@ class Event < ApplicationRecord
     event
   end
 
+  def start_time_in_tz
+    start_time.in_time_zone(timezone)
+  end
+
   def editable?(user)
     user.id == user_id
   end
