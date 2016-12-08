@@ -26,22 +26,19 @@ RSpec.describe User, type: :model do
     context "with wrong provider" do
       let(:team_id) { "wrong_team_id" }
       it "will raise User::DifferentGroup error" do
-        expect { User.from_omniauth(auth) }.to \
-          raise_error(User::DifferentGroup)
+        expect { User.from_omniauth(auth) }.to raise_error(User::DifferentGroup)
       end
     end
 
     context "with correct provider" do
       let(:team_id) { "team_id" }
       it "creates one user" do
-        expect { User.from_omniauth(auth) }.to \
-          change { User.count }.by(1)
+        expect { User.from_omniauth(auth) }.to change { User.count }.by(1)
       end
 
       it "get exist user" do
         User.from_omniauth(auth)
-        expect { User.from_omniauth(auth) }.not_to \
-          change { User.count }
+        expect { User.from_omniauth(auth) }.not_to change { User.count }
       end
     end
   end
