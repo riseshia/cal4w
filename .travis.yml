@@ -1,6 +1,11 @@
 language: ruby
+rvm:
+  - 2.3.1
+  - 2.4.0
+cache: bundler
 before_script:
   - RAILS_ENV=test bin/rails db:migrate
 script:
   - bundle exec rspec
   - bundle exec codeclimate-test-reporter
+install: bundle install
