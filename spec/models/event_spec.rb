@@ -21,6 +21,30 @@ RSpec.describe Event, type: :model do
     @user = @event.user
   end
 
+  describe "Active Record Scope" do
+    describe "#between_period_with_users" do
+      subject { Event.between_period_with_users(start_date, end_date).count }
+
+      let(:start_date) { 7.days.ago.strftime("%Y-%m-%d") }
+      let(:end_date) { Time.zone.now.strftime("%Y-%m-%d") }
+
+      context "previous event not in period" do
+        before { create(:event, start_time: 10.days.ago) }
+        it { is_expected.to eq(0) }
+      end
+
+      context "one event in period" do
+        before { create(:event, start_time: 2.days.ago) }
+        it { is_expected.to eq(1) }
+      end
+
+      context "future event not in period" do
+        before { create(:event, start_time: 2.days.from_now) }
+        it { is_expected.to eq(0) }
+      end
+    end
+  end
+
   describe "#init_with_user" do
     it "will have user object" do
       user = build(:user)

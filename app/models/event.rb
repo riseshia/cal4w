@@ -13,6 +13,15 @@ class Event < ApplicationRecord
   validates :planned_time, presence: true
   validates :timezone, presence: true
 
+  # public scope
+  scope :between_period_with_users, lambda { |start_date, end_date|
+    with_users
+      .since_date(start_date)
+      .until_date(end_date)
+      .order(start_time: :asc)
+  }
+
+  # private scope
   scope :with_users, -> { includes(:user, :members) }
   scope :since_date, lambda { |date|
     where("start_time > ?", Time.zone.parse(date)) if date

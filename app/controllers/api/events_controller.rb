@@ -3,11 +3,7 @@ module Api
   # Api::EventsController
   class EventsController < Api::BaseController
     def index
-      @events = Event
-                .with_users
-                .since_date(params[:start])
-                .until_date(params[:end])
-                .order(start_time: :asc)
+      @events = Event.between_period_with_users(params[:start], params[:end])
     end
 
     def show
