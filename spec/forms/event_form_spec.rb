@@ -23,7 +23,6 @@ RSpec.describe EventForm, type: :model do
         "start_time(3i)" => "19",
         "start_time(4i)" => "21",
         "start_time(5i)" => "00",
-        :timezone_offset => "-600",
         :planned_time => "1" }
     end
 
@@ -36,8 +35,7 @@ RSpec.describe EventForm, type: :model do
 
     it "returns 21:00 from 21:00 +1000 with event" do
       event = build(:event,
-                    start_time: Time.new(2020, 8, 19, 21, 0, 0, "+00:00"),
-                    timezone_offset: -600)
+                    start_time: Time.new(2020, 8, 19, 21, 0, 0, "+00:00"))
       event_form = EventForm.init_with_event(event)
       expected_datetime = Time.zone.local(2020, 8, 19, 21, 0, 0)
       expect(event_form.start_time).to eq(expected_datetime)
