@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
-gem "rails", ">= 5.0.0.1"
+gem "rails", "5.0.1"
 gem "puma"
 
 gem "sqlite3"
@@ -26,12 +26,11 @@ gem "turbolinks"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.0"
 # bundle exec rake doc:rails generates the API under doc/api.
-gem "sdoc", "~> 0.4.0", group: :doc
 gem "react-rails"
 gem "summernote-rails"
 
 gem "devise"
-gem "omniauth-weirdx", github: "riseshia/omniauth-weirdx"
+gem "omniauth-weirdx", git: "https://github.com/riseshia/omniauth-weirdx.git"
 gem "omniauth-slack_signin"
 gem "slack-ruby-client"
 
