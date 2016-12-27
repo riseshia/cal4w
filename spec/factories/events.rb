@@ -6,7 +6,6 @@ FactoryGirl.define do
     description "MyText"
     association :user, strategy: :build
     start_time 1.day.from_now
-    timezone_offset(-540)
     timezone "Seoul"
     planned_time 1
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124113751) do
+ActiveRecord::Schema.define(version: 20161227132131) do
 
   create_table "event_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -26,12 +26,11 @@ ActiveRecord::Schema.define(version: 20161124113751) do
     t.string   "place"
     t.text     "description"
     t.integer  "user_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.datetime "start_time"
-    t.integer  "timezone_offset", default: -540,    null: false
-    t.integer  "planned_time",    default: 1,       null: false
-    t.string   "timezone",        default: "Seoul", null: false
+    t.integer  "planned_time", default: 1,       null: false
+    t.string   "timezone",     default: "Seoul", null: false
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
