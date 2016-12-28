@@ -49,6 +49,7 @@ class EventsController < ApplicationController
   def update
     Time.zone = @event.timezone
     @event_form = EventForm.init_with_params(event_form_params)
+
     if @event_form.valid?
       @event.update_attributes(@event_form.attributes)
       @event.notify_updated_event event_url(@event)

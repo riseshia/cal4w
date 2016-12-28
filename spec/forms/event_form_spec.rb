@@ -41,18 +41,4 @@ RSpec.describe EventForm, type: :model do
       expect(event_form.start_time).to eq(expected_datetime)
     end
   end
-
-  describe "#valid?" do
-    it "returns true with future date" do
-      event = build(:event, start_time: 1.minute.from_now)
-      event_form = EventForm.init_with_event(event)
-      expect(event_form).to be_valid
-    end
-
-    it "returns false with past date" do
-      event = build(:event, start_time: 1.minute.ago)
-      event_form = EventForm.init_with_event(event)
-      expect(event_form).not_to be_valid
-    end
-  end
 end
