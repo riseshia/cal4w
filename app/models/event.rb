@@ -10,7 +10,7 @@ class Event < ApplicationRecord
   validates :title, presence: true
   validates :place, presence: true
   validates :start_time, presence: true
-  validates :planned_time, presence: true
+  validates :planned_time, presence: true, numericality: true
   validates :timezone, presence: true
 
   # public scope
