@@ -2,12 +2,8 @@
 Rails.application.routes.draw do
   root "events#index"
 
-  session_con = \
-    if Rails.env.development?
-      "users/dummy_sessions"
-    else
-      "users/sessions"
-    end
+  session_con =
+    Rails.env.production? ? "users/sessions" : "users/dummy_sessions"
 
   devise_for :users, controllers: {
     omniauth_callbacks: "callbacks", sessions: session_con
