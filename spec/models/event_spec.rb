@@ -80,4 +80,21 @@ RSpec.describe Event, type: :model do
       expect(@event.joined?(user)).to be(false)
     end
   end
+
+  describe "#in_time?" do
+    subject { event.in_time? }
+    let(:event) do
+      build(:event, start_time: 2.hours.ago, planned_time: planned_time)
+    end
+
+    context "in time" do
+      let(:planned_time) { 3 }
+      it { is_expected.to be(true) }
+    end
+
+    context "after time" do
+      let(:planned_time) { 1 }
+      it { is_expected.to be(false) }
+    end
+  end
 end

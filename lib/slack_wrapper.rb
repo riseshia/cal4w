@@ -5,8 +5,7 @@ module SlackWrapper
   module_function
 
   def notify(channel, message)
-    return if Rails.env.test?
-    return if Rails.env.development? && !channel.start_with?("@")
+    return if Rails.env.test? || Rails.env.development?
     Slack::Web::Client.new.chat_postMessage(
       channel: channel,
       text: message,
