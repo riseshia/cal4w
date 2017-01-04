@@ -12,9 +12,13 @@ class EventsController < ApplicationController
   end
 
   def join
-    event.members << current_user
-    event.notify_new_member current_user, event_url(event)
-    redirect_to event, notice: "Thanks to your join!"
+    if event.joined? current_user
+      redirect_to event, notice: "You already joined! :)"
+    else
+      event.members << current_user
+      event.notify_new_member current_user, event_url(event)
+      redirect_to event, notice: "Thanks to your join!"
+    end
   end
 
   def unjoin

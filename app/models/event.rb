@@ -53,7 +53,7 @@ class Event < ApplicationRecord
     start_time + planned_time.hours
   end
 
-  def ing_or_after?
+  def in_time?
     finish_time > Time.zone.now
   end
 

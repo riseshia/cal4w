@@ -9,13 +9,15 @@ RSpec.describe EventUser, type: :model do
 
   describe "Active Record Validations" do
     context "uniqueness check" do
-      it "returns false" do
+      let(:event_user) do
         user = create(:user)
         event = create(:event)
         event.members << user
-        event_user = EventUser.new(user_id: user.id, event_id: event.id)
-        expect(event_user.valid?).to be(false)
+        EventUser.new(user_id: user.id, event_id: event.id)
       end
+
+      subject { event_user.valid? }
+      it { is_expected.to be(false) }
     end
   end
 end
