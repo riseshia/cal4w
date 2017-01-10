@@ -12,7 +12,6 @@ RSpec.describe EventsController, type: :controller do
       "start_time(3i)" => "19",
       "start_time(4i)" => "21",
       "start_time(5i)" => "00",
-      "timezone_offset" => "-600",
       "timezone" => "Seoul",
       "planned_time" => "5"
     }
@@ -29,16 +28,14 @@ RSpec.describe EventsController, type: :controller do
     }
   end
 
-  before(:example) do
-    @user = create(:user)
-    sign_in @user
-  end
+  let(:user) { create(:user) }
+  let(:event) { create(:event, user: user) }
+
+  before(:example) { sign_in user }
 
   describe "GET #index" do
-    it "return http status 200" do
-      get :index
-      expect(response).to have_http_status(:success)
-    end
+    before { get :index }
+    it { expect(response).to have_http_status(:success) }
   end
 
   describe "GET #show" do
@@ -61,7 +58,7 @@ RSpec.describe EventsController, type: :controller do
   describe "POST #unjoin" do
     it "creates a new Member" do
       event = create(:event)
-      event.members << @user
+      event.members << user
       expect do
         post :unjoin, params: { id: event.to_param }
       end.to change(event.members, :count).by(-1)
@@ -69,11 +66,8 @@ RSpec.describe EventsController, type: :controller do
   end
 
   describe "GET #edit" do
-    it "will be redirected root_path if try to edit the others event" do
-      event = create(:event)
-      get :edit, params: { id: event.to_param }
-      expect(response).to redirect_to(root_path)
-    end
+    before { get :edit, params: { id: create(:event).to_param } }
+    it { is_expected.to redirect_to(root_path) }
   end
 
   describe "POST #create" do
@@ -82,6 +76,13 @@ RSpec.describe EventsController, type: :controller do
         expect do
           post :create, params: { event: valid_attributes }
         end.to change(Event, :count).by(1)
+      end
+
+      it "creates a valid event" do
+        expected_start_time = Time.new(2020, 8, 19, 12, 0, 0, "+00:00")
+        post :create, params: { event: valid_attributes }
+        expect(assigns(:event).start_time).to \
+          eq(expected_start_time)
       end
 
       it "assigns a newly created event as @event" do
@@ -96,10 +97,8 @@ RSpec.describe EventsController, type: :controller do
     end
 
     context "with invalid params" do
-      it "re-renders the 'new' template" do
-        post :create, params: { event: invalid_attributes }
-        expect(response).to render_template("new")
-      end
+      before { post :create, params: { event: invalid_attributes } }
+      it { is_expected.to render_template(:new) }
     end
   end
 
@@ -115,52 +114,47 @@ RSpec.describe EventsController, type: :controller do
         }
       end
 
-      it "updates the requested event" do
-        event = create(:event, user: @user)
-        updated_attributes = event.attributes.merge(new_attributes)
-        put :update, params: { id: event.to_param, event: updated_attributes }
-        event.reload
-        expect(assigns(:event)).to eq(event)
+      before(:example) do
+        put :update, params: { id: event.to_param, event: event_params }
       end
 
-      it "assigns the requested event as @event" do
-        event = create(:event, user: @user)
-        updated_attributes = event.attributes.merge(new_attributes)
-        put :update,
-            params: { id: event.to_param, event: updated_attributes }
-        expect(assigns(:event)).to eq(event)
+      context "with valid params" do
+        let(:event_params) { new_attributes }
+
+        it "updates the requested event" do
+          expect(assigns(:event)).to eq(event.reload)
+        end
+
+        it "creates a valid event" do
+          expected_start_time = Time.new(2020, 8, 19, 12, 0, 0, "+00:00")
+          expect(event.reload.start_time).to \
+            eq(expected_start_time)
+        end
+
+        it "assigns the requested event as @event" do
+          expect(assigns(:event)).to eq(event)
+        end
+
+        it { expect(response).to redirect_to(event) }
       end
 
-      it "redirects to the event" do
-        event = create(:event, user: @user)
-        updated_attributes = event.attributes.merge(new_attributes)
-        put :update,
-            params: { id: event.to_param, event: updated_attributes }
-        expect(response).to redirect_to(event)
-      end
-    end
-
-    context "with invalid params" do
-      it "re-renders the 'edit' template" do
-        event = create(:event, user: @user)
-        updated_attributes = event.attributes.merge(invalid_attributes)
-        put :update,
-            params: { id: event.to_param, event: updated_attributes }
-        expect(response).to render_template("edit")
+      context "with invalid params" do
+        let(:event_params) { invalid_attributes }
+        it { is_expected.to render_template(:edit) }
       end
     end
   end
 
   describe "DELETE #destroy" do
+    let!(:event) { create(:event, user: user) }
+
     it "destroys the requested event" do
-      event = create(:event, user: @user)
       expect do
         delete :destroy, params: { id: event.to_param }
       end.to change(Event, :count).by(-1)
     end
 
     it "redirects to the events list" do
-      event = create(:event, user: @user)
       delete :destroy, params: { id: event.to_param }
       expect(response).to redirect_to(events_url)
     end

@@ -28,6 +28,7 @@ class EventsController < ApplicationController
   end
 
   def new
+    Time.zone = "Seoul"
     @event = Event.new(start_time: Time.zone.now + 1.hour)
   end
 
@@ -36,6 +37,7 @@ class EventsController < ApplicationController
   end
 
   def create
+    Time.zone = event_params[:timezone] || "Seoul"
     @event = Event.init_with_user(event_params, current_user)
     if @event.save
       @event.notify_new_event event_url(@event)
