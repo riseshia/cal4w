@@ -12,13 +12,15 @@ class EventsController < ApplicationController
   end
 
   def join
-    if event.joined? current_user
-      redirect_to event, notice: "You already joined! :)"
-    else
-      event.members << current_user
-      event.notify_new_member current_user, event_url(event)
-      redirect_to event, notice: "Thanks to your join!"
-    end
+    message = \
+      if event.joined? current_user
+        "You already joined! :)"
+      else
+        event.members << current_user
+        event.notify_new_member current_user, event_url(event)
+        "Thanks to your join!"
+      end
+    redirect_to event, notice: message
   end
 
   def unjoin
@@ -43,7 +45,6 @@ class EventsController < ApplicationController
       @event.notify_new_event event_url(@event)
       redirect_to @event, notice: "성공적으로 밋업을 만들었습니다."
     else
-      @event.start_time = @event.start_time_in_tz
       render :new
     end
   end

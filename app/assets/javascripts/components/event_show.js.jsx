@@ -47,7 +47,7 @@ class EventShow extends React.Component {
             <dt>주최자:</dt>
             <dd>{ this.state.owner }</dd>
             <dt>모임시간</dt>
-            <dd>{ moment(this.state.start_time).format("MM/DD HH:mm") } ~ { moment(this.state.finish_time).format("MM/DD HH:mm") }</dd>
+            <dd>{ moment(this.state.start_time).format("MM/DD HH:mm") } ~ { moment(this.state.finish_time).format("MM/DD HH:mm Z") }</dd>
           </dl>
           { this.renderJoinerNames() }
         </div>
