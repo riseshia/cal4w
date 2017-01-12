@@ -3,8 +3,7 @@
 class EventsController < ApplicationController
   before_action :permission_check, only: [:edit, :update, :destroy, :copy]
 
-  def index
-  end
+  def index; end
 
   def show
     event
@@ -79,7 +78,7 @@ class EventsController < ApplicationController
   end
 
   def permission_check
-    raise User::NoPermission unless event.editable? current_user
+    raise User::NoPermission unless event.organizer? current_user
   end
 
   rescue_from ActiveRecord::RecordNotFound do
