@@ -53,14 +53,14 @@ RSpec.describe Event, type: :model do
     end
   end
 
-  describe "#editable?" do
+  describe "#organizer?" do
     it "expect return true" do
-      expect(@event.editable?(@user)).to be(true)
+      expect(@event.organizer?(@user)).to be(true)
     end
 
     it "expect return false" do
       user = create(:user)
-      expect(@event.editable?(user)).to be(false)
+      expect(@event.organizer?(user)).to be(false)
     end
   end
 

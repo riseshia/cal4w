@@ -3,15 +3,15 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <% if @event.in_time? %>
-        <% if @event.joined? @user %>
+      <% if !@event.organizer?(@user) && @event.in_time? %>
+        <% if @event.joined?(@user) %>
             <%= link_to "I cannot go T-T", unjoin_event_path(@event), method: :post, class: "btn btn-warning" %>
         <% else %>
             <%= link_to "Join", join_event_path(@event), method: :post, class: "btn btn-danger" %>
         <% end %>
       <% end %>
 
-      <% if @event.editable? @user %>
+      <% if @event.organizer?(@user) %>
         <%= link_to "Destroy", @event, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
       <% end %>
       <%= link_to "Back", events_path, class: "btn btn-success" %>

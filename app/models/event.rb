@@ -36,7 +36,7 @@ class Event < ApplicationRecord
     event
   end
 
-  def editable?(user)
+  def organizer?(user)
     user.id == user_id
   end
 
