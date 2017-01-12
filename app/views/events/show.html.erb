@@ -12,6 +12,7 @@
       <% end %>
 
       <% if @event.organizer?(@user) %>
+        <%= link_to "Edit", edit_event_path(@event), class: "btn btn-info" %>
         <%= link_to "Destroy", @event, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
       <% end %>
       <%= link_to "Back", events_path, class: "btn btn-success" %>
