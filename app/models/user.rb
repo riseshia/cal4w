@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:slack_signin]
+         :omniauthable, omniauth_providers: [:slack_signin, :weirdx]
 
   has_many :event_users
   has_many :events, through: :event_users

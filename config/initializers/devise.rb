@@ -254,17 +254,16 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :weirdx,
-  #                 ENV['WEIRDX_APP_ID'],
-  #                 ENV['WEIRDX_APP_SECRET'],
-  #                 scope: 'read'
+  config.omniauth :weirdx,
+                  ENV['WEIRDX_APP_ID'],
+                  ENV['WEIRDX_APP_SECRET'],
+                  scope: 'account_info'
   config.omniauth :slack_signin,
                   ENV["SLACK_CLIENT_ID"],
                   ENV["SLACK_CLIENT_SECRET"],
                   scope: "identity.basic",
                   team: ENV["WEIRDX_TEAM_ID"]
 
-  # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden
   # block.
