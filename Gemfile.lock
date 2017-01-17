@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/riseshia/omniauth-weirdx.git
-  revision: 1881dd3f9a8abcc8b26163fe096b091e5ba490ca
+  revision: f1d9557e0d904481efa5298b20bd770bb85eff31
   specs:
     omniauth-weirdx (0.1.0)
       omniauth-oauth2 (~> 1.3.1)

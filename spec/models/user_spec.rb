@@ -12,34 +12,19 @@ RSpec.describe User, type: :model do
   end
 
   describe ".from_omniauth" do
-    before(:each) do
-      allow(SlackWrapper).to receive(:user_name) { "user_name" }
+    let(:provider) { "weirdx" }
+    let(:uid) { "1245324" }
+    let(:username) { "luna" }
+
+    let(:fetch_user) { User.from_omniauth(provider, uid, username) }
+
+    context "creates one user" do
+      it { expect { fetch_user }.to change { User.count }.by(1) }
     end
 
-    let(:auth) do
-      team = OpenStruct.new(id: team_id)
-      user = OpenStruct.new(id: "USER_ID")
-      info = OpenStruct.new(team: team, user: user)
-      OpenStruct.new(info: info, provider: "slack_signin")
-    end
-
-    context "with wrong provider" do
-      let(:team_id) { "wrong_team_id" }
-      it "will raise User::DifferentGroup error" do
-        expect { User.from_omniauth(auth) }.to raise_error(User::DifferentGroup)
-      end
-    end
-
-    context "with correct provider" do
-      let(:team_id) { "team_id" }
-      it "creates one user" do
-        expect { User.from_omniauth(auth) }.to change { User.count }.by(1)
-      end
-
-      it "get exist user" do
-        User.from_omniauth(auth)
-        expect { User.from_omniauth(auth) }.not_to change { User.count }
-      end
+    context "get exist user" do
+      before { create(:user, provider: provider, uid: uid) }
+      it { expect { fetch_user }.not_to change { User.count } }
     end
   end
 end

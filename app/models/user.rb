@@ -12,16 +12,9 @@ class User < ApplicationRecord
 
   validates :provider, presence: true
 
-  def self.from_omniauth(auth)
-    raise User::DifferentGroup \
-      if auth.info.team.id != Rails.application.secrets.slack_team_id
-
-    # There is some bug. uid is upcased string.
-    # but ActiveRecord use "upcase" when query, however,
-    # inserted value is downcased. ;(
-    uid = auth.info.user.id.downcase
-    find_or_create_by(provider: auth.provider, uid: uid) do |user|
-      user.nickname = SlackWrapper.user_name(uid)
+  def self.from_omniauth(provider, uid, username)
+    find_or_create_by(provider: provider, uid: uid) do |user|
+      user.nickname = username
       user.password = Devise.friendly_token[0, 20]
     end
   end
