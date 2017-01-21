@@ -95,7 +95,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
     connection_pool (2.2.1)
-    coveralls (0.8.18)
+    coveralls (0.8.19)
       json (>= 1.8, < 3)
       simplecov (~> 0.12.0)
       term-ansicolor (~> 1.3)
