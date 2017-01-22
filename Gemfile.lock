@@ -126,7 +126,7 @@ GEM
       thor (~> 0.14)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
-    gli (2.14.0)
+    gli (2.15.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashie (3.4.6)
@@ -276,7 +276,7 @@ GEM
       hashie
       json
       websocket-driver
-    spring (2.0.0)
+    spring (2.0.1)
       activesupport (>= 4.2)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
