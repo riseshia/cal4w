@@ -1,8 +1,9 @@
 language: ruby
 cache: bundler
 before_script:
+  - gem update --system
   - RAILS_ENV=test bin/rails db:migrate
 script:
   - bundle exec rspec
   - bundle exec codeclimate-test-reporter
-install: bundle install
+install: bundle install --without development

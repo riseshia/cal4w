@@ -36,6 +36,9 @@ gem "slack-ruby-client"
 
 gem "figaro"
 
+# https://github.com/riseshia/cal4w/issues/308
+gem "faraday_middleware", "0.10.1"
+
 # UI
 gem "bootstrap-sass"
 gem "font-awesome-sass"
@@ -51,20 +54,23 @@ group :development do
   gem "web-console", "~> 2.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
+  gem "rails_best_practices", require: false
+  gem "rubocop", require: false
 end
 
-group :development, :test do
-  gem "byebug"
+group :test do
   gem "codeclimate-test-reporter", require: false
   gem "coveralls", require: false
   gem "database_cleaner"
   gem "factory_girl"
   gem "factory_girl_rails"
   gem "rails-controller-testing"
-  gem "rails_best_practices", require: false
   gem "rspec-mocks"
   gem "rspec-rails", "~> 3.0"
-  gem "rubocop", require: false
   gem "shoulda-matchers"
   gem "simplecov"
+end
+
+group :development, :test do
+  gem "byebug"
 end
