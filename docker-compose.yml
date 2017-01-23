@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:9.6.1
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  web:
+    image: nginx:1.11.8
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      NGINX_PORT: 80
