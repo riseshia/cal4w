@@ -9,7 +9,6 @@ SimpleCov.start "rails" do
   add_filter "/config/"
 end
 Coveralls.wear!
-require "codeclimate-test-reporter" if ENV["CODECLIMATE_REPO_TOKEN"]
 
 require File.expand_path("../../config/environment", __FILE__)
 # Prevent database truncation if the environment is production

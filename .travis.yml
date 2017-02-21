@@ -5,5 +5,4 @@ before_script:
   - RAILS_ENV=test bin/rails db:migrate
 script:
   - bundle exec rspec
-  - bundle exec codeclimate-test-reporter
 install: bundle install --without development
