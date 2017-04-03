@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   belongs_to :user
   has_many :event_users, dependent: :destroy
   has_many :members, through: :event_users, source: :user
+  has_one :extend_event, class_name: ExtendEvent, foreign_key: :id
 
   validates :title, presence: true
   validates :place, presence: true

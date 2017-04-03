@@ -5,7 +5,7 @@ class ExtendEvent < ApplicationRecord
   belongs_to :user
 
   default_scope do
-    joins(:user).select("title", "place", "users.uid", "users.provider")
+    joins(:user).select("id", "title", "place", "users.uid", "users.provider")
   end
 
   def attr
