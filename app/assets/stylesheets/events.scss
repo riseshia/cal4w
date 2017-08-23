@@ -45,3 +45,18 @@ $quick-datetime-selector-border: 1px solid #dfdfdf;
   padding: 6px;
   margin-left: -20px;
 }
+
+@media (max-width: 768px) {
+  .show_container {
+    h1 { font-size: 1.5em; }
+    h2 { font-size: 1.2em; }
+    dt {
+      float: none;
+      width: 100%;
+    }
+
+    dd {
+      text-indent: 10px;
+    }
+  }
+}
